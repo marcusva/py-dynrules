@@ -45,7 +45,7 @@ static int PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file,
 static PyMethodDef _lsystem_methods[] =
 {
     { "create_header", (PyCFunction)_lsystem_create_header, METH_NOARGS, "" },
-    { "create_footer", (PyCFunction)_lsystem_create_header, METH_NOARGS, "" },
+    { "create_footer", (PyCFunction)_lsystem_create_footer, METH_NOARGS, "" },
     { "create_rules", (PyCFunction)_lsystem_create_rules, METH_VARARGS, "" },
     { "create_script", (PyCFunction)_lsystem_create_script, METH_VARARGS, "" },
     { NULL, NULL, 0, NULL }

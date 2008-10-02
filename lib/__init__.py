@@ -6,6 +6,8 @@
 ## This file is distributed under the Public Domain.
 ##
 
+__version__ = "0.0.1pre"
+
 try:
     from _dynrules import Rule
     from _dynrules import RuleSet
@@ -15,3 +17,4 @@ except ImportError:
     import Rule
     import RuleSet
     import LearnSystem
+
