@@ -1,0 +1,3 @@
+recursive-include doc *
+include src/*.h src/*.c
+include NEWS AUTHORS COPYING ChangeLog TODO Makefile

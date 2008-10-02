@@ -1,0 +1,402 @@
+2008-08-04 06:45  marcusva
+
+	* doc/examples/msaaapplication.py, src/msaa/papi_iaccproxy.cpp,
+	  src/msaa/papi_msaa.h: Fixed msaa client area size.
+
+2008-08-03 10:00  marcusva
+
+	* doc/examples/msaaapplication.py, lib/__init__.py,
+	  src/msaa/papi_iaccessible.cpp, src/msaa/papi_iaccessible.h,
+	  src/msaa/papi_iaccproxy.cpp, src/msaa/papi_iaccproxy.h,
+	  src/msaa/papi_msaa.cpp: Fixed several msaa issues.
+
+2008-06-25 08:02  marcusva
+
+	* src/msaa/papi_iaccproxy.cpp: Fixed reference issues in MSAA
+	  wrapper.
+
+2008-06-24 18:46  marcusva
+
+	* doc/examples/atkaction.py, doc/examples/atkapplication.py,
+	  doc/examples/msaacapi.cpp: Minor corrections.
+
+2008-06-23 11:05  marcusva
+
+	* NEWS, lib/__init__.py, src/atk/papi_atkutil.c: Missed one
+	  function
+
+2008-06-23 06:44  marcusva
+
+	* NEWS, doc/examples/atkaction.py, doc/examples/atkapplication.py,
+	  setup.py, src/atk/papi_atkhyperlink.c,
+	  src/atk/papi_atkrelationtype.c, src/atk/papi_atkrole.c,
+	  src/atk/papi_atkstatetype.c, src/atk/papi_atktextattribute.c,
+	  src/atk/papi_atkutil.c: Removed atk_* prefix for global
+	  functions. Fixed some docs
+
+2008-06-22 13:32  marcusva
+
+	* doc/examples/msaaapplication.py, setup.py,
+	  src/msaa/papi_iaccessible.cpp, src/msaa/papi_iaccproxy.cpp,
+	  src/msaa/papi_msaa.cpp, src/msaa/papi_msaaprivate.h: Fixed
+	  several minor MSAA issues.
+
+2008-06-22 08:14  marcusva
+
+	* Makefile, README, doc/examples/msaaapplication.py,
+	  src/atk/papi_atk.c, src/atk/papi_atk.h,
+	  src/atk/papi_atkactioniface.c, src/atk/papi_atkattribute.c,
+	  src/atk/papi_atkbridge.c, src/atk/papi_atkcomponentiface.c,
+	  src/atk/papi_atkconstants.c, src/atk/papi_atkdocumentiface.c,
+	  src/atk/papi_atkeditableiface.c, src/atk/papi_atkhyperlink.c,
+	  src/atk/papi_atkhyperlinkimpliface.c,
+	  src/atk/papi_atkhypertextiface.c, src/atk/papi_atkimageiface.c,
+	  src/atk/papi_atkobject.c, src/atk/papi_atkprivate.h,
+	  src/atk/papi_atkrelation.c, src/atk/papi_atkrelationset.c,
+	  src/atk/papi_atkrelationtype.c, src/atk/papi_atkrole.c,
+	  src/atk/papi_atkselectioniface.c, src/atk/papi_atkstateset.c,
+	  src/atk/papi_atkstatetype.c, src/atk/papi_atkstreamableiface.c,
+	  src/atk/papi_atktableiface.c, src/atk/papi_atktextattribute.c,
+	  src/atk/papi_atktextiface.c, src/atk/papi_atktextrange.c,
+	  src/atk/papi_atktextrectangle.c, src/atk/papi_atktype.c,
+	  src/atk/papi_atkutil.c, src/atk/papi_atkvalueiface.c,
+	  src/msaa/papi_iaccessible.cpp, src/msaa/papi_iaccproxy.cpp,
+	  src/msaa/papi_iaccproxy.h, src/msaa/papi_msaa.cpp,
+	  src/msaa/papi_msaa.h, src/msaa/papi_msaaconstants.cpp,
+	  src/msaa/papi_msaaprivate.h: Fixed numerous issues in the MSAA
+	  wrapper.
+	  Fixed Py*_Check() to use PyObject_TypeCheck() for proper type
+	  checking.
+	  Enhanced MSAA example.
+
+2008-04-26 10:56  marcusva
+
+	* doc/examples/msaaapplication.py, src/msaa/papi_iaccproxy.cpp:
+	  Minor fixes in IAccProxy bindings.
+
+2008-04-24 20:07  marcusva
+
+	* README, doc/examples/msaaapplication.py,
+	  src/msaa/papi_iaccessible.cpp, src/msaa/papi_iaccproxy.cpp,
+	  src/msaa/papi_iaccproxy.h, src/msaa/papi_msaaconstants.cpp:
+	  Implemented all IAccProxy hooks for python interaction. Fixed
+	  msaaapplication example. Added MSAA STATE_* constants.
+
+2008-04-22 17:03  marcusva
+
+	* src/msaa/papi_msaaconstants.cpp: Fixed Msys issues.
+
+2008-04-22 16:49  marcusva
+
+	* NEWS, setup.py, src/atk/papi_atkutil.c: Sync'ed with changes in
+	  ATK 1.19.6.
+
+2008-04-22 16:30  marcusva
+
+	* doc/examples/aktcapi.c, doc/examples/atkcapi.c: Fixed naming for
+	  ATK C API file
+
+2008-04-22 16:29  marcusva
+
+	* doc/examples/aktcapi.c, doc/examples/capi.c,
+	  doc/examples/msaacapi.cpp, lib/__init__.py, setup.py,
+	  src/atk/papi_atk.h, src/msaa/papi_iaccessible.cpp,
+	  src/msaa/papi_iaccproxy.cpp, src/msaa/papi_iaccproxy.h,
+	  src/msaa/papi_msaa.cpp, src/msaa/papi_msaa.h,
+	  src/msaa/papi_msaaconstants.cpp, src/msaa/papi_msaaprivate.h:
+	  Fixed MinGW build issues. Added MSAA C API support.
+
+2008-04-22 08:03  marcusva
+
+	* src/msaa/papi_msaa.cpp: Removed version entry from MSAA wrapper.
+
+2008-04-22 07:47  marcusva
+
+	* COPYING, NEWS: Updated NEWS and COPYING
+
+2008-04-22 07:39  marcusva
+
+	* lib, lib/__init__.py: Added papi module initialization code.
+
+2008-04-22 07:38  marcusva
+
+	* setup.py: Updated setup file
+
+2008-04-22 07:37  marcusva
+
+	* doc/examples/atkaction.py, doc/examples/atkapplication.py,
+	  doc/examples/msaaapplication.py, src/atk/papi_atk.c,
+	  src/atk/papi_atk.h, src/atk/papi_atkactioniface.c,
+	  src/atk/papi_atkattribute.c, src/atk/papi_atkbridge.c,
+	  src/atk/papi_atkcomponentiface.c, src/atk/papi_atkconstants.c,
+	  src/atk/papi_atkdocumentiface.c, src/atk/papi_atkeditableiface.c,
+	  src/atk/papi_atkhyperlink.c,
+	  src/atk/papi_atkhyperlinkimpliface.c,
+	  src/atk/papi_atkhypertextiface.c, src/atk/papi_atkimageiface.c,
+	  src/atk/papi_atkobject.c, src/atk/papi_atkprivate.h,
+	  src/atk/papi_atkrelation.c, src/atk/papi_atkrelationset.c,
+	  src/atk/papi_atkrelationtype.c, src/atk/papi_atkrole.c,
+	  src/atk/papi_atkselectioniface.c, src/atk/papi_atkstateset.c,
+	  src/atk/papi_atkstatetype.c, src/atk/papi_atkstreamableiface.c,
+	  src/atk/papi_atktableiface.c, src/atk/papi_atktextattribute.c,
+	  src/atk/papi_atktextiface.c, src/atk/papi_atktextrange.c,
+	  src/atk/papi_atktextrectangle.c, src/atk/papi_atktype.c,
+	  src/atk/papi_atkutil.c, src/atk/papi_atkvalueiface.c, src/msaa,
+	  src/msaa/papi_iaccessible.cpp, src/msaa/papi_iaccessible.h,
+	  src/msaa/papi_iaccproxy.cpp, src/msaa/papi_iaccproxy.h,
+	  src/msaa/papi_msaa.cpp, src/msaa/papi_msaa.h,
+	  src/msaa/papi_msaaconstants.cpp, src/msaa/papi_msaaprivate.h:
+	  Added MSAA wrapper, brought ATK wrapper to latest version and
+	  added C API.
+
+2008-04-22 07:33  marcusva
+
+	* src/atk, src/atk/papi_atk.c, src/atk/papi_atk.h,
+	  src/atk/papi_atkactioniface.c, src/atk/papi_atkattribute.c,
+	  src/atk/papi_atkbridge.c, src/atk/papi_atkcomponentiface.c,
+	  src/atk/papi_atkconstants.c, src/atk/papi_atkdocumentiface.c,
+	  src/atk/papi_atkeditableiface.c, src/atk/papi_atkhyperlink.c,
+	  src/atk/papi_atkhyperlinkimpliface.c,
+	  src/atk/papi_atkhypertextiface.c, src/atk/papi_atkimageiface.c,
+	  src/atk/papi_atkobject.c, src/atk/papi_atkprivate.h,
+	  src/atk/papi_atkrelation.c, src/atk/papi_atkrelationset.c,
+	  src/atk/papi_atkrelationtype.c, src/atk/papi_atkrole.c,
+	  src/atk/papi_atkselectioniface.c, src/atk/papi_atkstateset.c,
+	  src/atk/papi_atkstatetype.c, src/atk/papi_atkstreamableiface.c,
+	  src/atk/papi_atktableiface.c, src/atk/papi_atktextattribute.c,
+	  src/atk/papi_atktextiface.c, src/atk/papi_atktextrange.c,
+	  src/atk/papi_atktextrectangle.c, src/atk/papi_atktype.c,
+	  src/atk/papi_atkutil.c, src/atk/papi_atkvalueiface.c, src/papi.c,
+	  src/papi.h, src/papi_atkactioniface.c, src/papi_atkattribute.c,
+	  src/papi_atkbridge.c, src/papi_atkcomponentiface.c,
+	  src/papi_atkdocumentiface.c, src/papi_atkeditableiface.c,
+	  src/papi_atkhyperlink.c, src/papi_atkhyperlinkimpliface.c,
+	  src/papi_atkhypertextiface.c, src/papi_atkimageiface.c,
+	  src/papi_atkobject.c, src/papi_atkrelation.c,
+	  src/papi_atkrelationset.c, src/papi_atkrelationtype.c,
+	  src/papi_atkrole.c, src/papi_atkselectioniface.c,
+	  src/papi_atkstateset.c, src/papi_atkstatetype.c,
+	  src/papi_atkstreamableiface.c, src/papi_atktableiface.c,
+	  src/papi_atktextattribute.c, src/papi_atktextiface.c,
+	  src/papi_atktextrange.c, src/papi_atktextrectangle.c,
+	  src/papi_atktype.c, src/papi_atkutil.c, src/papi_atkvalueiface.c,
+	  src/papi_constants.c, src/papi_private.h: Moved ATK code out of
+	  the way for MSAA wrapper
+
+2008-04-21 10:40  marcusva
+
+	* doc/examples/capi.c, src/papi.h, src/papi_atkobject.c,
+	  src/papi_private.h: Added C API example.
+
+2008-04-20 09:46  marcusva
+
+	* setup.py, src/papi.c, src/papi.h, src/papi_atkattribute.c,
+	  src/papi_atkhyperlink.c, src/papi_atkobject.c,
+	  src/papi_atkrelation.c, src/papi_atkrelationset.c,
+	  src/papi_atkstateset.c, src/papi_atktextrange.c,
+	  src/papi_atktextrectangle.c, src/papi_private.h: Added C API
+	  support.
+
+2007-07-28 06:14  marcusva
+
+	* ChangeLog, NEWS: Release 0.0.5
+
+2007-07-28 06:10  marcusva
+
+	* NEWS, setup.py, src/papi.c: Updated version and added __version__
+	  constant.
+
+2007-07-28 05:59  marcusva
+
+	* doc/examples/atkaction.py: ATK_ROLE_BUTTON was removed in favour
+	  for ATK_ROLE_PUSH_BUTTON in ATK 1.18.x
+
+2007-07-26 22:15  marcusva
+
+	* doc/examples/atkaction.py, doc/examples/atkapplication.py:
+	  Nicened the documentation of the examples
+
+2007-06-26 18:43  marcusva
+
+	* NEWS, src/papi_atkdocumentiface.c, src/papi_atkstreamableiface.c,
+	  src/papi_atkutil.c: Fixed ref counting issues.
+
+2007-05-26 12:38  marcusva
+
+	* setup.py, src/papi_private.h: Made warnings optional if not
+	  compiled with PAPI_DEBUG='1'
+
+2007-05-26 11:51  marcusva
+
+	* COPYING, Makefile, NEWS, README, src/papi_atkhyperlink.c,
+	  src/papi_atkobject.c, src/papi_atktextrange.c,
+	  src/papi_atkutil.c: Fixed warnings. Added ATK update note.
+
+2007-03-22 22:41  marcusva
+
+	* ChangeLog, NEWS, setup.py: Release 0.0.4.
+
+2007-02-13 08:02  marcusva
+
+	* NEWS, src/papi_atkobject.c: Fixed refcounting and state set
+	  issues.
+
+2007-02-10 22:28  marcusva
+
+	* NEWS, doc/examples/atkaction.py, src/papi_atkobject.c,
+	  src/papi_atktextiface.c, src/papi_atktype.c, src/papi_private.h:
+	  Added correct construction for refs.
+
+2007-02-02 10:28  marcusva
+
+	* NEWS, setup.py, src/papi_atkobject.c, src/papi_atktableiface.c,
+	  src/papi_atktextrange.c, src/papi_atktextrectangle.c,
+	  src/papi_atktype.c: Fixed AtkObject.ref_state_set()
+	  implementation.
+
+2007-01-09 10:09  marcusva
+
+	* NEWS, src/papi_atktextiface.c: Added text buffer fixes from
+	  Daniel Drake.
+
+2006-12-25 13:11  marcusva
+
+	* ChangeLog: Release 0.0.3.
+
+2006-12-25 13:09  marcusva
+
+	* AUTHORS, NEWS: Added Daniel Drake's mail address.
+
+2006-12-22 12:43  marcusva
+
+	* AUTHORS, NEWS, src/papi_atkactioniface.c,
+	  src/papi_atkattribute.c, src/papi_atkobject.c,
+	  src/papi_atkrelation.c, src/papi_atkstreamableiface.c,
+	  src/papi_atktableiface.c, src/papi_atktextiface.c,
+	  src/papi_atktextrange.c, src/papi_atkutil.c: Fixed many object
+	  instantiation bugs detected by Daniel Drake.
+
+2006-12-21 00:08  marcusva
+
+	* NEWS, setup.py: Added build fix for non-debug mode from Daniel
+	  Drake.
+
+2006-12-19 09:22  marcusva
+
+	* NEWS, src/papi_atkobject.c: Added list corruption fix for
+	  AtkObject parent relationships from Daniel Drake.
+
+2006-10-24 08:57  marcusva
+
+	* ChangeLog: Release 0.0.2.
+
+2006-10-24 08:55  marcusva
+
+	* MANIFEST.in, NEWS, setup.py, src/papi_atkbridge.c: Changed
+	  default atk-bridge path. Added documentation installation
+	  support.
+
+2006-10-24 08:42  marcusva
+
+	* src/papi_atkhyperlinkimpliface.c: Added AtkHyperlinkImplIface
+	  wrapper.
+
+2006-10-24 08:40  marcusva
+
+	* NEWS, setup.py, src/papi_atkhyperlink.c,
+	  src/papi_atkstreamableiface.c, src/papi_atktype.c,
+	  src/papi_atkvalueiface.c, src/papi_constants.c,
+	  src/papi_private.h: Completed interface wrapper support for ATK
+	  1.12.x
+
+2006-08-06 08:28  marcusva
+
+	* src/papi_atkdocumentiface.c, src/papi_atkutil.c: Removed doubled
+	  method defs in AtkDocument wrapper.
+
+2006-08-06 07:57  marcusva
+
+	* src/papi_atkobject.c, src/papi_atkvalueiface.c: Fixed removal of
+	  property change handlers.
+
+2006-08-05 11:13  marcusva
+
+	* NEWS, TODO, src/papi.h, src/papi_atkobject.c,
+	  src/papi_atkvalueiface.c, src/papi_private.h: Added
+	  atk_object_connect_property_change_handler()/atk_object_remove_property_change_handler()
+	  support.
+
+2006-07-25 19:26  marcusva
+
+	* NEWS, src/papi.h, src/papi_atkobject.c, src/papi_atktextiface.c:
+	  Implemented atk_text_get_range_extents() and
+	  atk_text_get_bounded_ranges() methods. Fixed ATKTEXTRANGE and
+	  ATKTEXTRECTANGLE macros. Fixed memory leak in AtkObject.emit().
+
+2006-07-25 13:54  marcusva
+
+	* src/papi_atkcomponentiface.c, src/papi_atkdocumentiface.c,
+	  src/papi_atkimageiface.c, src/papi_atkobject.c,
+	  src/papi_atktextiface.c: Fixed compiler errors.
+
+2006-07-25 09:46  marcusva
+
+	* setup.py: Fixed version checks.
+
+2006-07-25 09:41  marcusva
+
+	* NEWS, setup.py, src/papi_atkcomponentiface.c,
+	  src/papi_atkdocumentiface.c, src/papi_atkimageiface.c,
+	  src/papi_atkobject.c, src/papi_atktextiface.c: Update to ATK
+	  1.12.1. Updated AtkComponentIface, AtkTextIface,
+	  AtkDocumentIface, AtkImageIface and AtkObject implementations to
+	  latest ATK versions.
+
+2006-07-24 13:57  marcusva
+
+	* doc/examples, doc/examples/atkaction.py,
+	  doc/examples/atkapplication.py, src/papi_atkutil.c: Changed root
+	  getter for papi interface.
+
+2006-07-24 12:58  marcusva
+
+	* doc/Makefile: Fixed clean target in doc/
+
+2006-07-24 12:44  marcusva
+
+	* Makefile, doc/Makefile: Added doc/examples directory
+
+2006-07-24 12:33  marcusva
+
+	* Makefile, README, doc, doc/Makefile, doc/manual.xml,
+	  doc/papi.xsl, doc/xinclude.mod, setup.py: Added docs
+
+2006-07-23 10:44  marcusva
+
+	* Makefile, README: Added README template
+
+2006-07-23 10:39  marcusva
+
+	* ChangeLog, NEWS, TODO, setup.py: Added NEWS, ChangeLog
+
+2006-07-23 07:48  marcusva
+
+	* ., AUTHORS, COPYING, MANIFEST.in, Makefile, TODO, setup.py, src,
+	  src/papi.c, src/papi.h, src/papi_atkactioniface.c,
+	  src/papi_atkattribute.c, src/papi_atkbridge.c,
+	  src/papi_atkcomponentiface.c, src/papi_atkdocumentiface.c,
+	  src/papi_atkeditableiface.c, src/papi_atkhyperlink.c,
+	  src/papi_atkhypertextiface.c, src/papi_atkimageiface.c,
+	  src/papi_atkobject.c, src/papi_atkrelation.c,
+	  src/papi_atkrelationset.c, src/papi_atkrelationtype.c,
+	  src/papi_atkrole.c, src/papi_atkselectioniface.c,
+	  src/papi_atkstateset.c, src/papi_atkstatetype.c,
+	  src/papi_atkstreamableiface.c, src/papi_atktableiface.c,
+	  src/papi_atktextattribute.c, src/papi_atktextiface.c,
+	  src/papi_atktextrange.c, src/papi_atktextrectangle.c,
+	  src/papi_atktype.c, src/papi_atkutil.c, src/papi_atkvalueiface.c,
+	  src/papi_constants.c, src/papi_private.h: This commit was
+	  generated by cvs2svn to compensate for changes in r313,
+	  which included commits to RCS files with non-trunk default
+	  branches.
+
