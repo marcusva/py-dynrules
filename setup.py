@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.6\"")]
+    defines = [("VERSION", "\"0.0.1\"")]
     return defines
 
 ##

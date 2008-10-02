@@ -50,7 +50,7 @@ class LearnSystem (object):
             fp = open (scriptfile, "a")
 
         fp.write (self.create_header ())
-        fp.write (self.create_rules (limit))
+        fp.write (self.create_rules (maxrules))
         fp.write (self.create_footer ())
         fp.flush ()
 

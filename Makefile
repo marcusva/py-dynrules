@@ -3,7 +3,8 @@ top_srcdir = `pwd`
 SUBDIRS = $(top_srcdir)/src \
 	 $(top_srcdir)/lib \
 	 $(top_srcdir)/doc \
-	 $(top_srcdir)/doc/examples
+	 $(top_srcdir)/doc/examples \
+	 $(top_srcdir)/test
 
 all: clean build
 

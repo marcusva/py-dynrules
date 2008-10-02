@@ -1,7 +1,3 @@
-Clean up PyDict_SetItem calls
-
-Important:
-  - Complete type recognition in AtkValueIface conversion functions.
-  - Implement atk_*_global_event_listener() interfaces.
-  - Implement atk_*_key_event_listener() interfaces.
-  - Implement AtkHyperLink object type.
+- Complete unittests
+- Add more examples
+- Test python implementation
