@@ -153,7 +153,7 @@ class LearnSystem (object):
                     return buf.getvalue ()
                 
                 buf.write (rules[selected].code)
-                buflen = len (buf)
+                buflen = len (buf.getvalue ())
                 
                 if buflen >= maxscriptsize:
                     return buf.getvalue ()
