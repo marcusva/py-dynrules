@@ -9,6 +9,7 @@
 #define DYNRULES_LEARNSYSTEM_INTERNAL
 
 #include <stdlib.h>
+#include <time.h>
 #include "rulesmod.h"
 #include "dynrules.h"
 
@@ -274,6 +275,9 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
 
     rules = PyDict_Values (((PyRuleSet*)lsystem->ruleset)->rules);
     count = PyList_Size (rules);
+
+    /* Initialise the random number generator */
+    srand ((unsigned) time (NULL));
 
     /* TODO: we do not guarantee that j < count. Usually this should be
      * dealt by the fraction sum function, though a safety net using
