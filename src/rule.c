@@ -152,7 +152,7 @@ _rule_setweight (PyRule *rule, PyObject *value, void *closure)
     if (val < 0)
     {
         PyErr_SetString (PyExc_ValueError, "weight must not be negative");
-        return 0;
+        return -1;
     }
     rule->weight = val;
     return 0;

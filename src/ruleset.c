@@ -174,6 +174,17 @@ _ruleset_setminweight (PyRuleSet *ruleset, PyObject *value, void *closure)
     double val;
     if (!get_double_from_obj (value, &val))
         return -1;
+    if (val < 0)
+    {
+        PyErr_SetString (PyExc_ValueError, "minweight must not be negative");
+        return -1;
+    }
+    if (val > ruleset->maxweight)
+    {
+        PyErr_SetString (PyExc_ValueError,
+            "minweight must be smaller or equal to the set maxweight.");
+        return -1;
+    }
     ruleset->minweight = val;
     return 0;
 }
@@ -190,6 +201,18 @@ _ruleset_setmaxweight (PyRuleSet *ruleset, PyObject *value, void *closure)
     double val;
     if (!get_double_from_obj (value, &val))
         return -1;
+    if (val < 0)
+    {
+        PyErr_SetString (PyExc_ValueError, "maxweight must not be negative");
+        return -1;
+    }
+    if (val < ruleset->minweight)
+    {
+        PyErr_SetString (PyExc_ValueError,
+            "maxweight must be greater or equal to the set minweight.");
+        return -1;
+    }
+
     ruleset->maxweight = val;
     return 0;
 }
@@ -428,6 +451,15 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
     if (!retval)
         return 0;
     Py_DECREF (retval);
+
+    totweight = 0;
+    for (i = 0; i < count; i++)
+    {
+        rule = (PyRule*) PyList_GET_ITEM (rules, i);
+        totweight += rule->weight;
+    }
+    rset->weight = totweight;
+
     return 1;
 }
 

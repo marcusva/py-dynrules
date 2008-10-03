@@ -23,11 +23,42 @@ class LearnSystem (object):
     def __init__ (self, ruleset):
         if not isinstance (ruleset, RuleSet):
             raise TypeError ("ruleset must be a RuleSet")
-        self.ruleset = ruleset
-        self.maxtries = 100
+        self._ruleset = ruleset
+        self._maxtries = 100
 
         # Maximum script size, not including the header and footer.
-        self.maxscriptsize = 1024
+        self._maxscriptsize = 1024
+
+    def _set_ruleset (self, ruleset):
+        """L._set_ruleset (ruleset) -> None
+
+        Sets the RuleSet to use by the LearnSystem.
+        """
+        if not isinstance (ruleset, RuleSet):
+            raise TypeError ("ruleset must be a RuleSet")
+        self._ruleset = ruleset
+
+    def _set_maxtries (self, maxtries):
+        """L._set_maxtries (maxtries) -> None
+
+        Sets the maximum amount of tries for inserting a Rule into a script.
+
+        Raises a ValueError, if maxtries is < 1.
+        """
+        if int (maxtries) < 1:
+            raise ValueError ("maxtries must be > 0")
+        self._maxtries = maxtries
+
+    def _set_maxscriptsize (self, maxscriptsize):
+        """L._set_maxscriptsize (maxscriptsize) -> None
+
+        Sets the maximum scriptsize for rules to insert.
+
+        Raises a ValueError, if maxscriptsize is < 1.
+        """
+        if int (maxscriptsize) < 1:
+            raise ValueError ("maxscriptsize must be > 0")
+        self._maxscriptsize = maxscriptsize
 
     def create_script (self, scriptfile, maxrules):
         """L.create_script (scriptfile, maxrules) -> None
@@ -87,13 +118,13 @@ class LearnSystem (object):
         if maxrules <= 0:
             raise ValueError ("maxrules must be greater than 0")
         
-        weights = self.ruleset.weight
+        weights = self._ruleset.weight
         buf = stringio.StringIO ()
         added = 0
-        maxtries = self.maxtries
-        maxscriptsize = self.maxscriptsize
+        maxtries = self._maxtries
+        maxscriptsize = self._maxscriptsize
         buflen = 0
-        rules = self.ruleset.rules
+        rules = self._ruleset.rules
         
         for i in xrange (maxrules):
             tries = 0
@@ -129,3 +160,15 @@ class LearnSystem (object):
                 tries += 1
                 break
         return buf.getvalue ()
+
+    maxtries = property (lambda self: self._maxtries,
+                         lambda self, var: self._set_maxtries (var),
+                         doc = "Gets or sets the maximum amount of tries to" +\
+                         "insert a script rule")
+    maxscriptsize = property (lambda self: self._maxscriptsize,
+                              lambda self, var: self._set_maxscriptsize (var),
+                              doc = "Gets or sets the maximum script size " +\
+                              "inserting rules")
+    ruleset = property (lambda self: self._ruleset,
+                        lambda self, var: self._set_ruleset (var),
+                        doc = "Gets or sets the RuleSet to use")

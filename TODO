@@ -1,3 +1,4 @@
+- Make RuleSet.rules dict consistent regarding the key/value behaviour.
 - Complete unittests
 - Add more examples
 - Test python implementation

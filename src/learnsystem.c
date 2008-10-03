@@ -400,7 +400,7 @@ static int
 PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
 {
     int alreadyopen = 0;
-    PyObject *fp, *header, *footer, *rules, *args;
+    PyObject *fp, *header, *footer, *rules;
     Py_ssize_t hsize, fsize;
 
     if (!PyLearnSystem_Check (lsystem))
@@ -431,11 +431,6 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
         return 0;
     }
 
-    /* Build the arguments for the create_rules() call. */
-    args = Py_BuildValue ("(i)", maxrules);
-    if (!args)
-        goto error;
-
     /* Write the header */
     header = PyObject_CallMethod (lsystem, "create_header", NULL);
     if (!header)
@@ -460,8 +455,7 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
     Py_DECREF (header);
 
     /* Write the rules */
-    rules = _lsystem_create_rules ((PyLearnSystem*)lsystem, args);
-    Py_DECREF (args);
+    rules = PyObject_CallMethod (lsystem, "create_rules", "i", maxrules);
     if (!rules)
         goto error;
 
