@@ -25,6 +25,7 @@ static int _ruleset_setmaxweight (PyRuleSet *ruleset, PyObject *value,
 static PyObject* _ruleset_getrules (PyRuleSet *ruleset, void *closure);
 
 /* Methods */
+static PyObject* _ruleset_clear (PyRuleSet *ruleset);
 static PyObject* _ruleset_addrule (PyRuleSet *ruleset, PyObject *args);
 static PyObject* _ruleset_removerule (PyRuleSet *ruleset, PyObject *args);
 static PyObject* _ruleset_updateweights (PyRuleSet *ruleset, PyObject *args);
@@ -45,6 +46,7 @@ static int PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness);
  */
 static PyMethodDef _ruleset_methods[] =
 {
+    { "clear", (PyCFunction)_ruleset_clear, METH_NOARGS, "" },
     { "add", (PyCFunction)_ruleset_addrule, METH_VARARGS, "" },
     { "remove", (PyCFunction)_ruleset_removerule, METH_VARARGS, "" },
     { "update_weights", (PyCFunction)_ruleset_updateweights, METH_NOARGS, "" },
@@ -225,6 +227,14 @@ _ruleset_getrules (PyRuleSet *ruleset, void *closure)
 
 /* Methods */
 static PyObject*
+_ruleset_clear (PyRuleSet *ruleset)
+{
+    PyDict_Clear (ruleset->rules);
+    ruleset->weight = 0;
+    Py_RETURN_NONE;
+}
+
+static PyObject*
 _ruleset_addrule (PyRuleSet *ruleset, PyObject *args)
 {
     PyObject *rule;
@@ -312,9 +322,13 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
     }
 
     rset = (PyRuleSet*) ruleset;
-    r = (PyRule*) rule;
 
-    kv = PyInt_FromLong (r->id);
+    kv = PyInt_FromLong (((PyRule*)rule)->id);
+
+    r = (PyRule*) PyDict_GetItem (rset->rules, kv);
+    if (r)
+        rset->weight -= r->weight;
+
     if (PyDict_SetItem (rset->rules, kv, rule) == -1)
     {
         Py_DECREF (kv);
@@ -322,6 +336,7 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
     }
     Py_DECREF (kv);
 
+    r = (PyRule*) rule;
     if (r->weight > rset->maxweight)
         r->weight = rset->maxweight;
     else if (r->weight < rset->minweight)

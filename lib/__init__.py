@@ -14,7 +14,7 @@ try:
     from _dynrules import LearnSystem
 except ImportError:
     # C Module not available
-    import Rule
-    import RuleSet
-    import LearnSystem
+    from Rule import Rule
+    from RuleSet import RuleSet
+    from LearnSystem import LearnSystem
 

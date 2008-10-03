@@ -51,6 +51,14 @@ class RuleSet (object):
                   ("maxweight must be smaller or equal to the set minweight")
         self._maxweight = maxweight
 
+    def clear (self):
+        """R.clear () -> None
+
+        Removes all rules from the RuleSet.
+        """
+        self._rules.clear ()
+        self._weight = 0
+    
     def add (self, rule):
         """R.add (rule) -> None
 
@@ -58,12 +66,15 @@ class RuleSet (object):
         """
         if not isinstance (rule, Rule):
             raise TypeError ("rule must be a Rule")
-        self.rules[rule.id] = rule
-        
+        if self._rules.has_key (rule.id):
+            self._weight -= self._rules[rule.id].weight
+            
+        self._rules[rule.id] = rule
         if rule.weight > self.maxweight:
             rule.weight = self.maxweight
         elif rule.weight < self.minweight:
             rule.weight = self.minweight
+        self._weight += rule.weight
 
     def remove (self, rule):
         """R.remove (rule) -> None
@@ -72,12 +83,10 @@ class RuleSet (object):
         """
         if not isinstance (rule, Rule):
             raise TypeError ("rule must be a Rule")
-        if not self.rules.has_key (rule.id):
+        if not self._rules.has_key (rule.id):
             raise ValueError ("rule does not exist")
-        
-        rule = self.rules[rule.id]
-        self._weight -= rule.weight
-        del self.rules[rule.id]
+        self._weight -= self._rules[rule.id].weight
+        del self._rules[rule.id]
 
     def calculate_adjustment (self, fitness):
         """R.calculate_adjustment (fitness)
@@ -112,7 +121,7 @@ class RuleSet (object):
         Spronck et al: 2005, 'Adaptive Game AI with Dynamic Scripting'
         """
         used = 0
-        rules = self.rules.values ()
+        rules = self._rules.values ()
         count = len (rules)
 
         usedcount = 0
