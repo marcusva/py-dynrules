@@ -8,6 +8,9 @@ SUBDIRS = $(top_srcdir)/src \
 
 all: clean build
 
+docs:
+	@cd doc/ && make html
+
 dist:
 	@echo "Creating dist..."
 	@python setup.py sdist
