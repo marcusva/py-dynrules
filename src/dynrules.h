@@ -24,6 +24,7 @@ typedef struct
     int       used : 1;
     double    weight;
     PyObject *code;
+    PyObject *dict;
 } PyRule;
 
 #define DYNRULES_RULE_FIRSTSLOT 0
@@ -47,6 +48,7 @@ typedef struct
     double    weight;
     double    minweight;
     double    maxweight;
+    PyObject *dict;
 } PyRuleSet;
 
 #define DYNRULES_RULESET_FIRSTSLOT 0
@@ -74,6 +76,7 @@ typedef struct
     PyObject *ruleset;
     int       maxtries;
     int       maxscriptsize;
+    PyObject *dict;
 } PyLearnSystem;
 #define DYNRULES_LEARNSYSTEM_FIRSTSLOT 0
 #define DYNRULES_LEARNSYSTEM_NUMSLOTS 3

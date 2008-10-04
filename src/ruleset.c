@@ -15,6 +15,7 @@ static int _ruleset_init (PyObject *ruleset, PyObject *args, PyObject *kwds);
 static void _ruleset_dealloc (PyRuleSet *ruleset);
 
 /* Getters/Setters */
+static PyObject* _ruleset_getdict (PyRuleSet *rule, void *closure);
 static PyObject* _ruleset_getweight (PyRuleSet *ruleset, void *closure);
 static PyObject* _ruleset_getminweight (PyRuleSet *ruleset, void *closure);
 static int _ruleset_setminweight (PyRuleSet *ruleset, PyObject *value,
@@ -49,7 +50,7 @@ static PyMethodDef _ruleset_methods[] =
     { "clear", (PyCFunction)_ruleset_clear, METH_NOARGS, "" },
     { "add", (PyCFunction)_ruleset_addrule, METH_VARARGS, "" },
     { "remove", (PyCFunction)_ruleset_removerule, METH_VARARGS, "" },
-    { "update_weights", (PyCFunction)_ruleset_updateweights, METH_NOARGS, "" },
+    { "update_weights", (PyCFunction)_ruleset_updateweights, METH_VARARGS, "" },
     { "calculate_adjustment", (PyCFunction)_ruleset_calculateadjustment,
       METH_VARARGS, "" },
     { "distribute_remainder", (PyCFunction)_ruleset_distributeremainder,
@@ -62,6 +63,7 @@ static PyMethodDef _ruleset_methods[] =
  */
 static PyGetSetDef _ruleset_getsets[] =
 {
+    { "__dict__", (getter) _ruleset_getdict, NULL, NULL, NULL },
     { "weight", (getter) _ruleset_getweight, NULL, "", NULL },
     { "minweight", (getter) _ruleset_getminweight,
       (setter) _ruleset_setminweight, "", NULL },
@@ -108,7 +110,7 @@ PyTypeObject PyRuleSet_Type =
     0,                          /* tp_dict */
     0,                          /* tp_descr_get */
     0,                          /* tp_descr_set */
-    0,                          /* tp_dictoffset */
+    offsetof (PyRuleSet, dict), /* tp_dictoffset */
     (initproc)_ruleset_init,    /* tp_init */
     0,                          /* tp_alloc */
     0,                          /* tp_new */
@@ -150,14 +152,26 @@ _ruleset_init (PyObject *ruleset, PyObject *args, PyObject *kwds)
 static void
 _ruleset_dealloc (PyRuleSet *ruleset)
 {
-    if (ruleset->rules)
-    {
-        Py_DECREF (ruleset->rules);
-    }
+    Py_XDECREF (ruleset->rules);
+    Py_XDECREF (ruleset->dict);
     ruleset->ob_type->tp_free ((PyObject *) ruleset);
 }
 
 /* Getters/Setters */
+static PyObject*
+_ruleset_getdict (PyRuleSet *ruleset, void *closure)
+{
+    if (!ruleset->dict)
+    {
+        ruleset->dict = PyDict_New ();
+        if (!ruleset->dict)
+            return NULL;
+    }
+
+    Py_INCREF (ruleset->dict);
+    return ruleset->dict;
+}
+
 static PyObject*
 _ruleset_getweight (PyRuleSet *ruleset, void *closure)
 {
@@ -306,7 +320,7 @@ static int
 PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
 {
     PyRuleSet *rset;
-    PyRule *r;
+    PyRule *r, *entry;
     PyObject *kv;
 
     if (!PyRuleSet_Check (ruleset))
@@ -322,12 +336,13 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
     }
 
     rset = (PyRuleSet*) ruleset;
+    r = (PyRule*) rule;
 
-    kv = PyInt_FromLong (((PyRule*)rule)->id);
+    kv = PyInt_FromLong (r->id);
 
-    r = (PyRule*) PyDict_GetItem (rset->rules, kv);
-    if (r)
-        rset->weight -= r->weight;
+    entry = (PyRule*) PyDict_GetItem (rset->rules, kv);
+    if (entry)
+        rset->weight -= entry->weight;
 
     if (PyDict_SetItem (rset->rules, kv, rule) == -1)
     {
@@ -336,7 +351,6 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
     }
     Py_DECREF (kv);
 
-    r = (PyRule*) rule;
     if (r->weight > rset->maxweight)
         r->weight = rset->maxweight;
     else if (r->weight < rset->minweight)
@@ -350,7 +364,7 @@ static int
 PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
 {
     PyRuleSet *rset;
-    PyRule *r;
+    PyRule *r, *entry;
     PyObject *kv;
 
     if (!PyRuleSet_Check (ruleset))
@@ -368,6 +382,33 @@ PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
     r = (PyRule*) rule;
 
     kv = PyInt_FromLong (r->id);
+
+    entry = (PyRule*) PyDict_GetItem (rset->rules, kv);
+    if (entry)
+    {
+        /* An entry exists, compare it. */
+        int cmp = PyObject_RichCompareBool (rule, (PyObject*) entry, Py_EQ);
+        if (cmp == -1)
+        {
+            Py_DECREF (kv);
+            return 0;
+        }
+        else if (cmp == 0)
+        {
+            Py_DECREF (kv);
+            PyErr_SetString (PyExc_ValueError,
+                "rule does not match rule in RuleSet");
+            return 0;
+        }
+        /* Anything's okay. */
+    }
+    else
+    {
+        Py_DECREF (kv);
+        PyErr_SetString (PyExc_ValueError, "rule does not exist");
+        return 0;
+    }
+
     if (PyDict_DelItem (rset->rules, kv) == -1)
     {
         Py_DECREF (kv);
@@ -439,16 +480,18 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
     }
     Py_DECREF (adjust);
 
-    compensation = - usedcount * adjustment / nonactive;
+    compensation = ((double) (-usedcount * adjustment)) / nonactive;
     _remainder = 0;
 
     for (i = 0; i < count; i++)
     {
         rule = (PyRule*) PyList_GET_ITEM (rules, i);
         rule->weight += (rule->used) ? adjustment : compensation;
-        
         if (rule->weight < rset->minweight)
+        {
             _remainder += rule->weight - rset->minweight;
+            rule->weight = rset->minweight;
+        }
         else if (rule->weight > rset->maxweight)
         {
             _remainder += rule->weight - rset->maxweight;

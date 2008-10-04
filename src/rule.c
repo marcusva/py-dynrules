@@ -15,6 +15,7 @@ static int _rule_init (PyObject *rule, PyObject *args, PyObject *kwds);
 static void _rule_dealloc (PyRule *rule);
 
 /* Getters/Setters */
+static PyObject* _rule_getdict (PyRule *rule, void *closure);
 static PyObject* _rule_getid (PyRule *rule, void *closure);
 static PyObject* _rule_getweight (PyRule *rule, void *closure);
 static int _rule_setweight (PyRule *rule, PyObject *value, void *closure);
@@ -39,6 +40,7 @@ static PyMethodDef _rule_methods[] =
  */
 static PyGetSetDef _rule_getsets[] =
 {
+    { "__dict__", (getter) _rule_getdict, NULL, NULL, NULL },
     { "id", (getter) _rule_getid, NULL, "", NULL },
     { "weight", (getter) _rule_getweight, (setter) _rule_setweight, "", NULL },
     { "code", (getter) _rule_getcode, (setter) _rule_setcode, "", NULL },
@@ -83,7 +85,7 @@ PyTypeObject PyRule_Type =
     0,                          /* tp_dict */
     0,                          /* tp_descr_get */
     0,                          /* tp_descr_set */
-    0,                          /* tp_dictoffset */
+    offsetof (PyRule, dict),    /* tp_dictoffset */
     (initproc)_rule_init,       /* tp_init */
     0,                          /* tp_alloc */
     0,                          /* tp_new */
@@ -122,15 +124,27 @@ _rule_init (PyObject *rule, PyObject *args, PyObject *kwds)
 static void
 _rule_dealloc (PyRule *rule)
 {
-    if (rule->code)
-    {
-        Py_DECREF (rule->code);
-    }
+    Py_XDECREF (rule->code);
+    Py_XDECREF (rule->dict);
     rule->code = NULL;
     rule->ob_type->tp_free ((PyObject *) rule);
 }
 
 /* Getters/Setters */
+static PyObject*
+_rule_getdict (PyRule *rule, void *closure)
+{
+    if (!rule->dict)
+    {
+        rule->dict = PyDict_New ();
+        if (!rule->dict)
+            return NULL;
+    }
+
+    Py_INCREF (rule->dict);
+    return rule->dict;
+}
+
 static PyObject*
 _rule_getid (PyRule *rule, void *closure)
 {

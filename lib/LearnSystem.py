@@ -18,7 +18,21 @@ from RuleSet import RuleSet
 class LearnSystem (object):
     """LearnSystem (ruleset) -> LearnSystem
 
-    Creates a new LearnSystem
+    Creates a new LearnSystem using a specific RuleSet.
+
+    The LearnSystem class takes care of creating new scripts based on a
+    predefined RuleSet. It does not evaluate the scripts nor modifies
+    the rules written to them.
+
+    The procedure of creating scripts is done using three phases:
+
+    * header creation
+    * rule code creation
+    * footer creation
+
+    The header and footer are freely choosable. You can simple override
+    or reassign the create_header() and create_footer() methods to let
+    them return your required code.
     """
     def __init__ (self, ruleset):
         if not isinstance (ruleset, RuleSet):

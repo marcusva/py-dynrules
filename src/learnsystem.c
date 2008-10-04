@@ -17,6 +17,7 @@ static int _lsystem_init (PyObject *lsystem, PyObject *args, PyObject *kwds);
 static void _lsystem_dealloc (PyLearnSystem *lsystem);
 
 /* Getters/Setters */
+static PyObject* _lsystem_getdict (PyLearnSystem *lsystem, void *closure);
 static PyObject* _lsystem_getmaxtries (PyLearnSystem *lsystem, void *closure);
 static int _lsystem_setmaxtries (PyLearnSystem *lsystem, PyObject *value,
     void *closure);
@@ -57,6 +58,7 @@ static PyMethodDef _lsystem_methods[] =
  */
 static PyGetSetDef _lsystem_getsets[] =
 {
+    { "__dict__", (getter) _lsystem_getdict, NULL, NULL, NULL },
     { "maxtries", (getter) _lsystem_getmaxtries, (setter) _lsystem_setmaxtries,
       "", NULL },
     { "maxscriptsize", (getter) _lsystem_getmaxscriptsize,
@@ -103,7 +105,7 @@ PyTypeObject PyLearnSystem_Type =
     0,                          /* tp_dict */
     0,                          /* tp_descr_get */
     0,                          /* tp_descr_set */
-    0,                          /* tp_dictoffset */
+    offsetof (PyLearnSystem, dict), /* tp_dictoffset */
     (initproc)_lsystem_init,    /* tp_init */
     0,                          /* tp_alloc */
     0,                          /* tp_new */
@@ -149,15 +151,27 @@ _lsystem_init (PyObject *lsystem, PyObject *args, PyObject *kwds)
 static void
 _lsystem_dealloc (PyLearnSystem *lsystem)
 {
-    if (lsystem->ruleset)
-    {
-        Py_DECREF (lsystem->ruleset);
-    }
+    Py_XDECREF (lsystem->ruleset);
+    Py_XDECREF (lsystem->dict);
     lsystem->ruleset = NULL;
     lsystem->ob_type->tp_free ((PyObject *) lsystem);
 }
 
 /* Getters/Setters */
+static PyObject*
+_lsystem_getdict (PyLearnSystem *lsystem, void *closure)
+{
+    if (!lsystem->dict)
+    {
+        lsystem->dict = PyDict_New ();
+        if (!lsystem->dict)
+            return NULL;
+    }
+
+    Py_INCREF (lsystem->dict);
+    return lsystem->dict;
+}
+
 static PyObject*
 _lsystem_getmaxtries (PyLearnSystem *lsystem, void *closure)
 {

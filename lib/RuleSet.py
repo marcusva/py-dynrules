@@ -85,6 +85,9 @@ class RuleSet (object):
             raise TypeError ("rule must be a Rule")
         if not self._rules.has_key (rule.id):
             raise ValueError ("rule does not exist")
+        if rule != self._rules[rule.id]:
+            raise ValueError ("rule does not match rule in RuleSet")
+
         self._weight -= self._rules[rule.id].weight
         del self._rules[rule.id]
 

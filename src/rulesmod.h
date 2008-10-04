@@ -10,6 +10,7 @@
 #define _RULESMOD_H_
 
 #include <Python.h>
+#include <structmember.h>
 #include <cStringIO.h>
 
 #define DYNRULES_RULE_INTERNAL
