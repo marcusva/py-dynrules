@@ -57,10 +57,10 @@ which means that installation problems or similar issues, which do not
 target dynrules directly, should be escalated to the respective supplier
 of that package.
 
-Notes on BZR usage
+Notes on bzr usage
 ==================
 
-The bzr version of dynrules is not intended to be used in a production
-environment. Interfaces may change from one checkin to another, methods,
-classes or modules can be broken and so on. If you want more reliable
-code, please refer to the official releases.
+The bzr repository version of dynrules is not intended to be used in a
+production environment. Interfaces may change from one checkin to
+another, methods, classes or modules can be broken and so on. If you
+want more reliable code, please refer to the official releases.

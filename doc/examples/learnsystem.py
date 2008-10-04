@@ -1,3 +1,7 @@
+#
+# A basic LearnSystem implementation demonstrating the capabilities of
+# dynrules.
+#
 from dynrules import RuleSet, Rule, LearnSystem
 
 class Learner (LearnSystem):
