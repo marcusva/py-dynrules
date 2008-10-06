@@ -1,5 +1,5 @@
 top_srcdir = `pwd`
-
+PYTHON ?= python
 SUBDIRS = $(top_srcdir)/src \
 	 $(top_srcdir)/lib \
 	 $(top_srcdir)/doc \
@@ -11,22 +11,23 @@ all: clean build
 docs:
 	@cd doc/ && make html
 
-dist:
+dist: docs
 	@echo "Creating dist..."
-	@python setup.py sdist
+	@cp -rf doc/build/html doc/html
+	@$(PYTHON) setup.py sdist
 
 bdist:
 	@echo "Creating bdist..."
-	@python setup.py bdist
+	@$(PYTHON) setup.py bdist
 
 build:
 	@echo "Running build..."
-	@python setup.py build
+	@$(PYTHON) setup.py build
 	@echo "Build finished, invoke 'make install' to install."
 
 install:
 	@echo "Installing..."
-	@python setup.py build install 
+	@$(PYTHON) setup.py build install 
 
 clean:
 	@echo "Cleaning up in $(top_srcdir)/ ..."

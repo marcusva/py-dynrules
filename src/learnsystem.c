@@ -324,6 +324,12 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
             rule = (PyRule*) PyList_GET_ITEM (rules, selected);
 
             /* Write the rule code */
+            if (!rule->code)
+            {
+                /* No code given. */
+                tries++;
+                break;
+            }
             if (PyObject_CheckReadBuffer (rule->code))
             {
                 Py_ssize_t len;
@@ -364,7 +370,6 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
                 }
                 PyErr_Clear (); /* Clear any error, that occured before. */
             }
-
             tries++;
             break;
         }

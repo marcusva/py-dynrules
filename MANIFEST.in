@@ -1,4 +1,5 @@
-recursive-include doc *
+recursive-include doc/examples *
+recursive-include doc/html *
 recursive-include test *.py
 include src/*.h src/*.c
 include NEWS AUTHORS COPYING ChangeLog TODO Makefile

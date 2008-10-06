@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 import os, sys, glob
 
 DEBUG = "1"
-VERSION = "0.0.1pre"
+VERSION = "0.0.1"
 
 def get_sources ():
     return glob.glob (os.path.join ("src", "*.c"))
@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.1pre\"")]
+    defines = [("VERSION", "\"0.0.1\"")]
     return defines
 
 ##
@@ -21,18 +21,18 @@ def get_defines ():
 ##
 if __name__ == "__main__":
 
-    
-    # GCC specific.
-    if DEBUG != "0":
-        warn_flags = ["-W", "-Wall", "-Wpointer-arith", "-Wcast-qual",
-                      "-Winline", "-Wcast-align", "-Wconversion",
-                      "-Wstrict-prototypes", "-Wmissing-prototypes",
-                      "-Wmissing-declarations", "-Wnested-externs",
-                      "-Wshadow", "-Wredundant-decls"
-                     ]
-    else:
-        warn_flags = []
-    compile_args = warn_flags + ["-std=c99", "-g"]
+    compile_args = []
+
+    # GCC specific code START.
+##     if DEBUG != "0":
+##         compile_args += ["-W", "-Wall", "-Wpointer-arith", "-Wcast-qual",
+##                       "-Winline", "-Wcast-align", "-Wconversion",
+##                       "-Wstrict-prototypes", "-Wmissing-prototypes",
+##                       "-Wmissing-declarations", "-Wnested-externs",
+##                       "-Wshadow", "-Wredundant-decls"
+##                      ]
+##     compile_args += ["-std=c99", "-g"]
+    # GCC specific code END.
     
     dynrules = Extension ("dynrules._dynrules", sources=get_sources (),
                           language="c",define_macros=get_defines (),
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         "author": "Marcus von Appen",
         "author_email": "marcus@sysfault.org",
         "license": "Public Domain",
-        "url": "http://sysfault.org/",
+        "url": "http://www.sysfault.org/projects/",
         "packages" : ["dynrules"],
         "package_dir" : { "dynrules" : "lib" },
         "ext_modules" : [ dynrules ],

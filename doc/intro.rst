@@ -5,7 +5,7 @@ This is the documentation for the dynrules dynamic rules creation
 package. dynrules is a small package that allows you to create
 rule-based scripts based automatically.  It uses the Dynamic Scripting
 technique and algorithms as described by `Pieter Spronck
-<http://www.cs.unimaas.nl/p.spronck/>`_ in his paper *Adaptive Game AI
+<http://ticc.uvt.nl/~pspronck/>`_ in his paper *Adaptive Game AI
 with Dynamic Scripting*.
 
 The focus of the package is on weighted ruleset management and script

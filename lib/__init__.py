@@ -6,7 +6,7 @@
 ## This file is distributed under the Public Domain.
 ##
 
-__version__ = "0.0.1pre"
+__version__ = "0.0.1"
 
 try:
     from _dynrules import Rule
