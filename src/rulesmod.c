@@ -86,7 +86,8 @@ init_dynrules (void)
     Py_INCREF (&PyRuleSet_Type);
     Py_INCREF (&PyLearnSystem_Type);
 
-    mod = Py_InitModule3 ("_dynrules", NULL, NULL);
+    mod = Py_InitModule3 ("_dynrules", NULL,
+        "The C implementation for the dynrules package");
     PyModule_AddObject (mod, "Rule", (PyObject *) &PyRule_Type);
     PyModule_AddObject (mod, "RuleSet", (PyObject *) &PyRuleSet_Type);
     PyModule_AddObject (mod, "LearnSystem", (PyObject *) &PyLearnSystem_Type);

@@ -24,7 +24,7 @@ help:
 
 clean:
 	@echo "Cleaning up in `pwd`..."
-	@rm -rf build *~
+	@rm -rf build html *~
 
 html:
 	mkdir -p build/html build/doctrees

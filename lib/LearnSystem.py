@@ -87,20 +87,20 @@ class LearnSystem (object):
         on leaving the function (but flushed).
         """
         isopen = False
-        fp = None
+        filep = None
         if type (scriptfile) is file:
             isopen = True
-            fp = scriptfile # Already open
+            filep = scriptfile # Already open
         else:
-            fp = open (scriptfile, "a")
+            filep = open (scriptfile, "a")
 
-        fp.write (self.create_header ())
-        fp.write (self.create_rules (maxrules))
-        fp.write (self.create_footer ())
-        fp.flush ()
+        filep.write (self.create_header ())
+        filep.write (self.create_rules (maxrules))
+        filep.write (self.create_footer ())
+        filep.flush ()
 
         if not isopen:
-            fp.close ()
+            filep.close ()
         
     def create_header (self):
         """L.create_header () -> str
@@ -134,7 +134,6 @@ class LearnSystem (object):
         
         weights = self._ruleset.weight
         buf = stringio.StringIO ()
-        added = 0
         maxtries = self._maxtries
         maxscriptsize = self._maxscriptsize
         buflen = 0

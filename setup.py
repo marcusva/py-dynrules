@@ -50,5 +50,16 @@ if __name__ == "__main__":
         "package_dir" : { "dynrules" : "lib" },
         "ext_modules" : [ dynrules ],
         "headers" : get_headers (),
+        "classifiers" : [
+            "Development Status :: 3 - Alpha",
+            "Intended Audience :: Developers",
+            "License :: Public Domain",
+            "Operating System :: OS Independent",
+            "Programming Language :: C",
+            "Programming Language :: Python",
+            "Topic :: Scientific/Engineering :: Artificial Intelligence",
+            "Topic :: Software Development :: Code Generators",
+            "Topic :: Software Development :: Libraries :: Python Modules",
+          ],
         }
     setup (**setupdata)

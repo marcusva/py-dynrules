@@ -123,13 +123,12 @@ class RuleSet (object):
         Adapted from Pieter Spronck's algorithm as explained in
         Spronck et al: 2005, 'Adaptive Game AI with Dynamic Scripting'
         """
-        used = 0
         rules = self._rules.values ()
         count = len (rules)
 
         usedcount = 0
-        for r in rules:
-            if r.used:
+        for rule in rules:
+            if rule.used:
                 usedcount += 1
         minweight = self.minweight
         maxweight = self.maxweight
