@@ -58,7 +58,6 @@ unsigned int LearnSystem::getMaxTries () const
 
 void LearnSystem::setMaxTries (unsigned int maxtries)
 {
-    //FAssertMsg (maxtries > 0, "matries must be greater than 0");
     this->_maxtries = maxtries;
 }
 
@@ -69,7 +68,6 @@ unsigned int LearnSystem::getMaxScriptSize () const
 
 void LearnSystem::setMaxScriptSize (unsigned int maxscriptsize)
 {
-    //FAssertMsg (maxscriptsize > 0, "maxscriptsize must be greater than 0");
     this->_maxscriptsize = maxscriptsize;
 }
 
@@ -85,17 +83,15 @@ std::string LearnSystem::createFooter ()
     return retval;
 }
 
-std::string LearnSystem::createRules (int maxrules)
+std::string LearnSystem::createRules (unsigned int maxrules)
 {
     std::string buf, retval;
     std::vector<Rule> rules;
     Rule rule;
-    unsigned int tries;
-    int added = 0, i, j, selected;
+    unsigned int tries, i;
+    int added = 0, j, selected;
     size_t len, count, written = 0;
     double wsum, fraction, weights = this->_ruleset->getWeight ();
-
-    //FAssertMsg (maxrules > 0, "maxrules must be greater than 0", 0);
 
     if (weights == 0 || maxrules == 0)
         return "";
@@ -155,10 +151,8 @@ finish:
     return retval;
 }
 
-void LearnSystem::createScript (std::ostream& stream, int maxrules)
+void LearnSystem::createScript (std::ostream& stream, unsigned int maxrules)
 {
-    //FAssertMsg (maxrules > 0, "maxrules must be greater than 0", 0);
-
     stream << this->createHeader () << std::endl;
     stream << this->createRules (maxrules) << std::endl;
     stream << this->createFooter () << std::endl;

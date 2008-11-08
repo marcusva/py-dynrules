@@ -35,9 +35,8 @@ double RuleSet::getMinWeight () const
 
 void RuleSet::setMinWeight (double minweight)
 {
-    //FAssertMsg (minweight >= 0, "minweight must not be negative");
-    //FAssertMsg (minweight <= this->_maxweight,
-    //"minweight must not be greater than maxweight");
+    if (minweight > this->_maxweight)
+        throw "maxweight must not be smaller than minweight";
     this->_minweight = minweight;
 }
 
@@ -48,9 +47,8 @@ double RuleSet::getMaxWeight () const
 
 void RuleSet::setMaxWeight (double maxweight)
 {
-    //FAssertMsg (maxweight >= 0, "maxweight must not be negative");
-    //FAssertMsg (maxweight >= this->_minweight,
-    //"maxweight must not be smaller than minweight");
+    if (maxweight < this->_minweight)
+        throw "maxweight must not be smaller than minweight";
     this->_maxweight = maxweight;
 }
 
