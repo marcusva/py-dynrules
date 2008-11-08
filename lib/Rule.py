@@ -11,7 +11,7 @@ class Rule (object):
 
     Creates a new, empty Rule.
 
-    The Rule is a simple class type that carries a weight indicator and
+    Rule is a simple class type that carries a weight indicator and
     arbitrary code data for usage in the dynamic script generation
     process.
     """

@@ -83,8 +83,8 @@ class LearnSystem (object):
         script file. A maximum of maxrules rules will be written.
         
         scriptfile can be either a file object or filename.
-        The file object is assumed to be writeable and won't be closed
-        on leaving the function (but flushed).
+        In case of a file object it is assumed to be writeable and won't
+        be closed on leaving the function (but flushed).
         """
         isopen = False
         filep = None
@@ -106,6 +106,8 @@ class LearnSystem (object):
         """L.create_header () -> str
 
         Creates the header for the script file.
+
+        The default implementation does nothing.
         """
         # Nothing to do for now.
         pass
@@ -114,6 +116,8 @@ class LearnSystem (object):
         """L._create_footer () -> str
 
         Creates the footer for the script file.
+
+        The default implementation does nothing.
         """
         # Nothing to do for now.
         pass

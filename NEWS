@@ -1,5 +1,9 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.1 2008-10-XX
+0.0.2 2008-11-08
+----------------
+* New pure C++ framework under cplusplus
+
+0.0.1 2008-10-06
 ----------------
 * Initial release.
