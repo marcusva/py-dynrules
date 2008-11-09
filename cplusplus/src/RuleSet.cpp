@@ -16,11 +16,15 @@ RuleSet::RuleSet () :
 }
 
 RuleSet::RuleSet (double minweight, double maxweight) :
-    _minweight(minweight),
-    _maxweight(maxweight),
+    _minweight(0),
+    _maxweight(0),
     _weight(0),
     _rules(0)
 {
+    if (minweight > maxweight)
+        throw "maxweight must not be smaller than minweight";
+    this->_minweight = minweight;
+    this->_maxweight = maxweight;
 }
 
 RuleSet::~RuleSet ()

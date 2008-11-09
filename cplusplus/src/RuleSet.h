@@ -28,6 +28,8 @@ public:
      *
      * \param minweight The minimum weight for the individual rules.
      * \param maxweight The maximum weight for the individual rules.
+     * \exception char* Thrown, if minweight is greater than the set
+     * maxweight.
      */
     RuleSet (double minweight, double maxweight);
 

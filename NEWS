@@ -1,5 +1,13 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
+0.0.3 2008-11-09
+----------------
+C++ framework:
+  * Added documentation.
+  * Fixed a minor range issue in the RuleSet constructor that allowed
+    minweight to be smaller than maxweight.
+  * Fixed an int vs. double bug in the LearnSystem constructor.
+
 0.0.2 2008-11-08
 ----------------
 * New pure C++ framework under cplusplus

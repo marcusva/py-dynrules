@@ -47,8 +47,10 @@ public:
      * \param maxweight The maximum weight limit for the embedded RuleSet.
      * \exception bad_alloc Thrown, if the embedded RuleSet could not be
      * allocated.
+     * \exception char* Thrown, if the embedded RuleSet could not be
+     * allocated.
      */
-    LearnSystem (int minweight, int maxweight);
+    LearnSystem (double minweight, double maxweight);
     
     /**
      * \brief Creates a new LearnSystem instance using an existing RuleSet.
