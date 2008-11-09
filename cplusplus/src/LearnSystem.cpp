@@ -15,7 +15,7 @@ LearnSystem::LearnSystem () :
 {
 }
 
-LearnSystem::LearnSystem (int minweight, int maxweight) :
+LearnSystem::LearnSystem (double minweight, double maxweight) :
     _maxtries (100),
     _maxscriptsize(1024),
     _ruleset(new RuleSet (minweight, maxweight))
