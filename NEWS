@@ -1,6 +1,6 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.4 2008-XX-XX:
+0.0.4 2008-11-20
 ----------------
 C++ framework:
   * New RuleSet.find() method.
