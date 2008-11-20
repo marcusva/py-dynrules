@@ -10,7 +10,7 @@
 predefined rules and rulesets.
 """
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 try:
     from _dynrules import Rule as CRule

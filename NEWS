@@ -1,6 +1,6 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.5 2008-XX-XX
+0.0.5 2008-11-21
 ----------------
 C++ framework:
   * Fixed a bug in RuleSet::updateWeights() which caused wrong weight

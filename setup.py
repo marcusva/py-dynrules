@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 import os, sys, glob
 
 DEBUG = "1"
-VERSION = "0.0.4"
+VERSION = "0.0.5"
 
 def get_sources ():
     return glob.glob (os.path.join ("src", "*.c"))
@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.4\"")]
+    defines = [("VERSION", "\"0.0.5\"")]
     return defines
 
 ##
