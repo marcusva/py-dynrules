@@ -5,6 +5,7 @@
  *
  * This file is distributed under the Public Domain.
  */
+
 #ifndef _LEARNSYSTEM_H_
 #define _LEARNSYSTEM_H_
 
@@ -51,7 +52,7 @@ public:
      * allocated.
      */
     LearnSystem (double minweight, double maxweight);
-    
+
     /**
      * \brief Creates a new LearnSystem instance using an existing RuleSet.
      *
@@ -140,7 +141,7 @@ public:
      *
      * \return The string containing the header information.
      */
-    virtual std::string createHeader ();
+    virtual std::string createHeader () const;
 
     /**
      * \brief Creates and returns the footer information for the script to
@@ -151,7 +152,7 @@ public:
      *
      * \return The string containing the footer information.
      */
-    virtual std::string createFooter ();
+    virtual std::string createFooter () const;
 
     /**
      * \brief Creates and returns the code of maxrules rules
@@ -163,7 +164,7 @@ public:
      * \param maxrules The maximum amount of rule code to create.
      * \return The string containing the rule code.
      */
-    virtual std::string createRules (unsigned int maxrules);
+    virtual std::string createRules (unsigned int maxrules) const;
 
     /**
      * \brief Creates the complete script contents-

@@ -5,7 +5,7 @@
  *
  * This file is distributed under the Public Domain.
  */
- 
+
 #ifndef _RULESET_H_
 #define _RULESET_H_
 
@@ -81,14 +81,14 @@ public:
      *
      * \return A std::vector containing the Rule objects.
      */
-    std::vector<Rule> getRules();
+    std::vector<Rule*> getRules();
 
     /**
      * \brief Adds a Rule to the RuleSet.
      *
      * \param rule The Rule to add.
      */
-    void addRule (Rule& rule);
+    void addRule (Rule* rule);
 
     /**
      * \brief Removes a Rule from the RuleSet.
@@ -99,7 +99,15 @@ public:
      *
      * \param rule The Rule to remove.
      */
-    bool removeRule (Rule& rule);
+    bool removeRule (Rule* rule);
+
+    /**
+     * \brief Find and return the Rule with the matching id.
+     *
+     * \param id The id of the Rule to find.
+     * \return The Rule or 0, if no such Rule exists.
+     */
+    Rule *find (int id);
 
     /**
      * \brief Removes all Rule objects from the RuleSet.
@@ -145,7 +153,7 @@ protected:
     double _minweight;
     double _maxweight;
     double _weight;
-    std::vector<Rule> _rules;
+    std::vector<Rule*> _rules;
 };
 
 #endif /* _RULESET_H_ */

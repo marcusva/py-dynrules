@@ -5,6 +5,7 @@
  *
  * This file is distributed under the Public Domain.
  */
+
 #ifndef _RULE_H_
 #define _RULE_H_
 
@@ -75,7 +76,7 @@ public:
      * \param weight The weight to set.
      */
     void setWeight (double weight);
-    
+
     /**
      * \brief Gets whether the Rule was used or not.
      *
@@ -129,7 +130,7 @@ public:
      * passed Rule, false otherwise.
      */
     bool operator ==(const Rule& rule);
- 
+
 protected:
     int _id;
     double _weight;

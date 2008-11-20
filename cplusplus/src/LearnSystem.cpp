@@ -5,6 +5,7 @@
  *
  * This file is distributed under the Public Domain.
  */
+
 #include <ctime>
 #include "LearnSystem.h"
 
@@ -31,7 +32,7 @@ LearnSystem::LearnSystem (RuleSet* ruleset) :
 
 LearnSystem::LearnSystem (const LearnSystem& lsystem) :
     _maxtries(lsystem.getMaxTries ()),
-    _maxscriptsize(lsystem.getMaxScriptSize ()), 
+    _maxscriptsize(lsystem.getMaxScriptSize ()),
     _ruleset(new RuleSet (*(lsystem.getRuleSet())))
 {
 }
@@ -71,23 +72,23 @@ void LearnSystem::setMaxScriptSize (unsigned int maxscriptsize)
     this->_maxscriptsize = maxscriptsize;
 }
 
-std::string LearnSystem::createHeader ()
+std::string LearnSystem::createHeader () const
 {
     std::string retval = "";
     return retval;
 }
 
-std::string LearnSystem::createFooter ()
+std::string LearnSystem::createFooter () const
 {
     std::string retval = "";
     return retval;
 }
 
-std::string LearnSystem::createRules (unsigned int maxrules)
+std::string LearnSystem::createRules (unsigned int maxrules) const
 {
     std::string buf, retval;
-    std::vector<Rule> rules;
-    Rule rule;
+    std::vector<Rule*> rules;
+    Rule *rule;
     unsigned int tries, i;
     int added = 0, j, selected;
     size_t len, count, written = 0;
@@ -121,7 +122,7 @@ std::string LearnSystem::createRules (unsigned int maxrules)
             while (selected == -1)
             {
                 rule = rules.at (j);
-                wsum += rule.getWeight ();
+                wsum += rule->getWeight ();
                 if (wsum > fraction)
                 {
                     selected = j;
@@ -133,7 +134,7 @@ std::string LearnSystem::createRules (unsigned int maxrules)
             rule = rules.at (selected);
 
             /* Write the rule code */
-            buf = rule.getCode ();
+            buf = rule->getCode ();
             len = buf.size ();
             /* Buffer acquired, write the raw data. */
             if (written + len > static_cast<size_t>(this->_maxscriptsize))
@@ -141,7 +142,7 @@ std::string LearnSystem::createRules (unsigned int maxrules)
             retval.append (buf);
             written += len;
             added = 1;
-            
+
             tries++;
             break;
         }

@@ -1,5 +1,13 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
+0.0.4 2008-XX-XX:
+----------------
+C++ framework:
+  * New RuleSet.find() method.
+  * New abstract RuleManagement class for managing rules.
+  * New MMapRuleManagement class for in-memory rule management.
+  * Changed API to pass object pointers around instead of objects.
+
 0.0.3 2008-11-09
 ----------------
 C++ framework:

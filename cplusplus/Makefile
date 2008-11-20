@@ -9,7 +9,8 @@ RM ?= rm -f
 AR ?= ar
 LINKFLAGS ?= rcs
 
-SOURCES = src/Rule.cpp src/RuleSet.cpp src/LearnSystem.cpp
+SOURCES = src/Rule.cpp src/RuleSet.cpp src/LearnSystem.cpp \
+	src/RuleManagement.cpp src/MMapRuleManagement.cpp
 OBJECTS = $(SOURCES:%.cpp=%.o)
 INCLUDES = -I./
 TARGET = libdynrules.a

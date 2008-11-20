@@ -21,7 +21,7 @@ int main (void)
             rules[i].setId (i);
             rules[i].setCode (code.str ());
             rules[i].setWeight (static_cast<double>(rand()) / RAND_MAX);
-            ruleset->addRule (rules[i]);
+            ruleset->addRule (&rules[i]);
         }
         lsystem.createScript (std::cout, 7);
     }

@@ -5,6 +5,7 @@
  *
  * This file is distributed under the Public Domain.
  */
+
 #include <iostream>
 #include "Rule.h"
 

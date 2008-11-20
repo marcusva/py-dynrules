@@ -12,5 +12,6 @@
 #include "Rule.h"
 #include "RuleSet.h"
 #include "LearnSystem.h"
+#include "RuleManagement.h"
 
 #endif /* _DYNRULES_H_ */
