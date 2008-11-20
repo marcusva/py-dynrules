@@ -120,7 +120,7 @@ void RuleSet::updateWeights (double fraction, void *fitness)
     Rule *rule;
     std::vector<Rule*>::iterator it;
     size_t count, usedcount = 0, nonactive;
-    double totweight = 0, adjustment, compensation, _remainder;
+    double totweight = 0, adjustment, compensation, _remainder, weight;
 
     count = this->_rules.size ();
     if (count == 0)
@@ -145,18 +145,22 @@ void RuleSet::updateWeights (double fraction, void *fitness)
     {
         rule = *it;
 
-        rule->setWeight((rule->getUsed ()) ? adjustment : compensation);
-        if (rule->getWeight () < this->_minweight)
+        weight = rule->getWeight () + \
+            ((rule->getUsed ()) ? adjustment : compensation);
+
+        if (weight < this->_minweight)
         {
-            _remainder += rule->getWeight () - this->_minweight;
+            _remainder += (weight - this->_minweight);
             rule->setWeight (this->_minweight);
         }
-        else if (rule->getWeight () > this->_maxweight)
+        else if (weight > this->_maxweight)
         {
-            _remainder += rule->getWeight () - this->_maxweight;
+            _remainder += (weight - this->_maxweight);
             rule->setWeight (this->_maxweight);
         }
-        totweight += rule->getWeight ();
+        else
+            rule->setWeight (weight);
+        totweight += rule->getWeight();
     }
 
     this->_weight = totweight;

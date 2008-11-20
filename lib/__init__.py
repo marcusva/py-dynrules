@@ -13,12 +13,14 @@ predefined rules and rulesets.
 __version__ = "0.0.4"
 
 try:
-    from _dynrules import Rule
-    from _dynrules import RuleSet
-    from _dynrules import LearnSystem
+    from _dynrules import Rule as CRule
+    from _dynrules import RuleSet as CRuleSet
+    from _dynrules import LearnSystem as CLearnSystem
 except ImportError:
-    # C Module not available
-    from Rule import Rule
-    from RuleSet import RuleSet
-    from LearnSystem import LearnSystem
+    pass
 
+from Rule import Rule
+from RuleSet import RuleSet
+from LearnSystem import LearnSystem
+from RuleManagement import RuleManagement
+from MMapRuleManagement import MMapRuleManagement

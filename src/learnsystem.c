@@ -413,6 +413,7 @@ PyLearnSystem_New (PyObject *ruleset)
         return NULL;
     
     Py_INCREF (ruleset);
+    lsystem->dict = NULL;
     lsystem->ruleset = ruleset;
     lsystem->maxtries = 100;
     lsystem->maxscriptsize = 1024;

@@ -95,7 +95,7 @@ init_dynrules (void)
     rule_export_capi (c_api);
     ruleset_export_capi (c_api);
     learnsystem_export_capi (c_api);
-
+    
     c_api_obj = PyCObject_FromVoidPtr ((void *) c_api, NULL);
     if (c_api_obj)
         PyModule_AddObject (mod, DYNRULES_ENTRY, c_api_obj);

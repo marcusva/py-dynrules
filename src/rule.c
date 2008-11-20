@@ -226,6 +226,7 @@ PyRule_New (int id)
     if (!rule)
         return NULL;
 
+    rule->dict = NULL;
     rule->id = id;
     rule->used = 0;
     rule->weight = 0;

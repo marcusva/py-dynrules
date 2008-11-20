@@ -51,7 +51,8 @@ typedef struct
     PyObject *dict;
 } PyRuleSet;
 
-#define DYNRULES_RULESET_FIRSTSLOT 0
+#define DYNRULES_RULESET_FIRSTSLOT \
+    (DYNRULES_RULE_FIRSTSLOT + DYNRULES_RULE_NUMSLOTS)
 #define DYNRULES_RULESET_NUMSLOTS 5
 #ifndef DYNRULES_RULESET_INTERNAL
 #define  PyRuleSet_Type                                                 \
@@ -67,7 +68,7 @@ typedef struct
     (*(int(*)(PyObject*,PyObject*)) PyDynRules_C_API[DYNRULES_RULESET_FIRSTSLOT+3])
 #define PyRuleSet_UpdateWeights                                         \
     (*(int(*)(PyObject*,PyObject*)) PyDynRules_C_API[DYNRULES_RULESET_FIRSTSLOT+4])
-#endif /* DYNRULES_RULE_INTERNAL */
+#endif /* DYNRULES_RULESET_INTERNAL */
 
 typedef struct
 {
@@ -78,7 +79,8 @@ typedef struct
     int       maxscriptsize;
     PyObject *dict;
 } PyLearnSystem;
-#define DYNRULES_LEARNSYSTEM_FIRSTSLOT 0
+#define DYNRULES_LEARNSYSTEM_FIRSTSLOT \
+    (DYNRULES_RULESET_FIRSTSLOT + DYNRULES_RULESET_NUMSLOTS)
 #define DYNRULES_LEARNSYSTEM_NUMSLOTS 3
 #ifndef DYNRULES_LEARNSYSTEM_INTERNAL
 #define  PyLearnSystem_Type                                             \
@@ -90,7 +92,7 @@ typedef struct
     (*(PyObject*(*)(PyObject*)) PyDynRules_C_API[DYNRULES_LEARNSYSTEM_FIRSTSLOT+1])
 #define PyLearnSystem_CreateScript                                      \
     (*(int(*)(PyObject*,PyObject*,int)) PyDynRules_C_API[DYNRULES_LEARNSYSTEM_FIRSTSLOT+2])
-#endif /* DYNRULES_RULE_INTERNAL */
+#endif /* DYNRULES_LEARNSYSTEM_INTERNAL */
 
 /**
  * C API export.

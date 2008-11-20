@@ -86,7 +86,7 @@ std::string LearnSystem::createFooter () const
 
 std::string LearnSystem::createRules (unsigned int maxrules) const
 {
-    std::string buf, retval;
+    std::string buf, retval = "";
     std::vector<Rule*> rules;
     Rule *rule;
     unsigned int tries, i;
@@ -95,7 +95,7 @@ std::string LearnSystem::createRules (unsigned int maxrules) const
     double wsum, fraction, weights = this->_ruleset->getWeight ();
 
     if (weights == 0 || maxrules == 0)
-        return "";
+        return retval;
 
     rules = this->_ruleset->getRules ();
     count = rules.size ();
@@ -128,7 +128,7 @@ std::string LearnSystem::createRules (unsigned int maxrules) const
                     selected = j;
                     break;
                 }
-                j++;
+                j = ((j + 1) % count);
             }
 
             rule = rules.at (selected);

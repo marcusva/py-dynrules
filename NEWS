@@ -1,5 +1,22 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
+0.0.5 2008-XX-XX
+----------------
+C++ framework:
+  * Fixed a bug in RuleSet::updateWeights() which caused wrong weight
+    results.
+  * Added missing MMapRuleManagement.h include to dynrules.h
+
+Python framework:
+  * Fixed name ambiguity for the Python and C implementation.
+    The visible C types in the dynrules packages were renamed to
+    CRule, CRuleSet and CLearnSystem, the C module types still have their
+    original name.
+  * Fixed C API slots.
+  * Added RuleSet.find() and CRuleSet.find() methods.
+  * New RuleManagement class.
+  * New MMapRuleManagement class for in-memory rule management.
+
 0.0.4 2008-11-20
 ----------------
 C++ framework:

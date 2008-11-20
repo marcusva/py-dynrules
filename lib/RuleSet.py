@@ -76,6 +76,17 @@ class RuleSet (object):
             rule.weight = self.minweight
         self._weight += rule.weight
 
+    def find (self, rid):
+        """R.find (rid) -> Rule
+        
+        Tries to find the Rule with the matching id and returns it.
+        
+        In case no Rule with the passed id exists, None is returned.
+        """
+        if self._rules.has_key (rid):
+            return self._rules[rid]
+        return None
+
     def remove (self, rule):
         """R.remove (rule) -> None
 
