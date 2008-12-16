@@ -1,6 +1,6 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.6 2008-12-XX
+0.0.6 2008-12-16
 ----------------
 Python framework:
   * Added Python 3.x support.
