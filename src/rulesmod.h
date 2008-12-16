@@ -11,15 +11,21 @@
 
 #include <Python.h>
 #include <structmember.h>
+
+#if PY_VERSION_HEX < 0x03000000
 #include <cStringIO.h>
+#endif
 
 #define DYNRULES_RULE_INTERNAL
 #define DYNRULES_RULESET_INTERNAL
 #define DYNRULES_LEARNSYSTEM_INTERNAL
 
+#if PY_VERSION_HEX < 0x03000000
+struct PycStringIO_CAPI* get_stringio_api (void);
+#endif
+
 int get_double_from_obj (PyObject *obj, double *value);
 int get_int_from_obj (PyObject *obj, int *value);
-struct PycStringIO_CAPI* get_stringio_api (void);
 
 extern PyTypeObject PyRule_Type;
 #define PyRule_Check(x) (PyObject_TypeCheck(x, &PyRule_Type))

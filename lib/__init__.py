@@ -10,17 +10,17 @@
 predefined rules and rulesets.
 """
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 
 try:
-    from _dynrules import Rule as CRule
-    from _dynrules import RuleSet as CRuleSet
-    from _dynrules import LearnSystem as CLearnSystem
+    from dynrules._dynrules import Rule as CRule
+    from dynrules._dynrules import RuleSet as CRuleSet
+    from dynrules._dynrules import LearnSystem as CLearnSystem
 except ImportError:
     pass
 
-from Rule import Rule
-from RuleSet import RuleSet
-from LearnSystem import LearnSystem
-from RuleManagement import RuleManagement
-from MMapRuleManagement import MMapRuleManagement
+from dynrules.Rule import Rule
+from dynrules.RuleSet import RuleSet
+from dynrules.LearnSystem import LearnSystem
+from dynrules.RuleManagement import RuleManagement
+from dynrules.MMapRuleManagement import MMapRuleManagement

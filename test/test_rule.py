@@ -1,4 +1,4 @@
-import unittest
+import sys, unittest
 from dynrules import Rule
 
 class RuleTest (unittest.TestCase):
@@ -34,8 +34,12 @@ class RuleTest (unittest.TestCase):
         self.assert_ (rule.code == None)
         rule.code = "Arbitrary string"
         self.assert_ (rule.code == "Arbitrary string")
-        rule.code = buffer("Arbitrary string")
-        self.assert_ (isinstance (rule.code, buffer))
+        if sys.version_info[0] < 3:
+            rule.code = buffer("Arbitrary string")
+            self.assert_ (isinstance (rule.code, buffer))
+        else:
+            rule.code = bytes("Arbitrary string", "ascii")
+            self.assert_ (isinstance (rule.code, bytes))
 
 if __name__ == "__main__":
     unittest.main ()

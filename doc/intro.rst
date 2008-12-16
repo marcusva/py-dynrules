@@ -3,8 +3,8 @@ Introduction
 
 This is the documentation for the dynrules dynamic rules creation
 package. dynrules is a small package that allows you to create
-rule-based scripts based automatically.  It uses the Dynamic Scripting
-technique and algorithms as described by `Pieter Spronck
+rule-based scripts for adaptive AI systems automatically. It uses the
+Dynamic Scripting technique and algorithms as described by `Pieter Spronck
 <http://ticc.uvt.nl/~pspronck/>`_ in his paper *Adaptive Game AI
 with Dynamic Scripting*.
 
@@ -19,7 +19,8 @@ supportive system for creating your own adaptive AI quickly.
 Prerequisites
 =============
 
-dynrules needs at least **Python 2.4** to run. It features both, a C and
+dynrules needs at least **Python 2.4** to run and was successfully tested with
+the versions **2.4, 2.5, 2.6** and **3.0**. It features both, a C and
 pure Python implementation, letting you choose whatever suits you
 more. By default, both implementations will be installed, but the C
 implementation will be preferred by the dynrules internals.
@@ -30,7 +31,6 @@ compiler, which supports parts of the C99 standard, such as the `GCC
 
 Installing dynrules
 ===================
-
 
 You can either use the python way of installing the package using
 distutils or the make command using the Makefile. Simply type ::
@@ -44,7 +44,7 @@ for the traditional python way or ::
 for using the Makefile.
 
 It must be said, that the install target of the Makefile does not do
-anything else than the python way. It simply calls 'python setup.py
+anything different from the python way. It simply calls 'python setup.py
 install'.
 
 Binary packages

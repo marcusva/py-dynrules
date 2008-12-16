@@ -50,8 +50,7 @@ static PyGetSetDef _rule_getsets[] =
 
 PyTypeObject PyRule_Type =
 {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    TYPE_HEAD(NULL,0)
     "_dynrules.Rule",           /* tp_name */
     sizeof (PyRule),            /* tp_basicsize */
     0,                          /* tp_itemsize */
@@ -96,7 +95,10 @@ PyTypeObject PyRule_Type =
     0,                          /* tp_cache */
     0,                          /* tp_subclasses */
     0,                          /* tp_weaklist */
-    0                           /* tp_del */
+    0,                          /* tp_del */
+#if PY_VERSION_HEX >= 0x02060000
+    0                           /* tp_version_tag */
+#endif
 };
 
 
@@ -127,7 +129,7 @@ _rule_dealloc (PyRule *rule)
     Py_XDECREF (rule->code);
     Py_XDECREF (rule->dict);
     rule->code = NULL;
-    rule->ob_type->tp_free ((PyObject *) rule);
+    ((PyObject *)rule)->ob_type->tp_free ((PyObject *) rule);
 }
 
 /* Getters/Setters */
@@ -148,7 +150,7 @@ _rule_getdict (PyRule *rule, void *closure)
 static PyObject*
 _rule_getid (PyRule *rule, void *closure)
 {
-    return PyInt_FromLong (rule->id);
+    return PyLong_FromLong (rule->id);
 }
 
 static PyObject*

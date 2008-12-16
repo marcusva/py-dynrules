@@ -18,14 +18,14 @@ class features the most basic needs to set up your own rules for
 scripts. It consists of an *id*, a *weight* and *code* that defines the
 rule's action.
 
-Let's imagine, you have a Warrior class that can walk in four
+Let's imagine, you have a game with a Warrior class that can walk in four
 directions and fight against enemies. Defining those actions might look
 like ::
 
   class Warrior:
-      def do_walk (direction):
+      def do_walk (self, direction):
           ...
-      def fight (enemy):
+      def fight (self, enemy):
           ...
       ...
 
@@ -43,10 +43,10 @@ to formulate some rules for it: ::
       warrior.do_walk (direction)
 
 What does the above code do? First it checks, whether there is an enemy
-at the specified direction. If it is, and it is weaker than the warrior,
-the warrior will fight it. Otherwise, the warrior will go into the
-opposite direction to escape a possible fight. At last, if no enemy is
-found at the given direction, the warrior will walk towards it.
+at the specified direction the warrior should walk to. If it is, and it is 
+weaker than the warrior, the warrior will fight it. Otherwise, the warrior
+will go into the opposite direction to escape a possible fight. At last, if
+no enemy is found at the given direction, the warrior will walk towards it.
 
 This is a predictable, typical behaviour and sometimes it might happen
 that, although the warrior is weaker, it will fight the enemy with
@@ -66,22 +66,22 @@ Let's formulate some rules for the enemy detection scenario using
 dynrules. ::
 
   # Create a new Rule for fighting the enemy.
-  rule1 = new Rule (1)
+  rule1 = Rule (1)
   rule1.weight = 10
   rule1.code = "if warrior.strength > enemy.strength: warrior.fight (enemy)"
-
+  
   # Create another Rule for fleeing.
-  rule2 = new Rule (2)
+  rule2 = Rule (2)
   rule2.weight = 10
   rule2.code = "if warrior.strength < enemy.strength: warrior.do_walk (~direction)"
-
+  
   # Fighting a stronger enemy
-  rule3 = new Rule (3)
+  rule3 = Rule (3)
   rule3.weight = 5
   rule3.code = "if warrior.strength < enemy.strength: warrior.fight (enemy)"
-
+  
   # Fleeing from a weaker enemy
-  rule4 = new Rule (4)
+  rule4 = Rule (4)
   rule4.weight = 5
   rule4.code = "if warrior.strength > enemy.strength: warrior.do_walk (~direction)"
 
@@ -109,10 +109,11 @@ class requires you to take care of it. ::
   class MyOwnRuleSet (RuleSet):
       def calculate_adjustment (self, fitness):
           # Implement your own success detection here.
-
+          pass
+      
       def distribute_remainder (self, remainder):
           # Implement your own remainder method here.
-
+          pass
 
 ``calculate_adjustment(self, fitness)`` calculates the reward or
 penalty, each used rule receives. The *fitness* argument can be used to
@@ -121,7 +122,10 @@ execution.
 
 ``distribute_remainder (self, remainder)`` is called to distribute the
 difference between the total weight before and after the update once the
-weight updating within the RuleSet is done.
+weight updating within the ``RuleSet`` is done. This might be necessary to
+allow a balancing of rule weights so that the total sum of all rules within a
+``RuleSet`` will remain the same, for example. In reality however, such a
+distribution solely depends on the specific application needs.
 
 The weight update process of the ``RuleSet`` looks like ::
 
@@ -192,9 +196,10 @@ the boundary limits for rules contained in a ``RuleSet``. They define
 the upper and lower weight limit, each rule can have.
 
 From now on, the ``WarriorRuleSet`` is fully functional and can update
-rule weights as necessary. To add another level of automation and to
-create scripts from the rules, a ``LearnSystem`` will be necessary
-however.
+rule weights as necessary. 
+
+To add another level of automation and to create scripts from the rules, a
+``LearnSystem`` will be necessary however.
 
 Generating scripts - LearnSystem
 ================================
@@ -211,7 +216,7 @@ script thus consists of the following tasks.
 
 #. Create script header
 #. Select rules and create code
-#. Create scripts footer
+#. Create script footer
 
 To create a ``LearnSystem`` for the ``WarriorRuleSet``, only a single
 line of code is necessary. ::
@@ -236,28 +241,28 @@ You can modify several attributes and methods of the ``LearnSystem`` to
 tweak it to your personal needs.
 
 ``create_header()`` and ``create_footer()`` are used to create necesary
-code to add before and after the rules. That can be initialization and
-finalization code, checks or whatever is necessary for the target
+code to add before and after the rules. That can be initialisation and
+finalisation code, checks or whatever is necessary for the target
 system. Both methods return a string containing the code to add. ::
 
   class OwnLearnSystem (LearnSystem):
       def create_header (self):
           # Create header code
-          return 'execute_rules (object):\\n' + \\
-                 '  selected_rule = None\\n'
+          return 'def execute_rules (object):\n' + \
+                 '    selected_rule = None\n'
           
       def create_footer (self):
           # Create footer code
-          return '  return selected_rule\\n'
+          return '    return selected_rule\n'
 
 The above class would generate the following code: ::
 
-  execute_rules (object):
-    selected_rule = None
-    #
-    # RULE CODE
-    #
-    return selected_rule
+  def execute_rules (object):
+      selected_rule = None
+      #
+      # RULE CODE
+      #
+      return selected_rule
 
 The *maxscriptsize* attribute allows you to define the maximum size in
 bytes of a script to generate. *maxscriptsize* does not take the header
@@ -268,7 +273,7 @@ and footer into account, but only the code generated from the rules. ::
 
 *maxtries* limits the rule selection process, so that it does not take
 infinite trials to find a rule to add. This can be very helpful to
-limit the time spent in the rule selection process. ::
+limit the time spent on selecting rules. ::
 
   # Only try to find new rules 50 times.
   warriorlearnsystem.maxtries = 5

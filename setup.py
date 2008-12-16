@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 import os, sys, glob
 
 DEBUG = "1"
-VERSION = "0.0.5"
+VERSION = "0.0.6"
 
 def get_sources ():
     return glob.glob (os.path.join ("src", "*.c"))
@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.5\"")]
+    defines = [("VERSION", "\"0.0.6\"")]
     return defines
 
 ##
@@ -38,12 +38,17 @@ if __name__ == "__main__":
                           language="c",define_macros=get_defines (),
                           extra_compile_args=compile_args)
 
-    long_desc = "dynrules is a dynamic ruleset scripting package for Python. It uses the Dynamic Scripting technique to create AAI scripts automatically from predefined rulesets."
+    long_desc = \
+"""
+dynrules is a dynamic ruleset scripting package for Python. It uses the Dynamic
+Scripting technique to create adaptive AI scripts automatically from predefined
+rulesets.
+"""
 
     setupdata = {
         "name" :  "dynrules",
         "version" : VERSION,
-        "description" : "Simple dynamic ruleset system",
+        "description" : "Simple dynamic ruleset system for adaptive AI",
         "long_description" : long_desc,
         "author" : "Marcus von Appen",
         "author_email" : "marcus@sysfault.org",
@@ -60,6 +65,11 @@ if __name__ == "__main__":
             "Operating System :: OS Independent",
             "Programming Language :: C",
             "Programming Language :: Python",
+            "Programming Language :: Python :: 2.4",
+            "Programming Language :: Python :: 2.5",
+            "Programming Language :: Python :: 2.6",
+            "Programming Language :: Python :: 2.7",
+            "Programming Language :: Python :: 3",
             "Topic :: Scientific/Engineering :: Artificial Intelligence",
             "Topic :: Software Development :: Code Generators",
             "Topic :: Software Development :: Libraries :: Python Modules",

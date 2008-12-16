@@ -36,7 +36,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'dynrules'
-copyright = '2008, Marcus von Aüppen'
+copyright = '2008, Marcus von Appen'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.

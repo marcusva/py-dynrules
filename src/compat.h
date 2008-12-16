@@ -28,6 +28,20 @@ typedef getcharbufferproc charbufferproc;
 
 #endif /* PY_VERSION_HEX < 0x02050000 */
 
+#if PY_VERSION_HEX >= 0x03000000
+
+#define MOD_RETURN(x) return(x)
+#define TYPE_HEAD(x,y) PyVarObject_HEAD_INIT(x,y)
+
+#else 
+
+#define MOD_RETURN(x) return
+#define TYPE_HEAD(x,y)                          \
+    PyObject_HEAD_INIT(x)                       \
+    0,
+
+#endif /* PY_VERSION_HEX >= 0x03000000 */
+
 #ifdef __cplusplus
 }
 #endif

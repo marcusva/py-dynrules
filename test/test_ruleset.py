@@ -1,4 +1,4 @@
-import unittest
+import sys, unittest
 from dynrules import Rule, RuleSet
 
 class RuleSetTest (unittest.TestCase):
@@ -58,7 +58,7 @@ class RuleSetTest (unittest.TestCase):
         self.assertRaises (TypeError, ruleset.add, None)
         self.assertRaises (TypeError, ruleset.add, 10)
 
-        for i in xrange (10):
+        for i in range (10):
             ruleset.add (Rule (i))
         self.assert_ (len (ruleset.rules) == 10)
         self.assert_ (ruleset.weight == 100)
@@ -85,7 +85,7 @@ class RuleSetTest (unittest.TestCase):
         ruleset = RuleSet (10, 20)
 
         rule = None
-        for i in xrange (10):
+        for i in range (10):
             rule = Rule (i)
             rule.weight = 15
             ruleset.add (rule)

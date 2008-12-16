@@ -9,11 +9,15 @@
 try:
     import cStringIO as stringio
 except ImportError:
-    import StringIO as stringio
+    import sys
+    if sys.version_info[0] >= 3:
+        import io as stringio
+    else:
+        import StringIO as stringio
 from random import uniform
 
-from Rule import Rule
-from RuleSet import RuleSet
+from dynrules.Rule import Rule
+from dynrules.RuleSet import RuleSet
 
 class LearnSystem (object):
     """LearnSystem (ruleset) -> LearnSystem
@@ -85,6 +89,9 @@ class LearnSystem (object):
         scriptfile can be either a file object or filename.
         In case of a file object it is assumed to be writeable and won't
         be closed on leaving the function (but flushed).
+        
+        IMPORTANT for Python 3.x: The CLearnSystem implementation requires a
+        file object under Python 3.0 - file names are not supported.
         """
         isopen = False
         filep = None

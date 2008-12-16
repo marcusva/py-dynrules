@@ -6,8 +6,8 @@
 ## This file is distributed under the Public Domain.
 ##
 
-from Rule import Rule
-from RuleManagement import RuleManagement
+from dynrules.Rule import Rule
+from dynrules.RuleManagement import RuleManagement
 
 class MMapRuleManagement (RuleManagement):
     """MMapRuleManagement (maxrules) -> MMapRuleManagement

@@ -6,7 +6,7 @@
 ## This file is distributed under the Public Domain.
 ##
 
-from Rule import Rule
+from dynrules.Rule import Rule
 
 class RuleSet (object):
     """RuleSet () -> RuleSet
@@ -66,7 +66,7 @@ class RuleSet (object):
         """
         if not isinstance (rule, Rule):
             raise TypeError ("rule must be a Rule")
-        if self._rules.has_key (rule.id):
+        if rule.id in self._rules:
             self._weight -= self._rules[rule.id].weight
             
         self._rules[rule.id] = rule
@@ -83,7 +83,7 @@ class RuleSet (object):
         
         In case no Rule with the passed id exists, None is returned.
         """
-        if self._rules.has_key (rid):
+        if rid in self._rules:
             return self._rules[rid]
         return None
 
@@ -94,7 +94,7 @@ class RuleSet (object):
         """
         if not isinstance (rule, Rule):
             raise TypeError ("rule must be a Rule")
-        if not self._rules.has_key (rule.id):
+        if not rule.id in self._rules:
             raise ValueError ("rule does not exist")
         if rule != self._rules[rule.id]:
             raise ValueError ("rule does not match rule in RuleSet")
@@ -175,7 +175,7 @@ class RuleSet (object):
             totweight += rule.weight
         self._weight = totweight
 
-    rules = property (lambda self: self._rules.values (), doc = "")
+    rules = property (lambda self: list (self._rules.values ()) , doc = "")
     minweight = property (lambda self: self._minweight,
                     lambda self, var: self._set_minweight (var),
                     doc = "Gets or sets the minimum weight to use for Rules")

@@ -77,8 +77,7 @@ static PyGetSetDef _ruleset_getsets[] =
 
 PyTypeObject PyRuleSet_Type =
 {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    TYPE_HEAD(NULL,0)
     "_dynrules.RuleSet",           /* tp_name */
     sizeof (PyRuleSet),         /* tp_basicsize */
     0,                          /* tp_itemsize */
@@ -123,7 +122,10 @@ PyTypeObject PyRuleSet_Type =
     0,                          /* tp_cache */
     0,                          /* tp_subclasses */
     0,                          /* tp_weaklist */
-    0                           /* tp_del */
+    0,                          /* tp_del */
+#if PY_VERSION_HEX >= 0x02060000
+    0                           /* tp_version_tag */
+#endif
 };
 
 
@@ -156,7 +158,7 @@ _ruleset_dealloc (PyRuleSet *ruleset)
 {
     Py_XDECREF (ruleset->rules);
     Py_XDECREF (ruleset->dict);
-    ruleset->ob_type->tp_free ((PyObject *) ruleset);
+    ((PyObject *) ruleset)->ob_type->tp_free ((PyObject *) ruleset);
 }
 
 /* Getters/Setters */
@@ -358,7 +360,7 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
     rset = (PyRuleSet*) ruleset;
     r = (PyRule*) rule;
 
-    kv = PyInt_FromLong (r->id);
+    kv = PyLong_FromLong (r->id);
 
     entry = (PyRule*) PyDict_GetItem (rset->rules, kv);
     if (entry)
@@ -401,7 +403,7 @@ PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
     rset = (PyRuleSet*) ruleset;
     r = (PyRule*) rule;
 
-    kv = PyInt_FromLong (r->id);
+    kv = PyLong_FromLong (r->id);
 
     entry = (PyRule*) PyDict_GetItem (rset->rules, kv);
     if (entry)

@@ -1,5 +1,12 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
+0.0.6 2008-12-XX
+----------------
+Python framework:
+  * Added Python 3.x support.
+    Note that CLearnSystem.create_script() does not accept file names with
+    Python 3.0, only file objects.
+
 0.0.5 2008-11-21
 ----------------
 C++ framework:
