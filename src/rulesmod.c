@@ -43,10 +43,9 @@ get_int_from_obj (PyObject *obj, int *value)
 
     if (PyNumber_Check (obj))
     {
-        val = PyNumber_Int (obj);
+        val = PyNumber_Long (obj);
         if (!val)
             return 0;
-
         result = PyLong_AsLong (obj);
         Py_DECREF (val);
 

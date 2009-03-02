@@ -489,13 +489,24 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
         alreadyopen = 1;
     }
 #if PY_VERSION_HEX < 0x03000000
-    else if (PyString_Check (file) || PyUnicode_Check (file))
+    else if (PyUnicode_Check (file) || PyString_Check (file))
     {
         char *s = PyString_AsString (file);
         if (!s)
             return 0;
 
         fp = PyFile_FromString (s, "a");
+        if (!fp)
+            return 0;
+    }
+#else
+    else if (PyUnicode_Check (file) ||  PyBytes_Check (file))
+    {
+        PyObject *io = PyImport_ImportModule ("io");
+        if (!io)
+            return 0;
+        fp = PyObject_CallMethod (io, "open", "ss", file, "w");
+        Py_DECREF (io);
         if (!fp)
             return 0;
     }

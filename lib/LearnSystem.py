@@ -15,6 +15,11 @@ except ImportError:
     else:
         import StringIO as stringio
 from random import uniform
+import os
+
+if sys.version_info[0] >= 3:
+    xrange = range
+    unicode = bytes
 
 from dynrules.Rule import Rule
 from dynrules.RuleSet import RuleSet
@@ -89,17 +94,17 @@ class LearnSystem (object):
         scriptfile can be either a file object or filename.
         In case of a file object it is assumed to be writeable and won't
         be closed on leaving the function (but flushed).
-        
-        IMPORTANT for Python 3.x: The CLearnSystem implementation requires a
-        file object under Python 3.0 - file names are not supported.
         """
         isopen = False
         filep = None
-        if type (scriptfile) is file:
-            isopen = True
-            filep = scriptfile # Already open
+        if type (scriptfile) in (str, unicode):
+            if sys.version_info[0] >= 3:
+                filep = stringio.open (scriptfile, "a")
+            else:
+                filep = open (scriptfile, "a")
         else:
-            filep = open (scriptfile, "a")
+            filep = scriptfile
+            isopen = True
 
         filep.write (self.create_header ())
         filep.write (self.create_rules (maxrules))
@@ -192,7 +197,7 @@ class LearnSystem (object):
     maxscriptsize = property (lambda self: self._maxscriptsize,
                               lambda self, var: self._set_maxscriptsize (var),
                               doc = "Gets or sets the maximum script size " +\
-                              "inserting rules")
+                              "for inserting rules")
     ruleset = property (lambda self: self._ruleset,
                         lambda self, var: self._set_ruleset (var),
                         doc = "Gets or sets the RuleSet to use")

@@ -43,14 +43,14 @@ for the traditional python way or ::
 
 for using the Makefile.
 
-It must be said, that the install target of the Makefile does not do
+It must be said that the install target of the Makefile does not do
 anything different from the python way. It simply calls 'python setup.py
 install'.
 
 Binary packages
 ===============
 
-dyrules is not provided as binary package by the author. It might be
+dynrules is not provided as binary package by the author. It might be
 that someone else set up such a package for your wanted operating system
 or distribution. Those packages are usually not supported by the author,
 which means that installation problems or similar issues, which do not

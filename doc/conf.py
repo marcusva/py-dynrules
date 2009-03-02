@@ -36,15 +36,15 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'dynrules'
-copyright = '2008, Marcus von Appen'
+copyright = 'Public Domain in 2008 and even 2009'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '0.0.6'
+version = '0.0.7'
 # The full version, including alpha/beta/rc tags.
-release = '0.0.6'
+release = '0.0.7'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:

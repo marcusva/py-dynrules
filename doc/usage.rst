@@ -276,5 +276,10 @@ infinite trials to find a rule to add. This can be very helpful to
 limit the time spent on selecting rules. ::
 
   # Only try to find new rules 50 times.
-  warriorlearnsystem.maxtries = 5
+  warriorlearnsystem.maxtries = 50
+
+That's it. We now have a basic dynamic scripting system that can select
+rules, create scripts and update the rule weights upon execution of the
+scripts. Now it is time to integrate all of it into the AI logic code!
+
 

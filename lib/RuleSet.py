@@ -9,9 +9,14 @@
 from dynrules.Rule import Rule
 
 class RuleSet (object):
-    """RuleSet () -> RuleSet
+    """RuleSet (minweight, maxweight) -> RuleSet
 
-    Creates a new, empty RuleSet
+    Creates a new, empty RuleSet.
+    
+    RuleSet is a rule container class that manages rules, their weights
+    and the weight distribution for the rules. The minweight and maxweight
+    parameters are the minimum and maximum weight boundaries, each rule's
+    weight has to stay in.
     """
     def __init__ (self, minweight, maxweight):
         self._rules = {}
@@ -103,7 +108,7 @@ class RuleSet (object):
         del self._rules[rule.id]
 
     def calculate_adjustment (self, fitness):
-        """R.calculate_adjustment (fitness)
+        """R.calculate_adjustment (fitness) -> float
 
         Calculates the reward or penalty for the active rules.
 
@@ -116,21 +121,24 @@ class RuleSet (object):
         raise NotImplementedError ("method not implemented")
 
     def distribute_remainder (self, remainder):
-        """R.distribute_remainder (remainder) -> alue
+        """R.distribute_remainder (remainder) -> value
 
         Distributes the remainder of the weight differences.
 
         Distributes the remainder of the weight differences between the
         last weights and current weights.
 
-        The method must return a value
+        The method must return a value.
         
         This must be implemented by inheriting classes.
         """
         raise NotImplementedError ("method not implemented")
         
     def update_weights (self, fitness):
-        """
+        """R.update_weights (fitness) -> None
+        
+        Updates the weights of all contained rules.
+        
         Adapted from Pieter Spronck's algorithm as explained in
         Spronck et al: 2005, 'Adaptive Game AI with Dynamic Scripting'
         """
@@ -175,7 +183,8 @@ class RuleSet (object):
             totweight += rule.weight
         self._weight = totweight
 
-    rules = property (lambda self: list (self._rules.values ()) , doc = "")
+    rules = property (lambda self: list (self._rules.values ()),
+                      doc = "Gets the list of currently managed Rule objects")
     minweight = property (lambda self: self._minweight,
                     lambda self, var: self._set_minweight (var),
                     doc = "Gets or sets the minimum weight to use for Rules")
@@ -183,4 +192,4 @@ class RuleSet (object):
                     lambda self, var: self._set_maxweight (var),
                     doc = "Gets or sets the maximum weight to use for Rules")
     weight = property (lambda self: self._weight,
-                       doc = "Gets the total weight of all Rules")
+                       doc = "Gets the total weight of all managed Rules")

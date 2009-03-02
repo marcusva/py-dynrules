@@ -6,6 +6,10 @@
 ## This file is distributed under the Public Domain.
 ##
 
+import sys
+if sys.version_info[0] >= 3:
+    import io
+
 class RuleManagement (object):
     """RuleManagement (maxrules) -> RuleManagement
 
@@ -13,7 +17,7 @@ class RuleManagement (object):
 
     The RuleManagement class takes care of loading and saving rules from
     arbitrary data sources.
-    The base is an abstract class, which's loadRules() method must be
+    The base is an abstract class, which's load_rules() method must be
     implemented according to the specific needs of the application.
     """
     def __init__ (self, maxrules):
@@ -39,15 +43,15 @@ class RuleManagement (object):
         
         Saves the passed rules to the underlying data source.
         
-        Saves the passed rules to the underlying data source and returns true
-        on success or false, if saving the rules was not possible.
+        Saves the passed rules to the underlying data source and returns True
+        on success or False, if saving the rules was not possible.
         
         This must be implemented by inheriting classes.
         """
         raise NotImplementedError ("method not implemented")
         
     def save_rules_hint_file (self, prefix, suffix, learnsystem):
-        """R.save_rules_hint_file (filename learnsystem) -> None
+        """R.save_rules_hint_file (prefix, suffix, learnsystem) -> None
         
         Saves a LearnSystem/RuleSet combination to a physical file.
         The file can have a specific, unique name in the form:
@@ -55,9 +59,8 @@ class RuleManagement (object):
         %prefix%_rules_%suffix%.py
         """
         filename = "%s_rules_%s.py" % (prefix, suffix)
-        fp = open (filename, "a")
-        learnsystem.create_script (fp, self._maxrules)
-        fp.close ()
+        learnsystem.create_script (filename, self._maxrules)
+            
     
     maxrules = property (lambda self: self._maxrules,
                          doc = "The maximum amount of rule to manage")

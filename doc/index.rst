@@ -4,11 +4,13 @@ Welcome to the dynrules documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    intro
    usage
-
+   pyapi
+   capi
+   
 Indices and tables
 ==================
 

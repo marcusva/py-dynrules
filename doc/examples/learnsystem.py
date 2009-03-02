@@ -13,7 +13,7 @@ class Learner (LearnSystem):
 
 def create_rules ():
     ruleset = RuleSet (0, 10)
-    for i in xrange (20):
+    for i in range (20):
         rule = Rule (i)
         rule.weight = 1
         rule.code = "# CODE FOR RULE %d\n" % i
