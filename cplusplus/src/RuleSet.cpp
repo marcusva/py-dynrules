@@ -61,7 +61,7 @@ double RuleSet::getWeight () const
     return this->_weight;
 }
 
-std::vector<Rule*> RuleSet::getRules()
+std::vector<Rule*> RuleSet::getRules ()
 {
     return this->_rules;
 }
@@ -111,7 +111,7 @@ void RuleSet::clear ()
     this->_weight = 0.f;
 }
 
-void RuleSet::updateWeights (double fraction, void *fitness)
+void RuleSet::updateWeights (void *fitness)
 {
     /*
      * Adapted from Pieter Spronck's algorithm as explained in
@@ -145,7 +145,7 @@ void RuleSet::updateWeights (double fraction, void *fitness)
     {
         rule = *it;
 
-        weight = rule->getWeight () + \
+        weight = rule->getWeight () +
             ((rule->getUsed ()) ? adjustment : compensation);
 
         if (weight < this->_minweight)
@@ -170,6 +170,7 @@ void RuleSet::updateWeights (double fraction, void *fitness)
     for (it = this->_rules.begin (); it != this->_rules.end (); it++)
     {
         rule = *it;
+        rule->setUsed (false);
         totweight += rule->getWeight ();
     }
     this->_weight = totweight;

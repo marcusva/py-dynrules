@@ -58,6 +58,7 @@ public:
      * \return A std::vector containing the loaded rules.
      */
     virtual std::vector<Rule*> loadRules () = 0;
+
     /**
      * \brief Loads a specific amount of rules from the underlying data source.
      *
@@ -81,6 +82,7 @@ public:
      * %prefix%_rules_%suffix%.py
      *
      * \param prefix The file prefix.
+     * \param suffix The file suffix to use.
      * \param lsystem The LearnSystem to save the rules for.
      * \return true on success, false otherwise.
      */

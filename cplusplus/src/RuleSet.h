@@ -13,7 +13,7 @@
 #include "Rule.h"
 
 /**
- * A container class for managing Rule objects and their weights.
+ * \brief A container class for managing Rule objects and their weights.
  */
 class RuleSet
 {
@@ -120,13 +120,11 @@ public:
      * Updates the weights of all contained Rule objects based on Pieter
      * Spronck's dynamic scripting algorithm.
      *
-     * \param fraction The fraction value to distribute to the contained
-     * Rule objects.
      * \param fitness The measure of the overall fitness of the
      * performance or whatever is suitable in the concrete
-     * RuleSet::calculateAdjustment() implementation
+     * RuleSet::calculateAdjustment() implementation.
      */
-    void updateWeights (double fraction, void *fitness);
+    void updateWeights (void *fitness);
 
     /**
      * \brief Calculates the reward or penalty for the active rules.

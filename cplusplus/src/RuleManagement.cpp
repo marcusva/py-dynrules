@@ -17,6 +17,11 @@ RuleManagement::~RuleManagement ()
 {
 }
 
+unsigned int RuleManagement::getMaxRules ()
+{
+    return this->_maxrules;
+}
+
 bool RuleManagement::saveRulesHintFile (std::string prefix,
     std::string suffix, LearnSystem *lsystem)
 {

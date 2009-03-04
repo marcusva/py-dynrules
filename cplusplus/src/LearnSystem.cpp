@@ -103,10 +103,6 @@ std::string LearnSystem::createRules (unsigned int maxrules) const
     /* Initialise the random number generator */
     srand (time (0));
 
-    /* TODO: we do not guarantee that j < count. Usually this should be
-     * dealt by the fraction sum function, though a safety net using
-     * j % count or so might be better.
-     */
     for (i = 0; i < maxrules; i++)
     {
         if (written >= static_cast<size_t>(this->_maxscriptsize))
