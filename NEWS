@@ -1,6 +1,6 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.7 2009-03-XX
+0.0.7 2009-03-09
 ----------------
 C++ framework:
   * Added missing RuleManagement::getMaxRules() method.
@@ -59,3 +59,4 @@ C++ framework:
 0.0.1 2008-10-06
 ----------------
 * Initial release.
+
