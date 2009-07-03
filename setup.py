@@ -3,8 +3,8 @@ import distutils.sysconfig
 from distutils.core import setup, Extension
 import os, sys, glob
 
-DEBUG = "1"
-VERSION = "0.0.7"
+DEBUG = True
+VERSION = "0.0.8"
 
 def get_sources ():
     return glob.glob (os.path.join ("src", "*.c"))
@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.7\"")]
+    defines = [("VERSION", "\"0.0.8\"")]
     return defines
 
 ##
@@ -24,14 +24,14 @@ if __name__ == "__main__":
     compile_args = []
 
     # GCC specific code START.
-##     if DEBUG != "0":
+##     if DEBUG:
 ##         compile_args += ["-W", "-Wall", "-Wpointer-arith", "-Wcast-qual",
 ##                       "-Winline", "-Wcast-align", "-Wconversion",
 ##                       "-Wstrict-prototypes", "-Wmissing-prototypes",
 ##                       "-Wmissing-declarations", "-Wnested-externs",
 ##                       "-Wshadow", "-Wredundant-decls"
 ##                      ]
-##     compile_args += ["-std=c99", "-g"]
+##         compile_args += ["-std=c99", "-g"]
     # GCC specific code END.
     
     dynrules = Extension ("dynrules._dynrules", sources=get_sources (),

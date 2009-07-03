@@ -6,16 +6,16 @@
 ## This file is distributed under the Public Domain.
 ##
 
+from random import uniform
+import os, sys
+
 try:
     import cStringIO as stringio
 except ImportError:
-    import sys
     if sys.version_info[0] >= 3:
         import io as stringio
     else:
         import StringIO as stringio
-from random import uniform
-import os
 
 if sys.version_info[0] >= 3:
     xrange = range
