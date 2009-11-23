@@ -39,7 +39,7 @@ class LearnSystem (object):
     * rule code creation
     * footer creation
 
-    The header and footer are freely choosable. You can simple override
+    The header and footer are freely choosable. You can simply override
     or reassign the create_header() and create_footer() methods to let
     them return your required code.
     """
