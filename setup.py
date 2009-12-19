@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 import os, sys, glob
 
 DEBUG = True
-VERSION = "0.0.8"
+VERSION = "0.0.9"
 
 def get_sources ():
     return glob.glob (os.path.join ("src", "*.c"))
@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.8\"")]
+    defines = [("VERSION", "\"0.0.9\"")]
     return defines
 
 ##
@@ -59,8 +59,9 @@ rulesets.
         "ext_modules" : [ dynrules ],
         "headers" : get_headers (),
         "classifiers" : [
-            "Development Status :: 3 - Alpha",
+            "Development Status :: 4 - Beta",
             "Intended Audience :: Developers",
+            "Intended Audience :: Science/Research",
             "License :: Public Domain",
             "Operating System :: OS Independent",
             "Programming Language :: C",
@@ -70,6 +71,7 @@ rulesets.
             "Programming Language :: Python :: 2.6",
             "Programming Language :: Python :: 2.7",
             "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.1",
             "Topic :: Scientific/Engineering :: Artificial Intelligence",
             "Topic :: Software Development :: Code Generators",
             "Topic :: Software Development :: Libraries :: Python Modules",

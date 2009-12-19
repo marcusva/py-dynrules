@@ -4,7 +4,7 @@ Welcome to the dynrules documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    intro
    usage

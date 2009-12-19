@@ -11,7 +11,7 @@ You now can start to create own rulesets and set up your script
 generator.
 
 Creating rules - Rule
-=====================
+---------------------
 
 A rule defines certain criteria of an object's behaviour. The ``Rule``
 class features the most basic needs to set up your own rules for
@@ -89,7 +89,7 @@ We set up the necessary rules. Now it's time to put them together in a
 ``RuleSet`` that takes care of them.
 
 Weighting rules - RuleSet
-=========================
+-------------------------
 
 Weighting a rule means to mark and measure its priority or importance
 within a set of applicable rules. The more important a rule is, the
@@ -202,7 +202,7 @@ To add another level of automation and to create scripts from the rules, a
 ``LearnSystem`` will be necessary however.
 
 Generating scripts - LearnSystem
-================================
+--------------------------------
 
 The ``LearnSystem`` class is used to create scripts automatically from
 an existing ``RuleSet``. It generates the scripts in a programming
@@ -281,5 +281,3 @@ limit the time spent on selecting rules. ::
 That's it. We now have a basic dynamic scripting system that can select
 rules, create scripts and update the rule weights upon execution of the
 scripts. Now it is time to integrate all of it into the AI logic code!
-
-

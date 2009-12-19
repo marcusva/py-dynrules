@@ -6,10 +6,6 @@
 ## This file is distributed under the Public Domain.
 ##
 
-import sys
-if sys.version_info[0] >= 3:
-    import io
-
 class RuleManagement (object):
     """RuleManagement (maxrules) -> RuleManagement
 

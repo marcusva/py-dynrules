@@ -5,6 +5,7 @@ This NEWS file for dynrules covers a short overview about the latest changes.
 Python framework:
   * Added C API documentation.
   * Added C API tests.
+  * import cleanups.
 
 0.0.8 2009-07-03
 ----------------
