@@ -35,9 +35,6 @@ Methods
         
   This does nothing and will always return True.
 
-.. method:: MMapRuleManagement.save_rules_hint_file (prefix, suffix, learnsystem) -> None
+.. method:: MMapRuleManagement.save_rules_hint_file (filename, learnsystem) -> None
         
   Saves a :class:`LearnSystem`/:class:`RuleSet` combination to a physical file.
-  The file can have a specific, unique name in the form: ::
-        
-    %prefix%_rules_%suffix%.py

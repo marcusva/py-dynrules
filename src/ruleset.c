@@ -128,8 +128,6 @@ PyTypeObject PyRuleSet_Type =
 #endif
 };
 
-
-
 /**
  * Creates a new PyRuleSet.
  */

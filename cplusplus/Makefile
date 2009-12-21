@@ -1,35 +1,72 @@
+PREFIX ?= /usr/local
+LIBDIR ?= $(PREFIX)/lib
+INCDIR ?= $(PREFIX)/include
+
 CC ?= g++
-CFLAGS ?= -g -O0
+CFLAGS ?= -O2
 WFLAGS ?= -pedantic-errors -W -Wall -Wpointer-arith -Wcast-qual -Winline \
 	-Wcast-align -Wconversion -Wshadow -Wredundant-decls \
-	-Wctor-dtor-privacy  -Wnon-virtual-dtor -Wreorder -Weffc++ \
-	-Wstrict-null-sentinel  -Wno-non-template-friend -Wold-style-cast \
+	-Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Weffc++ \
+	-Wno-non-template-friend -Wold-style-cast \
 	-Woverloaded-virtual -Wsign-promo 
-RM ?= rm -f
+INCLUDES = -I./
+
 AR ?= ar
 LINKFLAGS ?= rcs
 
-SOURCES = src/Rule.cpp src/RuleSet.cpp src/LearnSystem.cpp \
-	src/RuleManagement.cpp src/MMapRuleManagement.cpp
+RM ?= rm -f
+INSTALL ?= install
+INSTALL_DATA ?= $(INSTALL) -c -m 444
+
+OBJDIR = obj
+BLDDIR = lib
+SRCDIR = src
+DOCAPIDIR = doc
+
+HEADERS = \
+	src/dynrules.h \
+	src/LearnSystem.h \
+	src/MMapRuleManagement.h \
+	src/Rule.h \
+	src/RuleManagement.h \
+	src/RuleSet.h
+
+SOURCES = Rule.cpp  RuleSet.cpp  LearnSystem.cpp  RuleManagement.cpp \
+	MMapRuleManagement.cpp
+
 OBJECTS = $(SOURCES:%.cpp=%.o)
-INCLUDES = -I./
 TARGET = libdynrules.a
 
+# Example flags.
 EXINCLUDES = -I./ -I./src
-LFLAGS = -L./ -ldynrules -lstdc++
+LFLAGS = -L$(BLDDIR)/ -ldynrules -lstdc++
 EXAMPLES = learnsystem
 
+all: clean dirs $(OBJECTS) link
 
-all: clean $(OBJECTS) link
+docs:
+	@cd $(DOCAPIDIR)/ && doxygen api.doxygen
 
-.cpp.o:
-	$(CC) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c -o $@ $<
+dirs:
+	@mkdir -p $(OBJDIR) $(BLDDIR)
+    
+$(OBJECTS):
+	$(CC) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c $(SRCDIR)/$*.cpp -o $(OBJDIR)/$*.o
 
 link:
-	$(AR) $(LINKFLAGS) $(TARGET) $(OBJECTS)
+	$(AR) $(LINKFLAGS) $(BLDDIR)/$(TARGET) $(OBJECTS:%.o=$(OBJDIR)/%.o)
 
 clean:
-	$(RM) *.o *.a *~ src/*.o src/*~ examples/*~ $(EXAMPLES)
+	$(RM) $(SRCDIR)/*~ examples/*~ $(EXAMPLES)
+	$(RM) -r $(OBJDIR) $(BLDDIR) $(DOCAPIDIR)/html
+
+install:
+	$(INSTALL) -d $(INCDIR)/dynrules
+	$(INSTALL_DATA) $(HEADERS) $(INCDIR)/dynrules
+	$(INSTALL) -d $(LIBDIR)
+	for target in $(TARGETS); do \
+		$(INSTALL) -s $(BLDDIR)/$$target $(LIBDIR)/$$target; \
+	done
 
 # Examples
 examples: learnsystem

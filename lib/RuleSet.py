@@ -20,9 +20,11 @@ class RuleSet (object):
     """
     def __init__ (self, minweight, maxweight):
         self._rules = {}
-        self._minweight = minweight
-        self._maxweight = maxweight
+        self._minweight = 0
+        self._maxweight = 0
         self._weight = 0
+        self._set_maxweight (maxweight)
+        self._set_minweight (minweight)
 
     def _set_minweight (self, minweight):
         """R._set_minweight (minweight) -> None

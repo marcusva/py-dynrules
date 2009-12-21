@@ -7,7 +7,11 @@
  */
 
 #include <ctime>
+#include <stdexcept>
 #include "LearnSystem.h"
+
+namespace dynrules
+{
 
 LearnSystem::LearnSystem () :
     _maxtries (100),
@@ -49,6 +53,8 @@ RuleSet* LearnSystem::getRuleSet () const
 
 void LearnSystem::setRuleSet (RuleSet* ruleset)
 {
+    if (ruleset == 0)
+        throw new std::invalid_argument ("ruleset must not be NULL");
     this->_ruleset = ruleset;
 }
 
@@ -101,7 +107,7 @@ std::string LearnSystem::createRules (unsigned int maxrules) const
     count = rules.size ();
 
     /* Initialise the random number generator */
-    srand (time (0));
+    srand (static_cast<unsigned int>(time (0)));
 
     for (i = 0; i < maxrules; i++)
     {
@@ -155,3 +161,5 @@ void LearnSystem::createScript (std::ostream& stream, unsigned int maxrules)
     stream << this->createFooter () << std::endl;
     return;
 }
+
+} // namespace

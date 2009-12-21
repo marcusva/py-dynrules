@@ -35,9 +35,6 @@ Methods
         
   This must be implemented by inheriting classes.
 
-.. method:: RuleManagement.save_rules_hint_file (prefix, suffix, learnsystem) -> None
+.. method:: RuleManagement.save_rules_hint_file (filename, learnsystem) -> None
         
   Saves a :class:`LearnSystem`/:class:`RuleSet` combination to a physical file.
-  The file can have a specific, unique name in the form: ::
-        
-    %prefix%_rules_%suffix%.py

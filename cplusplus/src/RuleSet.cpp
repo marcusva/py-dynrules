@@ -6,7 +6,11 @@
  * This file is distributed under the Public Domain.
  */
 
+#include <stdexcept>
 #include "RuleSet.h"
+
+namespace dynrules
+{
 
 RuleSet::RuleSet () :
     _minweight(0),
@@ -23,7 +27,7 @@ RuleSet::RuleSet (double minweight, double maxweight) :
     _rules(0)
 {
     if (minweight > maxweight)
-        throw "maxweight must not be smaller than minweight";
+        throw std::invalid_argument ("maxweight must not be smaller than minweight");
     this->_minweight = minweight;
     this->_maxweight = maxweight;
 }
@@ -40,7 +44,7 @@ double RuleSet::getMinWeight () const
 void RuleSet::setMinWeight (double minweight)
 {
     if (minweight > this->_maxweight)
-        throw "maxweight must not be smaller than minweight";
+        throw std::invalid_argument ("maxweight must not be smaller than minweight");
     this->_minweight = minweight;
 }
 
@@ -52,7 +56,7 @@ double RuleSet::getMaxWeight () const
 void RuleSet::setMaxWeight (double maxweight)
 {
     if (maxweight < this->_minweight)
-        throw "maxweight must not be smaller than minweight";
+        throw std::invalid_argument ("maxweight must not be smaller than minweight");
     this->_maxweight = maxweight;
 }
 
@@ -61,13 +65,16 @@ double RuleSet::getWeight () const
     return this->_weight;
 }
 
-std::vector<Rule*> RuleSet::getRules ()
+std::vector<Rule*> RuleSet::getRules () const
 {
     return this->_rules;
 }
 
 void RuleSet::addRule (Rule* rule)
 {
+    if (rule == 0)
+        throw std::invalid_argument ("rule must not be NULL");
+
     this->_rules.push_back (rule);
     if (rule->getWeight() > this->_maxweight)
         rule->setWeight (this->_maxweight);
@@ -78,6 +85,9 @@ void RuleSet::addRule (Rule* rule)
 
 bool RuleSet::removeRule (Rule* rule)
 {
+    if (rule == 0)
+        return false;
+
     bool found = false;
     std::vector<Rule*>::iterator iter;
     for (iter = this->_rules.begin (); iter != this->_rules.end (); iter++)
@@ -184,3 +194,5 @@ double RuleSet::calculateAdjustment (void *fitness)
 void RuleSet::distributeRemainder (double remainder)
 {
 }
+
+} // namespace

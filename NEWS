@@ -2,7 +2,18 @@ This NEWS file for dynrules covers a short overview about the latest changes.
 
 0.0.9 2009-xx-xx
 ----------------
+C++ framework:
+  * Changed RuleManagement.save_rules_hint_file() to take a filename instead
+    of prefix and suffix.
+  * Better Makefile support
+  * Fixed several pointer/const/reference issues.
+  * Changed char* exceptions to be invalid_argument types.
+  * Added HTML API reference.
+  * Added Win32 VC++ (VS.NET 2008) support.
+
 Python framework:
+  * Changed RuleManagement.save_rules_hint_file() to take a filename instead
+    of prefix and suffix.
   * Added C API documentation.
   * Added C API tests.
   * import cleanups.

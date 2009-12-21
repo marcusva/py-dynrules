@@ -1,7 +1,8 @@
-#
-# A basic LearnSystem implementation demonstrating the capabilities of
-# dynrules.
-#
+"""
+A basic LearnSystem implementation demonstrating the capabilities of
+dynrules.
+"""
+
 from dynrules import RuleSet, Rule, LearnSystem
 
 class Learner (LearnSystem):
@@ -20,10 +21,10 @@ def create_rules ():
         ruleset.add (rule)
     return ruleset
 
-def main ():
+def run ():
     ruleset = create_rules ()
     learnsystem = Learner (ruleset)
     learnsystem.create_script ("testscript.py", 10)
 
 if __name__ == "__main__":
-    main ()
+    run ()

@@ -9,6 +9,8 @@
 #include <iostream>
 #include "Rule.h"
 
+namespace dynrules
+{
 Rule::Rule () :
     _id(0),
     _weight(0.f),
@@ -102,3 +104,5 @@ bool operator ==(const Rule& a, const Rule& b)
 {
     return a.getId() == b.getId();
 }
+
+} // namespace

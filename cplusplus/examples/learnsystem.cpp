@@ -3,7 +3,9 @@
 #include <ctime>
 #include "dynrules.h"
 
-int main (void)
+using namespace dynrules;
+
+int main (int argc, char* argv[])
 {
     try
     {
@@ -12,7 +14,7 @@ int main (void)
         LearnSystem lsystem = LearnSystem (0, 20);
         RuleSet *ruleset = lsystem.getRuleSet ();
         
-        srand (time (0));
+        srand (static_cast<unsigned int>(time (0)));
         for (int i = 0; i < 5; i++)
         {
             code.str("");

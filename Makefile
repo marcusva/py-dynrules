@@ -3,17 +3,17 @@ PYTHON ?= python
 SUBDIRS = $(top_srcdir)/src \
 	 $(top_srcdir)/lib \
 	 $(top_srcdir)/doc \
-	 $(top_srcdir)/doc/examples \
+	 $(top_srcdir)/examples \
 	 $(top_srcdir)/test
 
 all: clean build
 
 docs:
 	@cd doc/ && make html
+	@cd cplusplus/ && make docs
 
 dist: docs
 	@echo "Creating dist..."
-	@cp -rf doc/build/html doc/html
 	@$(PYTHON) setup.py sdist
 
 bdist:
@@ -78,4 +78,3 @@ purge_installs:
 	rm -rf /usr/local/lib/python2.6/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.0/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.1/site-packages/dynrules*
-

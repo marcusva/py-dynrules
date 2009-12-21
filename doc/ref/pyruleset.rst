@@ -33,7 +33,7 @@ Methods
 
 .. method:: RuleSet.add (rule) -> None
 
-  Adds a :class:`Rule to the `:class:`RuleSet`.
+  Adds a :class:`Rule` to the :class:`RuleSet`.
 
 .. method:: RuleSet.calculate_adjustment (fitness) -> float
 

@@ -8,6 +8,9 @@
 
 #include "RuleManagement.h"
 
+namespace dynrules
+{
+
 RuleManagement::RuleManagement (unsigned int maxrules) :
     _maxrules (maxrules)
 {
@@ -17,23 +20,23 @@ RuleManagement::~RuleManagement ()
 {
 }
 
-unsigned int RuleManagement::getMaxRules ()
+unsigned int RuleManagement::getMaxRules () const
 {
     return this->_maxrules;
 }
 
-bool RuleManagement::saveRulesHintFile (std::string prefix,
-    std::string suffix, LearnSystem *lsystem)
+bool RuleManagement::saveRulesHintFile (std::string filename,
+    LearnSystem& lsystem) const
 {
-    std::stringstream filename;
     std::ofstream fd;
 
-    filename << prefix << RULEFILE_MIDDLE << suffix << RULEFILE_SUFFIX;
-    fd.open (filename.str ().c_str (), std::ios_base::out);
+    fd.open (filename.c_str (), std::ios_base::out);
     if (!fd)
         return false; // TODO: error escalation?
 
-    lsystem->createScript (fd, this->_maxrules);
+    lsystem.createScript (fd, this->_maxrules);
     fd.close ();
     return true;
 }
+
+} // namespace

@@ -46,15 +46,11 @@ class RuleManagement (object):
         """
         raise NotImplementedError ("method not implemented")
         
-    def save_rules_hint_file (self, prefix, suffix, learnsystem):
-        """R.save_rules_hint_file (prefix, suffix, learnsystem) -> None
+    def save_rules_hint_file (self, filename, learnsystem):
+        """R.save_rules_hint_file (filename, learnsystem) -> None
         
         Saves a LearnSystem/RuleSet combination to a physical file.
-        The file can have a specific, unique name in the form:
-        
-        %prefix%_rules_%suffix%.py
         """
-        filename = "%s_rules_%s.py" % (prefix, suffix)
         learnsystem.create_script (filename, self._maxrules)
             
     

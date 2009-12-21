@@ -33,7 +33,7 @@ Methods
 
 .. method:: CRuleSet.add (rule) -> None
 
-  Adds a :class:`CRule to the `:class:`CRuleSet`.
+  Adds a :class:`CRule` to the :class:`CRuleSet`.
 
 .. method:: CRuleSet.calculate_adjustment (fitness) -> float
 

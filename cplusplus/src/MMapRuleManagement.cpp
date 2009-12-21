@@ -8,6 +8,8 @@
 
 #include "MMapRuleManagement.h"
 
+namespace dynrules
+{
 MMapRuleManagement::MMapRuleManagement (unsigned int maxrules) :
     RuleManagement (maxrules),
     _rules(0)
@@ -41,3 +43,5 @@ bool MMapRuleManagement::saveRules (std::vector<Rule*> rules)
 {
     return true;
 }
+
+} // namespace
