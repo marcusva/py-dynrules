@@ -53,20 +53,18 @@ dirs:
 $(OBJECTS):
 	$(CC) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c $(SRCDIR)/$*.cpp -o $(OBJDIR)/$*.o
 
-link:
+link: $(OBJECTS)
 	$(AR) $(LINKFLAGS) $(BLDDIR)/$(TARGET) $(OBJECTS:%.o=$(OBJDIR)/%.o)
 
 clean:
 	$(RM) $(SRCDIR)/*~ examples/*~ $(EXAMPLES)
 	$(RM) -r $(OBJDIR) $(BLDDIR) $(DOCAPIDIR)/html
 
-install:
+install: dirs $(OBJECTS) link
 	$(INSTALL) -d $(INCDIR)/dynrules
 	$(INSTALL_DATA) $(HEADERS) $(INCDIR)/dynrules
 	$(INSTALL) -d $(LIBDIR)
-	for target in $(TARGETS); do \
-		$(INSTALL) -s $(BLDDIR)/$$target $(LIBDIR)/$$target; \
-	done
+	$(INSTALL) -s $(BLDDIR)/$(TARGET) $(LIBDIR)/$(TARGET)
 
 # Examples
 examples: learnsystem
