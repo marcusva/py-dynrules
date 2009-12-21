@@ -1,10 +1,11 @@
 top_srcdir = `pwd`
 PYTHON ?= python
 SUBDIRS = $(top_srcdir)/src \
-	 $(top_srcdir)/lib \
-	 $(top_srcdir)/doc \
-	 $(top_srcdir)/examples \
-	 $(top_srcdir)/test
+	$(top_srcdir)/lib \
+	$(top_srcdir)/doc \
+	$(top_srcdir)/examples \
+	$(top_srcdir)/cplusplus \
+	$(top_srcdir)/test
 
 all: clean build
 
