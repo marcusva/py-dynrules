@@ -18,7 +18,7 @@ RM ?= rm -f
 INSTALL ?= install
 INSTALL_DATA ?= $(INSTALL) -c -m 444
 
-OBJDIR = obj
+OBJDIR = .obj
 BLDDIR = lib
 SRCDIR = src
 DOCAPIDIR = doc
