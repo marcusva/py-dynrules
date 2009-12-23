@@ -26,7 +26,7 @@ generation process.
 
 Members
 ^^^^^^^
-.. cmember:: int PyRule.id
+.. cmember:: PyObject PyRule.id
 
   The unique identifier.
 
@@ -49,7 +49,7 @@ Functions
   Returns true, if the argument is a :ctype:`PyRule` or a subclass of
   :ctype:`PyRule`.
 
-.. cfunction:: PyObject* PyRule_New (int id)
+.. cfunction:: PyObject* PyRule_New (PyObject *id)
 
   Creates a new :ctype:`PyRule` object with the given id. On failure, this
   returns NULL.

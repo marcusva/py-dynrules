@@ -109,11 +109,12 @@ PyTypeObject PyRule_Type =
 static int
 _rule_init (PyObject *rule, PyObject *args, PyObject *kwds)
 {
-    int id;
+    PyObject *id;
 
-    if (!PyArg_ParseTuple (args, "i", &id))
+    if (!PyArg_ParseTuple (args, "O", &id))
         return -1;
 
+    Py_INCREF (id);
     ((PyRule*) rule)->id = id;
     ((PyRule*) rule)->weight = 0;
     ((PyRule*) rule)->code = NULL;
@@ -128,6 +129,7 @@ _rule_dealloc (PyRule *rule)
 {
     Py_XDECREF (rule->code);
     Py_XDECREF (rule->dict);
+    Py_XDECREF (rule->id);
     rule->code = NULL;
     ((PyObject *)rule)->ob_type->tp_free ((PyObject *) rule);
 }
@@ -150,7 +152,8 @@ _rule_getdict (PyRule *rule, void *closure)
 static PyObject*
 _rule_getid (PyRule *rule, void *closure)
 {
-    return PyLong_FromLong (rule->id);
+    Py_INCREF (rule->id);
+    return rule->id;
 }
 
 static PyObject*
@@ -222,13 +225,20 @@ _rule_setused (PyRule *rule, PyObject *value, void *closure)
 
 /* C API */
 static PyObject*
-PyRule_New (int id)
+PyRule_New (PyObject *id)
 {
-    PyRule *rule = (PyRule*) PyObject_New (PyRule, &PyRule_Type);
+    PyRule *rule;
+    if (!id)
+    {
+        PyErr_SetString (PyExc_ValueError, "id must not be NULL");
+        return NULL;
+    }
+    rule = (PyRule*) PyObject_New (PyRule, &PyRule_Type)
     if (!rule)
         return NULL;
 
     rule->dict = NULL;
+    Py_INCREF (id);
     rule->id = id;
     rule->used = 0;
     rule->weight = 0;

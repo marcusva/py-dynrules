@@ -474,6 +474,12 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
     PyObject *fp, *header, *footer, *rules;
     Py_ssize_t hsize, fsize;
 
+    if (maxrules <= 0)
+    {
+        PyErr_SetString (PyExc_ValueError, "maxrules must be greater than 0");
+        return 0;
+    }
+    
     if (!PyLearnSystem_Check (lsystem))
     {
         PyErr_SetString (PyExc_TypeError, "lsystem must be a LearnSystem");
