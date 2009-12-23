@@ -1,6 +1,13 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.9 2009-xx-xx
+0.0.10 2009-xx-xx
+-----------------
+Python framework:
+  * Changed CRule.id to be an arbitrary object.
+  * Fixed minweight/maxweight range checks for CRuleSet.
+  * Fixed minweight/maxweight checks within the C API interfaces.
+
+0.0.9 2009-12-22
 ----------------
 C++ framework:
   * Changed RuleManagement.save_rules_hint_file() to take a filename instead

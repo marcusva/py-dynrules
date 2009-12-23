@@ -134,13 +134,38 @@ PyTypeObject PyRuleSet_Type =
 static int
 _ruleset_init (PyObject *ruleset, PyObject *args, PyObject *kwds)
 {
-    int minw, maxw;
+    PyObject *minw;
+    PyObject *maxw;
+    double minimum, maximum;
 
-    if (!PyArg_ParseTuple (args, "ii", &minw, &maxw))
+    if (!PyArg_ParseTuple (args, "OO", &minw, &maxw))
         return -1;
 
-    ((PyRuleSet*) ruleset)->minweight = minw;
-    ((PyRuleSet*) ruleset)->maxweight = maxw;
+    if (!get_double_from_obj (minw, &minimum))
+        return -1;
+    if (minimum < 0)
+    {
+        PyErr_SetString (PyExc_ValueError, "minweight must not be negative");
+        return -1;
+    }
+
+    if (!get_double_from_obj (maxw, &maximum))
+        return -1;
+    if (maximum < 0)
+    {
+        PyErr_SetString (PyExc_ValueError, "minweight must not be negative");
+        return -1;
+    }
+    
+    if (minimum > maximum)
+    {
+        PyErr_SetString (PyExc_ValueError,
+            "minweight must be smaller or equal to maxweight.");
+        return -1;
+    }
+        
+    ((PyRuleSet*) ruleset)->minweight = minimum;
+    ((PyRuleSet*) ruleset)->maxweight = maximum;
     ((PyRuleSet*) ruleset)->weight = 0;
     ((PyRuleSet*) ruleset)->rules = PyDict_New ();
     if (!((PyRuleSet*) ruleset)->rules)
@@ -325,6 +350,12 @@ PyRuleSet_New (double minweight, double maxweight)
 
     ruleset->dict = NULL;
     ruleset->weight = 0;
+    if (minweight > maxweight)
+    {
+        Py_DECREF (ruleset);
+        PyErr_SetString (PyExc_ValueError,
+            "minweight must be smaller or equal to maxweight.");
+    }
     ruleset->minweight = minweight;
     ruleset->maxweight = maxweight;
     ruleset->rules = PyDict_New ();
@@ -341,7 +372,6 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
 {
     PyRuleSet *rset;
     PyRule *r, *entry;
-    PyObject *kv;
 
     if (!PyRuleSet_Check (ruleset))
     {
@@ -358,18 +388,12 @@ PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
     rset = (PyRuleSet*) ruleset;
     r = (PyRule*) rule;
 
-    kv = PyLong_FromLong (r->id);
-
-    entry = (PyRule*) PyDict_GetItem (rset->rules, kv);
+    entry = (PyRule*) PyDict_GetItem (rset->rules, r->id);
     if (entry)
         rset->weight -= entry->weight;
 
-    if (PyDict_SetItem (rset->rules, kv, rule) == -1)
-    {
-        Py_DECREF (kv);
+    if (PyDict_SetItem (rset->rules, r->id, rule) == -1)
         return 0;
-    }
-    Py_DECREF (kv);
 
     if (r->weight > rset->maxweight)
         r->weight = rset->maxweight;
@@ -385,7 +409,6 @@ PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
 {
     PyRuleSet *rset;
     PyRule *r, *entry;
-    PyObject *kv;
 
     if (!PyRuleSet_Check (ruleset))
     {
@@ -401,21 +424,15 @@ PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
     rset = (PyRuleSet*) ruleset;
     r = (PyRule*) rule;
 
-    kv = PyLong_FromLong (r->id);
-
-    entry = (PyRule*) PyDict_GetItem (rset->rules, kv);
+    entry = (PyRule*) PyDict_GetItem (rset->rules, r->id);
     if (entry)
     {
         /* An entry exists, compare it. */
         int cmp = PyObject_RichCompareBool (rule, (PyObject*) entry, Py_EQ);
         if (cmp == -1)
-        {
-            Py_DECREF (kv);
             return 0;
-        }
         else if (cmp == 0)
         {
-            Py_DECREF (kv);
             PyErr_SetString (PyExc_ValueError,
                 "rule does not match rule in RuleSet");
             return 0;
@@ -424,17 +441,13 @@ PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
     }
     else
     {
-        Py_DECREF (kv);
         PyErr_SetString (PyExc_ValueError, "rule does not exist");
         return 0;
     }
 
-    if (PyDict_DelItem (rset->rules, kv) == -1)
-    {
-        Py_DECREF (kv);
+    if (PyDict_DelItem (rset->rules, r->id) == -1)
         return 0;
-    }
-    Py_DECREF (kv);
+    
     rset->weight -= r->weight;
     return 1;
 }
@@ -460,6 +473,15 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
         return 0;
     }
     rset = (PyRuleSet*) ruleset;
+    
+    /* Check, if the internal ruleset conditions are met. */
+    if (rset->minweight > rset->maxweight)
+    {
+        PyErr_SetString (PyExc_ValueError,
+            "minweight must be smaller or equal to maxweight.");
+        return 0;
+    }
+    
     rules = PyDict_Values (rset->rules);
     if (!rules)
         return 0;

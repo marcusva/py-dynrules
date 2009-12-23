@@ -20,7 +20,7 @@ typedef struct
 {
     PyObject_HEAD
 
-    int       id;
+    PyObject *id;
     int       used : 1;
     double    weight;
     PyObject *code;
@@ -36,7 +36,7 @@ typedef struct
     (PyObject_TypeCheck(x,                                             \
         (PyTypeObject*)PyDynRules_C_API[DYNRULES_RULE_FIRSTSLOT+0]))
 #define PyRule_New                                                     \
-    (*(PyObject*(*)(int)) PyDynRules_C_API[DYNRULES_RULE_FIRSTSLOT+1])
+    (*(PyObject*(*)(PyObject*)) PyDynRules_C_API[DYNRULES_RULE_FIRSTSLOT+1])
 #endif /* DYNRULES_RULE_INTERNAL */
 
 

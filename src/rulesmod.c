@@ -32,6 +32,7 @@ get_double_from_obj (PyObject *obj, double *value)
         *value = result;
         return 1;
     }
+    PyErr_SetString (PyExc_TypeError, "value must be a number");
     return 0;
 }
 
@@ -55,6 +56,7 @@ get_int_from_obj (PyObject *obj, int *value)
         *value = (int) result;
         return 1;
     }
+    PyErr_SetString (PyExc_TypeError, "value must be a number");
     return 0;
 }
 
