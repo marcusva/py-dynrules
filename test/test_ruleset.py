@@ -9,7 +9,7 @@ class RuleSetTest (unittest.TestCase):
         self.assert_ (ruleset.weight == 0)
         self.assert_ (ruleset.rules == [])
         
-        v= None
+        v = None
         self.assertRaises (TypeError, RuleSet, 0, v)
         self.assertRaises (TypeError, RuleSet, None, 10)
         self.assertRaises (ValueError, RuleSet, "hello", 10)
@@ -40,6 +40,8 @@ class RuleSetTest (unittest.TestCase):
             ruleset.maxweight = x
         self.assertRaises (ValueError, setm, -1)
         self.assertRaises (ValueError, setm, 8)
+        self.assertRaises (ValueError, setm, "hello")
+        self.assertRaises (TypeError, setm, None)
 
     def test_rulesadd (self):
         ruleset = RuleSet (10, 20)

@@ -42,7 +42,7 @@ EXINCLUDES = -I./ -I./src
 LFLAGS = -L$(BLDDIR)/ -ldynrules -lstdc++
 EXAMPLES = learnsystem
 
-all: clean dirs $(OBJECTS) link
+all: clean dirs $(OBJECTS) $(TARGET)
 
 docs:
 	@cd $(DOCAPIDIR)/ && doxygen api.doxygen
@@ -50,17 +50,17 @@ docs:
 dirs:
 	@mkdir -p $(OBJDIR) $(BLDDIR)
     
-$(OBJECTS):
+$(OBJECTS): dirs
 	$(CC) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c $(SRCDIR)/$*.cpp -o $(OBJDIR)/$*.o
 
-link: $(OBJECTS)
+$(TARGET): $(OBJECTS)
 	$(AR) $(LINKFLAGS) $(BLDDIR)/$(TARGET) $(OBJECTS:%.o=$(OBJDIR)/%.o)
 
 clean:
 	$(RM) $(SRCDIR)/*~ examples/*~ $(EXAMPLES)
 	$(RM) -r $(OBJDIR) $(BLDDIR) $(DOCAPIDIR)/html
 
-install: dirs $(OBJECTS) link
+install: $(TARGET)
 	$(INSTALL) -d $(INCDIR)/dynrules
 	$(INSTALL_DATA) $(HEADERS) $(INCDIR)/dynrules
 	$(INSTALL) -d $(LIBDIR)

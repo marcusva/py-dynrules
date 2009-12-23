@@ -8,6 +8,14 @@ class CRuleSetTest (unittest.TestCase):
         self.assert_ (ruleset.maxweight == 20)
         self.assert_ (ruleset.weight == 0)
         self.assert_ (ruleset.rules == [])
+        
+        v = None
+        self.assertRaises (TypeError, CRuleSet, 0, v)
+        self.assertRaises (TypeError, CRuleSet, None, 10)
+        self.assertRaises (TypeError, CRuleSet, "hello", 10)
+        self.assertRaises (TypeError, CRuleSet, 10, "hello")
+        self.assertRaises (ValueError, CRuleSet, 10, 9)
+        self.assertRaises (ValueError, CRuleSet, -33, -34)
 
     def test_minweight (self):
         ruleset = CRuleSet (0, 20)
@@ -19,6 +27,8 @@ class CRuleSetTest (unittest.TestCase):
             ruleset.minweight = x
         self.assertRaises (ValueError, setm, -1)
         self.assertRaises (ValueError, setm, 50)
+        self.assertRaises (TypeError, setm, "hello")
+        self.assertRaises (TypeError, setm, None)
 
     def test_maxweight (self):
         ruleset = CRuleSet (10, 20)
@@ -30,6 +40,8 @@ class CRuleSetTest (unittest.TestCase):
             ruleset.maxweight = x
         self.assertRaises (ValueError, setm, -1)
         self.assertRaises (ValueError, setm, 8)
+        self.assertRaises (TypeError, setm, "hello")
+        self.assertRaises (TypeError, setm, None)
 
     def test_rulesadd (self):
         ruleset = CRuleSet (10, 20)

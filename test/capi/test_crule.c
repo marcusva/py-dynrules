@@ -14,11 +14,12 @@ static void
 test_crule (void)
 {
     PyObject *rule;
+    PyObject *lid = PyLong_FromLong (3);
     
-    rule = PyRule_New (3);
+    rule = PyRule_New (lid);
     if (!PyRule_Check (rule))
         ERROR ("Rule mismatch in PyRule_Check");
-    if (((PyRule*) rule)->id != 3 ||
+    if (((PyRule*) rule)->id != PyLong_FromLong (3) ||
         ((PyRule*) rule)->used != 0 ||
         ((PyRule*) rule)->weight != 0.f ||
         ((PyRule*) rule)->code != NULL)

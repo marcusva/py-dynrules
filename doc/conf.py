@@ -42,9 +42,9 @@ copyright = 'Public Domain in 2008 and even 2009'
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '0.0.9'
+version = '0.0.10'
 # The full version, including alpha/beta/rc tags.
-release = '0.0.9'
+release = '0.0.10'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
