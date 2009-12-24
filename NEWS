@@ -1,6 +1,6 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.10 2009-xx-xx
+0.0.10 2009-12-24
 -----------------
 Python framework:
   * Changed CRule.id to be an arbitrary object.
