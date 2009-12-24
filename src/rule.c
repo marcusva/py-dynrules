@@ -25,7 +25,7 @@ static PyObject* _rule_getused (PyRule *rule, void *closure);
 static int _rule_setused (PyRule *rule, PyObject *value, void *closure);
 
 /* C API */
-static PyObject* PyRule_New (int id);
+static PyObject* PyRule_New (PyObject *id);
 
 /**
  * Methods bound to the PyRule type.
@@ -233,7 +233,8 @@ PyRule_New (PyObject *id)
         PyErr_SetString (PyExc_ValueError, "id must not be NULL");
         return NULL;
     }
-    rule = (PyRule*) PyObject_New (PyRule, &PyRule_Type)
+
+    rule = (PyRule*) PyObject_New (PyRule, &PyRule_Type);
     if (!rule)
         return NULL;
 
