@@ -11,6 +11,8 @@ all: clean build
 
 docs:
 	@cd doc/ && make html
+	@mv doc/build/html doc/
+	@cd doc/ && rm -rf build
 	@cd cplusplus/ && make docs
 
 dist: docs
