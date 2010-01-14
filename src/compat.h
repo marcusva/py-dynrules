@@ -32,6 +32,7 @@ typedef getcharbufferproc charbufferproc;
 
 #define MOD_RETURN(x) return(x)
 #define TYPE_HEAD(x,y) PyVarObject_HEAD_INIT(x,y)
+#define IsFileObj(x) (!PyNumber_Check(x) && PyObject_AsFileDescriptor(x) != -1)
 
 #else 
 
@@ -39,6 +40,8 @@ typedef getcharbufferproc charbufferproc;
 #define TYPE_HEAD(x,y)                          \
     PyObject_HEAD_INIT(x)                       \
     0,
+
+#define IsFileObj(x) PyFile_Check(x)
 
 #endif /* PY_VERSION_HEX >= 0x03000000 */
 

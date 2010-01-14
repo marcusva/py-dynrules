@@ -1,5 +1,5 @@
 recursive-include cplusplus *
-recursive-include doc/html *
+recursive-include doc *
 recursive-include test *.py
 include src/*.h src/*.c
 include NEWS AUTHORS COPYING TODO Makefile

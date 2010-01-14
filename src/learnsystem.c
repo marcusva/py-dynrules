@@ -479,17 +479,14 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
         PyErr_SetString (PyExc_ValueError, "maxrules must be greater than 0");
         return 0;
     }
-    
+
     if (!PyLearnSystem_Check (lsystem))
     {
         PyErr_SetString (PyExc_TypeError, "lsystem must be a LearnSystem");
         return 0;
     }
-#if PY_VERSION_HEX < 0x03000000
-    if (PyFile_Check (file))
-#else 
-    if (PyObject_AsFileDescriptor (file) != -1)
-#endif
+    
+    if (IsFileObj(file))
     {
         fp = file;
         alreadyopen = 1;
@@ -508,6 +505,7 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
 #else
     else if (PyUnicode_Check (file) ||  PyBytes_Check (file))
     {
+        PyErr_Clear (); /* PyObject_AsFileDescriptor() sets an exception */
         PyObject *io = PyImport_ImportModule ("io");
         if (!io)
             return 0;
