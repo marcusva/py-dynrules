@@ -53,7 +53,7 @@ rulesets.
         "author" : "Marcus von Appen",
         "author_email" : "marcus@sysfault.org",
         "license" : "Public Domain",
-        "url" : "http://www.sysfault.org/projects/",
+        "url" : "http://www.sysfault.org/projects:dynrules",
         "packages" : ["dynrules",
                       "dynrules.examples" ],
         "package_dir" : { "dynrules" : "lib",

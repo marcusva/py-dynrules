@@ -1,6 +1,6 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.12 2010-XX-XX
+0.0.12 2010-03-26
 -----------------
 Python framework:
   * Fixed file recognition issue for Python 3.x in CLearnSystem.
