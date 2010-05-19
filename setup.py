@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 import os, sys, glob
 
 DEBUG = True
-VERSION = "0.0.12"
+VERSION = "0.0.13"
 
 def get_sources ():
     return glob.glob (os.path.join ("src", "*.c"))
@@ -13,7 +13,7 @@ def get_headers ():
     return [ "src/compat.h", "src/dynrules.h" ]
 
 def get_defines ():
-    defines = [("VERSION", "\"0.0.12\"")]
+    defines = [("VERSION", "\"0.0.13\"")]
     return defines
 
 ##
@@ -53,7 +53,7 @@ rulesets.
         "author" : "Marcus von Appen",
         "author_email" : "marcus@sysfault.org",
         "license" : "Public Domain",
-        "url" : "http://www.sysfault.org/projects:dynrules",
+        "url" : "http://www.sysfault.org/dokuwiki/projects:dynrules",
         "packages" : ["dynrules",
                       "dynrules.examples" ],
         "package_dir" : { "dynrules" : "lib",

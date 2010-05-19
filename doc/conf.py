@@ -42,9 +42,9 @@ copyright = 'Public Domain 2008-2010'
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '0.0.12'
+version = '0.0.13'
 # The full version, including alpha/beta/rc tags.
-release = '0.0.12'
+release = '0.0.13'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -158,7 +158,7 @@ htmlhelp_basename = 'dynrulesdoc'
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
   ('index', 'dynrules.tex', 'dynrules Documentation',
-   'Marcus von Aüppen', 'manual'),
+   'Marcus von Appen', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

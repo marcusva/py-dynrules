@@ -1,5 +1,10 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
+0.0.13 2010-05-19
+-----------------
+Python framework:
+  * Fixed constructor for RuleManagement class.
+
 0.0.12 2010-03-26
 -----------------
 Python framework:
