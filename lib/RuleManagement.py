@@ -19,7 +19,7 @@ class RuleManagement (object):
     def __init__ (self, maxrules):
         if maxrules < 0:
             raise ValueError ("maxrules must be greater than 0")
-        self._maxrules = marules
+        self._maxrules = maxrules
 
     def load_rules (self, maxrules=-1):
         """R.load_rules (maxrules=-1) -> [ Rule, Rule ... ]

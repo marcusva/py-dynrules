@@ -21,7 +21,6 @@ if sys.version_info[0] >= 3:
     xrange = range
     unicode = bytes
 
-from dynrules.Rule import Rule
 from dynrules.RuleSet import RuleSet
 
 class LearnSystem (object):
