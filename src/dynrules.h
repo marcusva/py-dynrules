@@ -102,10 +102,18 @@ static void **PyDynRules_C_API;
 #define DYNRULES_SLOTS \
     (DYNRULES_LEARNSYSTEM_FIRSTSLOT + DYNRULES_LEARNSYSTEM_NUMSLOTS)
 #define DYNRULES_ENTRY "_DYNRULES_CAPI"
+#define DYNRULES_CMOD_ENTRY "dynrules._dynrules._DYNRULES_CAPI"
 
 static int
 import_dynrules (void)
 {
+#if PY_VERSION_HEX >= 0x03010000
+    PyObject *_module = PyImport_ImportModule ("dynrules._dynrules");
+    if (_module == NULL)
+        return -1;
+    PyDynRules_C_API = (void**) PyCapsule_Import (DYNRULES_CMOD_ENTRY, 0);
+    return (PyDynRules_C_API != NULL) ? 0 : -1;
+#else
     PyObject *_module = PyImport_ImportModule ("dynrules._dynrules");
     if (_module != NULL)
     {
@@ -120,6 +128,7 @@ import_dynrules (void)
         return 0;
     }
     return -1;
+#endif
 }
 
 

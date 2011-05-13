@@ -96,10 +96,6 @@ PyMODINIT_FUNC init_dynrules  (void)
     if (PyType_Ready (&PyLearnSystem_Type) < 0)
         MOD_RETURN(NULL);
 
-    Py_INCREF (&PyRule_Type);
-    Py_INCREF (&PyRuleSet_Type);
-    Py_INCREF (&PyLearnSystem_Type);
-
 #if PY_VERSION_HEX < 0x03000000
     mod = Py_InitModule3 ("_dynrules", NULL,
         "The C implementation for the dynrules package");
@@ -108,22 +104,39 @@ PyMODINIT_FUNC init_dynrules  (void)
 #endif
     if (!mod)
         MOD_RETURN(NULL);
-
-    PyModule_AddObject (mod, "Rule", (PyObject *) &PyRule_Type);
-    PyModule_AddObject (mod, "RuleSet", (PyObject *) &PyRuleSet_Type);
-    PyModule_AddObject (mod, "LearnSystem", (PyObject *) &PyLearnSystem_Type);
+    ADD_OBJ_OR_FAIL (mod, "Rule", PyRule_Type, failed);
+    ADD_OBJ_OR_FAIL (mod, "RuleSet", PyRuleSet_Type, failed);
+    ADD_OBJ_OR_FAIL (mod, "LearnSystem", PyLearnSystem_Type, failed);
 
     rule_export_capi (c_api);
     ruleset_export_capi (c_api);
     learnsystem_export_capi (c_api);
     
+#if PY_VERSION_HEX >= 0x03010000
+    c_api_obj = PyCapsule_New((void *)c_api, DYNRULES_CMOD_ENTRY, NULL);
+#else
     c_api_obj = PyCObject_FromVoidPtr ((void *) c_api, NULL);
+#endif
     if (c_api_obj)
-        PyModule_AddObject (mod, DYNRULES_ENTRY, c_api_obj);
+    {
+        if (PyModule_AddObject (mod, DYNRULES_ENTRY, c_api_obj) == -1)
+        {
+            Py_DECREF (c_api_obj);
+            goto failed;
+        }
+    }
+    else
+    {
+        goto failed;
+    }
 
     /* cStringIO import */
 #if PY_VERSION_HEX < 0x03000000
     PycString_IMPORT;
 #endif
     MOD_RETURN(mod);
+
+failed:
+    Py_DECREF (mod);
+    MOD_RETURN (NULL);
 }

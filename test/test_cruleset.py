@@ -4,10 +4,10 @@ from dynrules import CRule, CRuleSet
 class CRuleSetTest (unittest.TestCase):
     def test_create (self):
         ruleset = CRuleSet (0, 20)
-        self.assert_ (ruleset.minweight == 0)
-        self.assert_ (ruleset.maxweight == 20)
-        self.assert_ (ruleset.weight == 0)
-        self.assert_ (ruleset.rules == [])
+        self.assertTrue (ruleset.minweight == 0)
+        self.assertTrue (ruleset.maxweight == 20)
+        self.assertTrue (ruleset.weight == 0)
+        self.assertTrue (ruleset.rules == [])
         
         v = None
         self.assertRaises (TypeError, CRuleSet, 0, v)
@@ -19,9 +19,9 @@ class CRuleSetTest (unittest.TestCase):
 
     def test_minweight (self):
         ruleset = CRuleSet (0, 20)
-        self.assert_ (ruleset.minweight == 0)
+        self.assertTrue (ruleset.minweight == 0)
         ruleset.minweight = 20
-        self.assert_ (ruleset.minweight == 20)
+        self.assertTrue (ruleset.minweight == 20)
 
         def setm (x):
             ruleset.minweight = x
@@ -32,9 +32,9 @@ class CRuleSetTest (unittest.TestCase):
 
     def test_maxweight (self):
         ruleset = CRuleSet (10, 20)
-        self.assert_ (ruleset.maxweight == 20)
+        self.assertTrue (ruleset.maxweight == 20)
         ruleset.maxweight = 10
-        self.assert_ (ruleset.maxweight == 10)
+        self.assertTrue (ruleset.maxweight == 10)
 
         def setm (x):
             ruleset.maxweight = x
@@ -52,17 +52,17 @@ class CRuleSetTest (unittest.TestCase):
         ruleset.add (CRule (1))
         ruleset.add (CRule (1))
         ruleset.add (CRule (1))
-        self.assert_ (len (ruleset.rules) == 1)
-        self.assert_ (ruleset.weight == 10)
+        self.assertTrue (len (ruleset.rules) == 1)
+        self.assertTrue (ruleset.weight == 10)
 
         ruleset.add (CRule (2))
         ruleset.add (CRule (3))
-        self.assert_ (len (ruleset.rules) == 3)
-        self.assert_ (ruleset.weight == 30)
+        self.assertTrue (len (ruleset.rules) == 3)
+        self.assertTrue (ruleset.weight == 30)
 
         ruleset.clear ()
-        self.assert_ (len (ruleset.rules) == 0)
-        self.assert_ (ruleset.weight == 0)
+        self.assertTrue (len (ruleset.rules) == 0)
+        self.assertTrue (ruleset.weight == 0)
 
     def test_rulesremove (self):
         ruleset = CRuleSet (10, 20)
@@ -72,26 +72,26 @@ class CRuleSetTest (unittest.TestCase):
 
         for i in range (10):
             ruleset.add (CRule (i))
-        self.assert_ (len (ruleset.rules) == 10)
-        self.assert_ (ruleset.weight == 100)
+        self.assertTrue (len (ruleset.rules) == 10)
+        self.assertTrue (ruleset.weight == 100)
         rules = ruleset.rules
 
         ruleset.remove (rules[3])
-        self.assert_ (len (ruleset.rules) == 9)
-        self.assert_ (ruleset.weight == 90)
+        self.assertTrue (len (ruleset.rules) == 9)
+        self.assertTrue (ruleset.weight == 90)
 
         self.assertRaises (ValueError, ruleset.remove, CRule (7))
-        self.assert_ (len (ruleset.rules) == 9)
-        self.assert_ (ruleset.weight == 90)
+        self.assertTrue (len (ruleset.rules) == 9)
+        self.assertTrue (ruleset.weight == 90)
 
         self.assertRaises (ValueError, ruleset.remove, rules[3])
         ruleset.remove (rules[2])
-        self.assert_ (len (ruleset.rules) == 8)
-        self.assert_ (ruleset.weight == 80)
+        self.assertTrue (len (ruleset.rules) == 8)
+        self.assertTrue (ruleset.weight == 80)
 
         ruleset.clear ()
-        self.assert_ (len (ruleset.rules) == 0)
-        self.assert_ (ruleset.weight == 0)
+        self.assertTrue (len (ruleset.rules) == 0)
+        self.assertTrue (ruleset.weight == 0)
 
     def test_updateweights (self):
         ruleset = CRuleSet (10, 20)
@@ -111,9 +111,9 @@ class CRuleSetTest (unittest.TestCase):
         ruleset.update_weights (None)
         for x, rule in enumerate (ruleset.rules):
             if x == 3 or x == 7:
-                self.assert_ (rule.weight > 15)
+                self.assertTrue (rule.weight > 15)
             else:
-                self.assert_ (rule.weight < 15)
+                self.assertTrue (rule.weight < 15)
 
 if __name__ == "__main__":
     unittest.main ()

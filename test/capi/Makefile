@@ -13,8 +13,8 @@ CFLAGS = -W -Wall -g
 #LIBS = -Lc:\\Python26\\libs -mwindows -lm -lpython26
 
 # Linux/Unix includes
-INCLUDES = -I. -I/usr/local/include/ -I/usr/local/include/python2.6
-LIBS = -L/usr/local/lib -lpython2.6 -lm
+INCLUDES = -I. -I/usr/local/include/ -I/usr/local/include/python3.2mu
+LIBS = -L/usr/local/lib -lpython3.2mu -lm
 
 CFLAGS += $(INCLUDES)
 LDFLAGS += $(LIBS)
