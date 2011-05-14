@@ -1,7 +1,9 @@
 This NEWS file for dynrules covers a short overview about the latest changes.
 
-0.0.14 2010-XX-XX
+0.0.14 2011-05-14
 -----------------
+Python framework:
+  * Compatibility fixes for Python 3.2.
 
 0.0.13 2010-05-19
 -----------------

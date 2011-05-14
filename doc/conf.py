@@ -36,7 +36,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'dynrules'
-copyright = 'Public Domain 2008-2010'
+copyright = 'Public Domain 2008-2011'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
