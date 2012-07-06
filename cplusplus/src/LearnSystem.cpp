@@ -96,7 +96,8 @@ std::string LearnSystem::createRules (unsigned int maxrules) const
     std::vector<Rule*> rules;
     Rule *rule;
     unsigned int tries, i;
-    int added = 0, j, selected;
+    unsigned long j;
+    int added = 0, selected;
     size_t len, count, written = 0;
     double wsum, fraction, weights = this->_ruleset->getWeight ();
 
@@ -133,7 +134,7 @@ std::string LearnSystem::createRules (unsigned int maxrules) const
                 j = ((j + 1) % count);
             }
 
-            rule = rules.at (selected);
+            rule = rules.at (static_cast<unsigned int>(selected));
 
             /* Write the rule code */
             buf = rule->getCode ();

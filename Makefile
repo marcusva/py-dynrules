@@ -43,7 +43,7 @@ clean:
 		else \
 			cd $$dir; \
 			echo "Cleaning up in $$dir..."; \
-			rm -f *~ *.cache *.core; \
+			rm -f *~ *.cache *.core *.pyc; \
 		fi \
 	done
 
