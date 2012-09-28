@@ -6,7 +6,8 @@
 ## This file is distributed under the Public Domain.
 ##
 
-"""dynrules is a small Python module designed to generate scripts from
+"""
+dynrules is a small Python module designed to generate scripts from
 predefined rules and rulesets.
 """
 

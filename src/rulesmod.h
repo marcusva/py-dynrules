@@ -12,8 +12,10 @@
 #include <Python.h>
 #include <structmember.h>
 
+#ifndef PYPY_VERSION
 #if PY_VERSION_HEX < 0x03000000
 #include <cStringIO.h>
+#endif
 #endif
 
 #define DYNRULES_RULE_INTERNAL

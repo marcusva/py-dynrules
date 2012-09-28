@@ -33,7 +33,7 @@ if __name__ == "__main__":
 ##                      ]
 ##         compile_args += ["-std=c99", "-g"]
     # GCC specific code END.
-    
+
     dynrules = Extension ("dynrules._dynrules", sources=get_sources (),
                           language="c",define_macros=get_defines (),
                           extra_compile_args=compile_args)
@@ -56,7 +56,7 @@ rulesets.
         "url" : "http://www.sysfault.org/dokuwiki/projects:dynrules",
         "packages" : ["dynrules",
                       "dynrules.examples" ],
-        "package_dir" : { "dynrules" : "lib",
+        "package_dir" : { "dynrules" : "dynrules",
                           "dynrules.examples" : "examples"  },
         "ext_modules" : [ dynrules ],
         "headers" : get_headers (),

@@ -60,7 +60,7 @@ get_int_from_obj (PyObject *obj, int *value)
     return 0;
 }
 
-#if PY_VERSION_HEX < 0x03000000
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
 struct PycStringIO_CAPI*
 get_stringio_api (void)
 {
@@ -84,7 +84,7 @@ PyMODINIT_FUNC init_dynrules  (void)
 #endif
     static void* c_api[DYNRULES_SLOTS];
     PyObject *mod, *c_api_obj;
-    
+
     /* Complete types */
     PyRule_Type.tp_new = PyType_GenericNew;
     if (PyType_Ready (&PyRule_Type) < 0)
@@ -111,7 +111,7 @@ PyMODINIT_FUNC init_dynrules  (void)
     rule_export_capi (c_api);
     ruleset_export_capi (c_api);
     learnsystem_export_capi (c_api);
-    
+
 #if PY_VERSION_HEX >= 0x03010000
     c_api_obj = PyCapsule_New((void *)c_api, DYNRULES_CMOD_ENTRY, NULL);
 #else
@@ -131,7 +131,7 @@ PyMODINIT_FUNC init_dynrules  (void)
     }
 
     /* cStringIO import */
-#if PY_VERSION_HEX < 0x03000000
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
     PycString_IMPORT;
 #endif
     MOD_RETURN(mod);

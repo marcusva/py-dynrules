@@ -1,7 +1,8 @@
 top_srcdir = `pwd`
 PYTHON ?= python
-SUBDIRS = $(top_srcdir)/src \
-	$(top_srcdir)/lib \
+SUBDIRS = \
+	$(top_srcdir)/src \
+	$(top_srcdir)/dynrules \
 	$(top_srcdir)/doc \
 	$(top_srcdir)/examples \
 	$(top_srcdir)/cplusplus \
@@ -30,7 +31,7 @@ build:
 
 install:
 	@echo "Installing..."
-	@$(PYTHON) setup.py build install 
+	@$(PYTHON) setup.py build install
 
 clean:
 	@echo "Cleaning up in $(top_srcdir)/ ..."
@@ -50,31 +51,26 @@ clean:
 release: clean dist
 
 buildall: clean
-	@python2.4 setup.py build
-	@python2.5 setup.py build
 	@python2.6 setup.py build
 	@python2.7 setup.py build
 	@python3.1 setup.py build
 	@python3.2 setup.py build
+	@pypy1.9 setup.py build
 
 installall:
-	@python2.4 setup.py install
-	@python2.5 setup.py install
 	@python2.6 setup.py install
 	@python2.7 setup.py install
 	@python3.1 setup.py install
 	@python3.2 setup.py install
+	@pypy1.9 setup.py build
 
 purge_installs:
-	rm -rf /usr/local/include/python2.4/dynrules*
-	rm -rf /usr/local/include/python2.5/dynrules*
 	rm -rf /usr/local/include/python2.6/dynrules*
 	rm -rf /usr/local/include/python2.7/dynrules*
 	rm -rf /usr/local/include/python3.1/dynrules*
 	rm -rf /usr/local/include/python3.2/dynrules*
-	rm -rf /usr/local/lib/python2.4/site-packages/dynrules*
-	rm -rf /usr/local/lib/python2.5/site-packages/dynrules*
 	rm -rf /usr/local/lib/python2.6/site-packages/dynrules*
 	rm -rf /usr/local/lib/python2.7/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.1/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.2/site-packages/dynrules*
+	rm -rf /usr/local/lib/pypy-1.9/site-packages/dynrules*

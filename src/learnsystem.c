@@ -263,7 +263,7 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
     PyObject *rules, *buf, *retval;
     PyRule *rule;
     double wsum, fraction;
-#if PY_VERSION_HEX < 0x03000000
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
     struct PycStringIO_CAPI* stringio;
 #else
     PyObject *tmpbuf;
@@ -281,7 +281,7 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
     if (weights == 0)
         Py_RETURN_NONE;
 
-#if PY_VERSION_HEX < 0x03000000
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
     stringio = get_stringio_api ();
     if (!stringio)
     {
@@ -296,7 +296,7 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
     buf = PyBytes_FromString ("");
     if (!buf)
         return NULL;
-#endif /* PY_VERSION_HEX < 0x03000000 */
+#endif /* PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION) */
 
     written = 0;
 
@@ -353,7 +353,7 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
                     if (written + len > lsystem->maxscriptsize)
                         goto finish;
 
-#if PY_VERSION_HEX < 0x03000000                        
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
                     stringio->cwrite (buf, (const char*)charbuf, len);
 #else
                     tmpbuf = PyBytes_FromString (charbuf);
@@ -399,15 +399,15 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
                     if (charbuf)
                     {
                         added = 1;
-#if PY_VERSION_HEX < 0x03000000
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
                         stringio->cwrite (buf, charbuf, len);
 #else
-                    tmpbuf = PyBytes_FromString (charbuf);
-                    if (!tmpbuf)
-                    {
-                        Py_XDECREF (buf);
-                        return NULL;
-                    }
+                        tmpbuf = PyBytes_FromString (charbuf);
+                        if (!tmpbuf)
+                        {
+                            Py_XDECREF (buf);
+                            return NULL;
+                        }
 #endif
                         written += len;
                     }
@@ -421,7 +421,7 @@ _lsystem_create_rules (PyLearnSystem *lsystem, PyObject *args)
 
 finish:
 
-#if PY_VERSION_HEX < 0x03000000
+#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
     retval = stringio->cgetvalue (buf);
 #else
     retval = buf;
@@ -458,7 +458,7 @@ PyLearnSystem_New (PyObject *ruleset)
         &PyLearnSystem_Type);
     if (!lsystem)
         return NULL;
-    
+
     Py_INCREF (ruleset);
     lsystem->dict = NULL;
     lsystem->ruleset = ruleset;
@@ -485,7 +485,7 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
         PyErr_SetString (PyExc_TypeError, "lsystem must be a LearnSystem");
         return 0;
     }
-    
+
     if (IsFileObj(file))
     {
         fp = file;
@@ -535,7 +535,7 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
             Py_DECREF (header);
             goto error;
         }
-        
+
         if (PyFile_WriteObject (header, fp, Py_PRINT_RAW) == -1)
         {
             Py_DECREF (header);
@@ -560,7 +560,7 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
         }
     }
     Py_DECREF (rules);
-        
+
     /* Write the footer */
     footer = PyObject_CallMethod (lsystem, "create_footer", NULL);
     if (footer != Py_None)
