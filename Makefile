@@ -3,10 +3,11 @@ PYTHON ?= python
 SUBDIRS = \
 	$(top_srcdir)/src \
 	$(top_srcdir)/dynrules \
+	$(top_srcdir)/dynrules/test \
+	$(top_srcdir)/dynrules/test/util \
 	$(top_srcdir)/doc \
 	$(top_srcdir)/examples \
-	$(top_srcdir)/cplusplus \
-	$(top_srcdir)/test
+	$(top_srcdir)/cplusplus
 
 all: clean build
 
@@ -58,11 +59,36 @@ buildall: clean
 	@pypy1.9 setup.py build
 
 installall:
-	@python2.6 setup.py install
-	@python2.7 setup.py install
-	@python3.1 setup.py install
-	@python3.2 setup.py install
-	@pypy1.9 setup.py build
+	@python2.6 setup.py build install
+	@make clean
+	@python2.7 setup.py build install
+	@make clean
+	@python3.1 setup.py build install
+	@make clean
+	@python3.2 setup.py build install
+	@make clean
+	@pypy1.9 setup.py build install
+	@make clean
+
+testall:
+	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) python2.6 dynrules/test/util/runtests.py
+	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) python2.7 dynrules/test/util/runtests.py
+	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) python3.1 dynrules/test/util/runtests.py
+	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) python3.2 dynrules/test/util/runtests.py
+	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) pypy1.9 dynrules/test/util/runtests.py
+	@rm -rf dynrules/test/*.pyc
+
+testpackage:
+	@python2.6 -c "import dynrules.test; dynrules.test.run()"
+	@python2.7 -c "import dynrules.test; dynrules.test.run()"
+	@python3.1 -c "import dynrules.test; dynrules.test.run()"
+	@python3.2 -c "import dynrules.test; dynrules.test.run()"
+	@pypy1.9 -c "import dynrules.test; dynrules.test.run()"
 
 purge_installs:
 	rm -rf /usr/local/include/python2.6/dynrules*

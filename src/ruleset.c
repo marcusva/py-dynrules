@@ -156,14 +156,14 @@ _ruleset_init (PyObject *ruleset, PyObject *args, PyObject *kwds)
         PyErr_SetString (PyExc_ValueError, "minweight must not be negative");
         return -1;
     }
-    
+
     if (minimum > maximum)
     {
         PyErr_SetString (PyExc_ValueError,
             "minweight must be smaller or equal to maxweight.");
         return -1;
     }
-        
+
     ((PyRuleSet*) ruleset)->minweight = minimum;
     ((PyRuleSet*) ruleset)->maxweight = maximum;
     ((PyRuleSet*) ruleset)->weight = 0;
@@ -279,10 +279,10 @@ static PyObject*
 _ruleset_find (PyRuleSet *ruleset, PyObject *args)
 {
     PyObject *item, *key;
-    
+
     if (!PyArg_ParseTuple (args, "O", &key))
         return NULL;
-    
+
     item = PyDict_GetItem (ruleset->rules, key);
     if (item)
     {
@@ -447,7 +447,7 @@ PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
 
     if (PyDict_DelItem (rset->rules, r->id) == -1)
         return 0;
-    
+
     rset->weight -= r->weight;
     return 1;
 }
@@ -473,7 +473,7 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
         return 0;
     }
     rset = (PyRuleSet*) ruleset;
-    
+
     /* Check, if the internal ruleset conditions are met. */
     if (rset->minweight > rset->maxweight)
     {
@@ -481,7 +481,7 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
             "minweight must be smaller or equal to maxweight.");
         return 0;
     }
-    
+
     rules = PyDict_Values (rset->rules);
     if (!rules)
         return 0;
@@ -544,12 +544,13 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
 
     rset->weight = totweight;
 
-    Py_DECREF (rules);
-
     retval = PyObject_CallMethod (ruleset, "distribute_remainder", "d",
         _remainder);
     if (!retval)
+    {
+        Py_DECREF (rules);
         return 0;
+    }
     Py_DECREF (retval);
 
     totweight = 0;
@@ -559,6 +560,8 @@ PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
         totweight += rule->weight;
     }
     rset->weight = totweight;
+
+    Py_DECREF (rules);
 
     return 1;
 }
