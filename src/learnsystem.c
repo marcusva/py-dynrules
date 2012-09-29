@@ -505,8 +505,9 @@ PyLearnSystem_CreateScript (PyObject *lsystem, PyObject *file, int maxrules)
 #else
     else if (PyUnicode_Check (file) ||  PyBytes_Check (file))
     {
+        PyObject *io;
         PyErr_Clear (); /* PyObject_AsFileDescriptor() sets an exception */
-        PyObject *io = PyImport_ImportModule ("io");
+        io = PyImport_ImportModule ("io");
         if (!io)
             return 0;
         fp = PyObject_CallMethod (io, "open", "ss", file, "w");
