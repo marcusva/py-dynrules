@@ -4,3 +4,5 @@ syntax: glob
 *.class
 *.core
 build
+cplusplus/.obj
+cplusplus/lib
