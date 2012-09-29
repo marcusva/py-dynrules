@@ -18,13 +18,29 @@ class RuleSet(object):
     def __init__(self, minweight, maxweight):
         """Creates a new, empty RuleSet."""
         self._rules = {}
-        self._minweight = 0
-        self._maxweight = 0
         self._weight = 0
-        self._set_maxweight(maxweight)
-        self._set_minweight(minweight)
+        self._maxweight = 0
+        self._minweight = 0
+        self.maxweight = maxweight
+        self.minweight = minweight
 
-    def _set_minweight(self, minweight):
+    @property
+    def rules(self):
+        """Gets the list of currently managed Rule objects."""
+        return list(self._rules.values())
+
+    @property
+    def weight(self):
+        """Gets the total weight of all managed Rules."""
+        return self._weight
+
+    @property
+    def minweight(self):
+        """Gets or sets the minimum weight to use for rules."""
+        return self._minweight
+
+    @minweight.setter
+    def minweight(self, minweight):
         """Sets the minimum weight to use for Rules.
 
         Raises a ValueError, if minweight is negative or greater than
@@ -38,7 +54,13 @@ class RuleSet(object):
                   ("minweight must be smaller or equal to the set maxweight")
         self._minweight = val
 
-    def _set_maxweight(self, maxweight):
+    @property
+    def maxweight(self):
+        """Gets or sets the maximum weight to use for rules."""
+        return self._maxweight
+
+    @maxweight.setter
+    def maxweight(self, maxweight):
         """Sets the maximum weight to use for Rules.
 
         Raises a ValueError, if maxweight is negative or smaller than
@@ -161,16 +183,3 @@ class RuleSet(object):
         for rule in rules:
             totweight += rule.weight
         self._weight = totweight
-
-    rules = property(lambda self: list(self._rules.values()),
-                     doc="Gets the list of currently managed Rule objects")
-    minweight = property(lambda self: self._minweight,
-                         lambda self, var: self._set_minweight(var),
-                         doc="Gets or sets the minimum weight to use " +
-                         "for Rules")
-    maxweight = property(lambda self: self._maxweight,
-                         lambda self, var: self._set_maxweight(var),
-                         doc="Gets or sets the maximum weight to use " +
-                         "for Rules")
-    weight = property(lambda self: self._weight,
-                      doc="Gets the total weight of all managed Rules")

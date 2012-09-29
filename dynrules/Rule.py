@@ -20,12 +20,19 @@ class Rule(object):
         self._used = False
         self.code = None
 
-    def _set_used(self, used):
-        """Sets whether the Rule was used or not."""
-        self._used = bool(used)
+    @property
+    def id(self):
+        """Gets the id of the Rule."""
+        return self._id
 
-    def _set_weight(self, weight):
-        """Sets the weight of the rule.
+    @property
+    def weight(self):
+        """Gets or sets the weight of the Rule."""
+        return self._weight
+
+    @weight.setter
+    def weight(self, weight):
+        """Gets or sets the weight of the rule.
 
         Raises a ValueError, if weight is < 0.
         """
@@ -33,10 +40,12 @@ class Rule(object):
             raise ValueError("weight must not be negative")
         self._weight = float(weight)
 
-    id = property(lambda self: self._id, doc="Gets the id of the Rule")
-    weight = property(lambda self: self._weight,
-                      lambda self, var: self._set_weight(var),
-                      doc="Gets or sets the weight of the Rule")
-    used = property(lambda self: self._used,
-                    lambda self, var: self._set_used(var),
-                    doc="Indicates whether the Rule was used or not")
+    @property
+    def used(self):
+        """Indicates whether the Rule was used or not."""
+        return self._used
+
+    @used.setter
+    def used(self, used):
+        """Sets whether the Rule was used or not."""
+        self._used = bool(used)

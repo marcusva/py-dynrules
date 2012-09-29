@@ -20,6 +20,11 @@ class RuleManagement(object):
             raise ValueError("maxrules must be greater than 0")
         self._maxrules = maxrules
 
+    @property
+    def maxrules(self):
+        """The maximum amount of rules to manage."""
+        return self._maxrules
+
     def load_rules(self, maxrules=-1):
         """Loads rules from the underlying data source.
 
@@ -46,6 +51,3 @@ class RuleManagement(object):
         """Saves a LearnSystem/RuleSet combination to a physical file.
         """
         learnsystem.create_script(filename, self._maxrules)
-
-    maxrules = property(lambda self: self._maxrules,
-                        doc="The maximum amount of rule to manage")

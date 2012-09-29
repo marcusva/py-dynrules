@@ -48,13 +48,27 @@ class LearnSystem(object):
         # Maximum script size, not including the header and footer.
         self._maxscriptsize = 1024
 
-    def _set_ruleset(self, ruleset):
+    @property
+    def ruleset(self):
+        """Gets or sets the RuleSet to use by the LeanrSystem."""
+        return self._ruleset
+
+    @ruleset.setter
+    def ruleset(self, ruleset):
         """Sets the RuleSet to use by the LearnSystem."""
         if not isinstance(ruleset, RuleSet):
             raise TypeError("ruleset must be a RuleSet")
         self._ruleset = ruleset
 
-    def _set_maxtries(self, maxtries):
+    @property
+    def maxtries(self):
+        """Gets or sets the maximum amount of tries to insert a script
+        rule.
+        """
+        return self._maxtries
+
+    @maxtries.setter
+    def maxtries(self, maxtries):
         """Sets the maximum amount of tries for inserting a Rule into a
         script.
 
@@ -64,7 +78,13 @@ class LearnSystem(object):
             raise ValueError("maxtries must be > 0")
         self._maxtries = maxtries
 
-    def _set_maxscriptsize(self, maxscriptsize):
+    @property
+    def maxscriptsize(self):
+        """Gets or sets the maximum script size for inserting rules."""
+        return self._maxscriptsize
+
+    @maxscriptsize.setter
+    def maxscriptsize(self, maxscriptsize):
         """Sets the maximum scriptsize for rules to insert.
 
         Raises a ValueError, if maxscriptsize is < 1.
@@ -170,15 +190,3 @@ class LearnSystem(object):
                 tries += 1
                 break
         return buf.getvalue()
-
-    maxtries = property(lambda self: self._maxtries,
-                        lambda self, var: self._set_maxtries(var),
-                        doc="Gets or sets the maximum amount of tries to" +
-                        "insert a script rule")
-    maxscriptsize = property(lambda self: self._maxscriptsize,
-                             lambda self, var: self._set_maxscriptsize(var),
-                             doc="Gets or sets the maximum script size " +
-                             "for inserting rules")
-    ruleset = property(lambda self: self._ruleset,
-                       lambda self, var: self._set_ruleset(var),
-                       doc="Gets or sets the RuleSet to use")
