@@ -12,8 +12,9 @@ class RuleSetTest(unittest.TestCase):
         self.assertTrue(ruleset.rules == [])
 
         v = None
-        self.assertRaises(TypeError, RuleSet, 0, v)
-        self.assertRaises(TypeError, RuleSet, None, 10)
+        if sys.platform != "cli": # IronPython can't do float(None)
+            self.assertRaises(TypeError, RuleSet, 0, v)
+            self.assertRaises(TypeError, RuleSet, None, 10)
         self.assertRaises(ValueError, RuleSet, "hello", 10)
         self.assertRaises(ValueError, RuleSet, 10, "hello")
         self.assertRaises(ValueError, RuleSet, 10, 9)
@@ -30,7 +31,8 @@ class RuleSetTest(unittest.TestCase):
         self.assertRaises(ValueError, setm, -1)
         self.assertRaises(ValueError, setm, 50)
         self.assertRaises(ValueError, setm, "hello")
-        self.assertRaises(TypeError, setm, None)
+        if sys.platform != "cli": # IronPython can't do float(None)
+            self.assertRaises(TypeError, setm, None)
 
     def test_maxweight(self):
         ruleset = RuleSet(10, 20)
@@ -43,7 +45,8 @@ class RuleSetTest(unittest.TestCase):
         self.assertRaises(ValueError, setm, -1)
         self.assertRaises(ValueError, setm, 8)
         self.assertRaises(ValueError, setm, "hello")
-        self.assertRaises(TypeError, setm, None)
+        if sys.platform != "cli": # IronPython can't do float(None)
+            self.assertRaises(TypeError, setm, None)
 
     def test_rulesadd(self):
         ruleset = RuleSet(10, 20)
