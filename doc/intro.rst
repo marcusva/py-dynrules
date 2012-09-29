@@ -19,11 +19,12 @@ supportive system for creating your own adaptive AI quickly.
 Prerequisites
 =============
 
-dynrules needs at least **Python 2.4** to run and was successfully tested with
-the versions **2.4, 2.5, 2.6, 3.0** and **3.1**. It features both, a C and
-pure Python implementation, letting you choose whatever suits you
-more. By default, both implementations will be installed, but the C
-implementation will be preferred by the dynrules internals.
+dynrules needs at least **Python 2.6** to run and was successfully
+tested with the versions **2.6, 2.7, 3.1, 3.2** and **PyPy 1.9**. It
+features both, a C and pure Python implementation, letting you choose
+whatever suits you more. By default, both implementations will be
+installed, but the C implementation will be preferred by the dynrules
+internals.
 
 In case you want to build the C implementation, you will need a C
 compiler, which supports parts of the C99 standard, such as the `GCC
@@ -57,10 +58,10 @@ which means that installation problems or similar issues, which do not
 target dynrules directly, should be escalated to the respective supplier
 of that package.
 
-Notes on bzr usage
-==================
+Notes on Mercurial usage
+========================
 
-The bzr repository version of dynrules is not intended to be used in a
-production environment. Interfaces may change from one checkin to
+The Mercurial repository version of dynrules is not intended to be used
+in a production environment. Interfaces may change from one checkin to
 another, methods, classes or modules can be broken and so on. If you
 want more reliable code, please refer to the official releases.

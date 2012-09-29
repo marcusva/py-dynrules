@@ -6,3 +6,4 @@ syntax: glob
 build
 cplusplus/.obj
 cplusplus/lib
+doc/html

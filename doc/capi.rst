@@ -1,8 +1,11 @@
+.. default-domain:: c
+
 C API reference
 ===============
 
-The :mod:`dynrules` C API contains fast C based implementations of the dynamic
-scripting module API.
+The :py:mod:`dynrules` C API contains fast C based implementations of
+the dynamic scripting module API.
+
 
 Import
 ------
@@ -10,148 +13,149 @@ Include headers::
 
   dynrules/dynrules.h
 
-.. cfunction:: int import_dynrules (void)
+.. function:: int import_dynrules (void)
 
-  Imports the :mod:`dynrules` module. This returns 0 on success and -1 on
+  Imports the :py:mod:`dynrules` module. This returns 0 on success and -1 on
   failure.
 
 PyRule
 ------
-.. ctype:: PyRule
-.. ctype:: Py_Type
+.. type:: PyRule
+.. type:: Py_Type
 
-The :ctype:`PyRule` object is a simple class type that carries a weight
+The :type:`PyRule` object is a simple class type that carries a weight
 indicator and arbitrary code data for usage in the dynamic script
 generation process.
 
 Members
 ^^^^^^^
-.. cmember:: PyObject PyRule.id
+.. member:: PyObject PyRule.id
 
   The unique identifier.
 
-.. cmember:: int PyRule.used
+.. member:: int PyRule.used
 
   Indicates whether the rule code was executed. The value is limited to 0 and 1.
 
-.. cmember:: double PyRule.weight
+.. member:: double PyRule.weight
 
   The weight of the rule.
 
-.. cmember:: PyObject PyRule.code
+.. member:: PyObject PyRule.code
 
   The code object to be executed.
 
 Functions
 ^^^^^^^^^
-.. cfunction:: int PyRule_Check (PyObject *obj)
+.. function:: int PyRule_Check (PyObject *obj)
 
-  Returns true, if the argument is a :ctype:`PyRule` or a subclass of
-  :ctype:`PyRule`.
+  Returns true, if the argument is a :type:`PyRule` or a subclass of
+  :type:`PyRule`.
 
-.. cfunction:: PyObject* PyRule_New (PyObject *id)
+.. function:: PyObject* PyRule_New (PyObject *id)
 
-  Creates a new :ctype:`PyRule` object with the given id. On failure, this
+  Creates a new :type:`PyRule` object with the given id. On failure, this
   returns NULL.
 
 PyRuleSet
 ---------
-.. ctype:: PyRuleSet
-.. ctype:: PyRuleSet_Type
+.. type:: PyRuleSet
+.. type:: PyRuleSet_Type
 
 The PyRuleSet object is a rule container class that manages rules, their
 weights and the weight distribution for the rules.
 
 Members
 ^^^^^^^
-.. cmember:: PyObject PyRuleSet.rules
+.. member:: PyObject PyRuleSet.rules
 
-  A dictionary containing the rules. It uses the :cmember:`PyRule.id` as key and
-  the :ctype:`PyRule` as value.
+  A dictionary containing the rules. It uses the :member:`PyRule.id` as key and
+  the :type:`PyRule` as value.
 
-.. cmember:: double PyRuleSet.weight
+.. member:: double PyRuleSet.weight
 
   The total weight of all contained rules.
 
-.. cmember:: double PyRuleSet.minweight
+.. member:: double PyRuleSet.minweight
 
-  The minimum weight a contained :ctype:`PyRule` can retrieve.
+  The minimum weight a contained :type:`PyRule` can retrieve.
 
-.. cmember:: double PyRuleSet.maxweight
+.. member:: double PyRuleSet.maxweight
 
-  The maximum weight a contained :ctype:`PyRule` can retrieve.
+  The maximum weight a contained :type:`PyRule` can retrieve.
 
 Functions
 ^^^^^^^^^
-.. cfunction:: int PyRuleSet_Check (PyObject *obj)
+.. function:: int PyRuleSet_Check (PyObject *obj)
 
-  Returns true, if the argument is a :ctype:`PyRuleSet` or a subclass of
-  :ctype:`PyRuleSet`.
+  Returns true, if the argument is a :type:`PyRuleSet` or a subclass of
+  :type:`PyRuleSet`.
 
-.. cfunction:: PyObject* PyRuleSet_New (double minw, double maxw)
+.. function:: PyObject* PyRuleSet_New (double minw, double maxw)
 
-  Creates a new :ctype:`PyRuleSet` object with an initial minimum and maximum
+  Creates a new :type:`PyRuleSet` object with an initial minimum and maximum
   weight. On failure, this returns NULL.
 
-.. cfunction:: int PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
+.. function:: int PyRuleSet_Add (PyObject *ruleset, PyObject *rule)
 
-  Adds a :ctype:`PyRule` to a :ctype:`PyRuleSet`. If there is a rule with the
-  same id already in the :ctype:`PyRuleSet`, it will be removed and the passed
-  *rule* will be used instead. Additionally the :cmember:`PyRule.weight` member
+  Adds a :type:`PyRule` to a :type:`PyRuleSet`. If there is a rule with the
+  same id already in the :type:`PyRuleSet`, it will be removed and the passed
+  *rule* will be used instead. Additionally the :member:`PyRule.weight` member
   will be set to stay within the boundaries of the
-  :cmember:`PyRuleSet.minweight` and :cmember:`PyRuleSet.maxweight` limits.
+  :member:`PyRuleSet.minweight` and :member:`PyRuleSet.maxweight` limits.
   This returns 1 on success and 0 on failure.
-  
-.. cfunction:: int PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
 
-  Removes a :ctype:`PyRule` from a :ctype:`PyRuleSet`. This returns 1 on success
+.. function:: int PyRuleSet_Remove (PyObject *ruleset, PyObject *rule)
+
+  Removes a :type:`PyRule` from a :type:`PyRuleSet`. This returns 1 on success
   and 0 on failure.
 
-.. cfunction:: int PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
+.. function:: int PyRuleSet_UpdateWeights (PyObject *ruleset, PyObject *fitness)
 
-  Updates the weights of all contained rules. *fitness* will be passed to the
-  user-specific :cfunc:`PyRuleSet.calculate_adjustment` method. This returns
-  1 on success and 0 on failure.
-  
+  Updates the weights of all contained rules. *fitness* will be passed
+  to the user-specific :func:`PyRuleSet.calculate_adjustment`
+  method. This returns 1 on success and 0 on failure.
+
 PyLearnSystem
 -------------
-.. ctype:: PyLearnSystem
-.. ctype:: PyLearnSystem_Type
+.. type:: PyLearnSystem
+.. type:: PyLearnSystem_Type
 
-The PyLearnSystem object takes care of creating new scripts  based on a
-predefined :ctype:`PyRuleSet`. It does not evaluate the scripts nor modifies
-the rules written to them.
+The PyLearnSystem object takes care of creating new scripts based on a
+predefined :type:`PyRuleSet`. It does not evaluate the scripts nor
+modifies the rules written to them.
 
 Members
 ^^^^^^^
-.. cmember:: PyObject PyLearnSystem.ruleset
+.. member:: PyObject PyLearnSystem.ruleset
 
-  The :ctype:`PyRuleSet` to use.
+   The :type:`PyRuleSet` to use.
 
-.. cmember:: int PyLearnSystem.maxtries
+.. member:: int PyLearnSystem.maxtries
 
-  The maximum number of tries to select rules and generate a script.
+   The maximum number of tries to select rules and generate a script.
 
-.. cmember:: int PyLearnSystem.maxscriptsize
+.. member:: int PyLearnSystem.maxscriptsize
 
-  The maximum size in bytes of the scripts to generate.
+   The maximum size in bytes of the scripts to generate.
 
 Functions
 ^^^^^^^^^
-.. cfunction:: int PyLearnSystem_Check (PyObject *obj)
+.. function:: int PyLearnSystem_Check (PyObject *obj)
 
-  Returns true, if the argument is a :ctype:`PyLearnSystem` or a subclass of
-  :ctype:`PyLearnSystem`.
+   Returns true, if the argument is a :type:`PyLearnSystem` or a subclass of
+   :type:`PyLearnSystem`.
 
-.. cfunction:: PyObject* PyLearnSystem_New (PyObject *ruleset)
+.. function:: PyObject* PyLearnSystem_New (PyObject *ruleset)
 
-  Creates a new :ctype:`PyLearnSytem` object for the passed :ctype`PyRuleSet`.
-  On failure, this returns NULL.
+   Creates a new :type:`PyLearnSytem` object for the passed :type:`PyRuleSet`.
+   On failure, this returns NULL.
 
-.. cfunction:: int PyLearnSystem_CreateScript (PyObject *learnsystem, PyObject *file, int maxrules)
+.. function:: int PyLearnSystem_CreateScript (PyObject *learnsystem, \
+   PyObject *file, int maxrules)
 
-  Creates a script from the set :cmember:`PyLearnSystem.rulset` using the
-  passed script *file*. A maximum of *maxrules* rules will be written.
-  *file* can be any file-like Python object or a filename. In case of
-  a file object it is assumed to be writeable and won't be closed on
-  leaving the function.
+   Creates a script from the set :member:`PyLearnSystem.rulset` using the
+   passed script *file*. A maximum of *maxrules* rules will be written.
+   *file* can be any file-like Python object or a filename. In case of
+   a file object it is assumed to be writeable and won't be closed on
+   leaving the function.

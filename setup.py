@@ -1,18 +1,20 @@
 #!/usr/bin/env python
 import distutils.sysconfig
 from distutils.core import setup, Extension
-import os, sys, glob
+import os
+import sys
+import glob
 
 DEBUG = True
 VERSION = "0.0.15"
 
-def get_sources ():
-    return glob.glob (os.path.join ("src", "*.c"))
+def get_sources():
+    return glob.glob(os.path.join("src", "*.c"))
 
-def get_headers ():
-    return [ "src/compat.h", "src/dynrules.h" ]
+def get_headers():
+    return ["src/compat.h", "src/dynrules.h"]
 
-def get_defines ():
+def get_defines():
     defines = [("VERSION", "\"0.0.15\"")]
     return defines
 
@@ -34,15 +36,15 @@ if __name__ == "__main__":
 ##         compile_args += ["-std=c99", "-g"]
     # GCC specific code END.
 
-    dynrules = Extension ("dynrules._dynrules", sources=get_sources (),
-                          language="c",define_macros=get_defines (),
+    dynrules = Extension("dynrules._dynrules", sources=get_sources(),
+                          language="c",define_macros=get_defines(),
                           extra_compile_args=compile_args)
 
     long_desc = \
 """
-dynrules is a dynamic ruleset scripting package for Python. It uses the Dynamic
-Scripting technique to create adaptive AI scripts automatically from predefined
-rulesets.
+dynrules is a dynamic ruleset scripting package for Python. It uses the
+Dynamic Scripting technique to create adaptive AI scripts automatically
+from predefined rulesets.
 """
 
     setupdata = {
@@ -53,7 +55,7 @@ rulesets.
         "author" : "Marcus von Appen",
         "author_email" : "marcus@sysfault.org",
         "license" : "Public Domain",
-        "url" : "http://www.sysfault.org/dokuwiki/projects:dynrules",
+        "url" : "http://code.google.com/p/python-dynrules/",
         "packages" : ["dynrules",
                       "dynrules.examples" ],
         "package_dir" : { "dynrules" : "dynrules",
@@ -61,7 +63,7 @@ rulesets.
         "ext_modules" : [ dynrules ],
         "headers" : get_headers (),
         "classifiers" : [
-            "Development Status :: 4 - Beta",
+            "Development Status :: 5 - Production/Stable",
             "Intended Audience :: Developers",
             "Intended Audience :: Science/Research",
             "License :: Public Domain",
@@ -75,9 +77,12 @@ rulesets.
             "Programming Language :: Python :: 3",
             "Programming Language :: Python :: 3.1",
             "Programming Language :: Python :: 3.2",
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Programming Language :: Python :: Implementation :: IronPython",
+            "Programming Language :: Python :: Implementation :: PyPy",
             "Topic :: Scientific/Engineering :: Artificial Intelligence",
             "Topic :: Software Development :: Code Generators",
             "Topic :: Software Development :: Libraries :: Python Modules",
           ],
         }
-    setup (**setupdata)
+    setup(**setupdata)
