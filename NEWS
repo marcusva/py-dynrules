@@ -2,7 +2,12 @@ This NEWS file for dynrules covers a short overview about the latest changes.
 
 0.0.15 2012-XX-XX
 -----------------
-
+Python framework:
+  * Added PyPy support.
+  * More compatibility fixes for Python 3.x.
+  * Fixed a refcount issue in CRuleSet.update_weights(), which might
+    lead to crashes.
+  * Moved unit tests into dynrules package.
 
 0.0.14 2011-05-14
 -----------------

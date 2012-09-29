@@ -57,11 +57,14 @@ from predefined rulesets.
         "license" : "Public Domain",
         "url" : "http://code.google.com/p/python-dynrules/",
         "packages" : ["dynrules",
-                      "dynrules.examples" ],
+                      "dynrules.examples",
+                      "dynrules.test",
+                      ],
         "package_dir" : { "dynrules" : "dynrules",
-                          "dynrules.examples" : "examples"  },
-        "ext_modules" : [ dynrules ],
-        "headers" : get_headers (),
+                          "dynrules.examples" : "examples"
+                          },
+        "ext_modules" : [dynrules],
+        "headers" : get_headers(),
         "classifiers" : [
             "Development Status :: 5 - Production/Stable",
             "Intended Audience :: Developers",
