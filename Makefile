@@ -19,7 +19,8 @@ docs:
 
 dist: docs
 	@echo "Creating dist..."
-	@$(PYTHON) setup.py sdist
+	@$(PYTHON) setup.py sdist --format=zip
+	@$(PYTHON) setup.py sdist --format=gztar
 
 bdist:
 	@echo "Creating bdist..."
