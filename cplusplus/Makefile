@@ -8,7 +8,7 @@ WFLAGS ?= -pedantic-errors -W -Wall -Wpointer-arith -Wcast-qual -Winline \
 	-Wcast-align -Wconversion -Wshadow -Wredundant-decls \
 	-Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Weffc++ \
 	-Wno-non-template-friend -Wold-style-cast \
-	-Woverloaded-virtual -Wsign-promo 
+	-Woverloaded-virtual -Wsign-promo
 INCLUDES = -I./
 
 AR ?= ar
@@ -49,7 +49,7 @@ docs:
 
 dirs:
 	@mkdir -p $(OBJDIR) $(BLDDIR)
-    
+
 $(OBJECTS): dirs
 	$(CC) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c $(SRCDIR)/$*.cpp -o $(OBJDIR)/$*.o
 
@@ -71,4 +71,4 @@ examples: learnsystem
 
 learnsystem:
 	$(CC) $(CFLAGS) -static $(WFLAGS) $(EXINCLUDES) \
-		examples/learnsystem.cpp -o learnsystem $(LFLAGS) 
+		examples/learnsystem.cpp -o learnsystem $(LFLAGS)

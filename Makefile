@@ -56,6 +56,7 @@ buildall: clean
 	@python2.7 setup.py build
 	@python3.1 setup.py build
 	@python3.2 setup.py build
+	@python3.3 setup.py build
 	@pypy1.9 setup.py build
 
 installall:
@@ -66,6 +67,8 @@ installall:
 	@python3.1 setup.py build install
 	@make clean
 	@python3.2 setup.py build install
+	@make clean
+	@python3.3 setup.py build install
 	@make clean
 	@pypy1.9 setup.py build install
 	@make clean
@@ -80,6 +83,8 @@ testall:
 	@rm -rf dynrules/test/*.pyc
 	@-PYTHONPATH=$(PYTHONPATH) python3.2 dynrules/test/util/runtests.py
 	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) python3.3 dynrules/test/util/runtests.py
+	@rm -rf dynrules/test/*.pyc
 	@-PYTHONPATH=$(PYTHONPATH) pypy1.9 dynrules/test/util/runtests.py
 	@rm -rf dynrules/test/*.pyc
 
@@ -88,6 +93,7 @@ testpackage:
 	@python2.7 -c "import dynrules.test; dynrules.test.run()"
 	@python3.1 -c "import dynrules.test; dynrules.test.run()"
 	@python3.2 -c "import dynrules.test; dynrules.test.run()"
+	@python3.3 -c "import dynrules.test; dynrules.test.run()"
 	@pypy1.9 -c "import dynrules.test; dynrules.test.run()"
 
 purge_installs:
@@ -99,4 +105,5 @@ purge_installs:
 	rm -rf /usr/local/lib/python2.7/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.1/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.2/site-packages/dynrules*
+	rm -rf /usr/local/lib/python3.3/site-packages/dynrules*
 	rm -rf /usr/local/lib/pypy-1.9/site-packages/dynrules*

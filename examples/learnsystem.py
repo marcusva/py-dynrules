@@ -13,6 +13,7 @@ class Learner(LearnSystem):
     def create_footer(self):
         return "# ----\n# FOOTER\n# ----\n"
 
+
 def create_rules():
     ruleset = RuleSet(0, 10)
     for i in range(20):
@@ -22,10 +23,12 @@ def create_rules():
         ruleset.add(rule)
     return ruleset
 
+
 def run():
     ruleset = create_rules()
     learnsystem = Learner(ruleset)
     learnsystem.create_script("testscript.py", 10)
+
 
 if __name__ == "__main__":
     sys.exit(run())
