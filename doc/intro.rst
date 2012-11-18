@@ -20,7 +20,7 @@ Prerequisites
 =============
 
 dynrules needs at least **Python 2.6** to run and was successfully
-tested with the versions **2.6, 2.7, 3.1, 3.2** and **PyPy 1.9**. It
+tested with the versions **2.6, 2.7, 3.1, 3.2, 3.3** and **PyPy 1.9**. It
 features both, a C and pure Python implementation, letting you choose
 whatever suits you more. By default, both implementations will be
 installed, but the C implementation will be preferred by the dynrules

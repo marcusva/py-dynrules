@@ -38,7 +38,7 @@ install:
 clean:
 	@echo "Cleaning up in $(top_srcdir)/ ..."
 	@rm -f *.cache *.core *~ MANIFEST
-	@rm -rf build dist
+	@rm -rf build dist __pycache__
 
 	@for dir in $(SUBDIRS); do \
 		if test -f $$dir/Makefile; then \
@@ -46,7 +46,7 @@ clean:
 		else \
 			cd $$dir; \
 			echo "Cleaning up in $$dir..."; \
-			rm -f *~ *.cache *.core *.pyc; \
+			rm -rf *~ *.cache *.core *.pyc __pycache__; \
 		fi \
 	done
 
@@ -75,19 +75,12 @@ installall:
 	@make clean
 
 testall:
-	@rm -rf dynrules/test/*.pyc
-	@-PYTHONPATH=$(PYTHONPATH) python2.6 dynrules/test/util/runtests.py
-	@rm -rf dynrules/test/*.pyc
-	@-PYTHONPATH=$(PYTHONPATH) python2.7 dynrules/test/util/runtests.py
-	@rm -rf dynrules/test/*.pyc
-	@-PYTHONPATH=$(PYTHONPATH) python3.1 dynrules/test/util/runtests.py
-	@rm -rf dynrules/test/*.pyc
-	@-PYTHONPATH=$(PYTHONPATH) python3.2 dynrules/test/util/runtests.py
-	@rm -rf dynrules/test/*.pyc
-	@-PYTHONPATH=$(PYTHONPATH) python3.3 dynrules/test/util/runtests.py
-	@rm -rf dynrules/test/*.pyc
-	@-PYTHONPATH=$(PYTHONPATH) pypy1.9 dynrules/test/util/runtests.py
-	@rm -rf dynrules/test/*.pyc
+	@-PYTHONPATH=$(PYTHONPATH) python2.6 -B -m dynrules.test.util.runtests
+	@-PYTHONPATH=$(PYTHONPATH) python2.7 -B -m dynrules.test.util.runtests
+	@-PYTHONPATH=$(PYTHONPATH) python3.1 -B -m dynrules.test.util.runtests
+	@-PYTHONPATH=$(PYTHONPATH) python3.2 -B -m dynrules.test.util.runtests
+	@-PYTHONPATH=$(PYTHONPATH) python3.3 -B -m dynrules.test.util.runtests
+	@-PYTHONPATH=$(PYTHONPATH) pypy1.9 -B -m dynrules.test.util.runtests
 
 testpackage:
 	@python2.6 -c "import dynrules.test; dynrules.test.run()"
@@ -108,3 +101,4 @@ purge_installs:
 	rm -rf /usr/local/lib/python3.2/site-packages/dynrules*
 	rm -rf /usr/local/lib/python3.3/site-packages/dynrules*
 	rm -rf /usr/local/lib/pypy-1.9/site-packages/dynrules*
+
