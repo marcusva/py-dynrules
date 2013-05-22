@@ -1,6 +1,3 @@
-##
-## This file is placed under the public domain.
-##
 import sys
 import os
 import unittest
@@ -43,11 +40,8 @@ class TagTestLoader(TestLoader):
                     return []
 
         testFnNames = list(filter(isTestMethod, dir(testCaseClass)))
-        cmpkey = None
-        if hasattr(unittest, "_CmpToKey"):
-            cmpkey = unittest._CmpToKey
-        elif hasattr(unittest, "CmpToKey"):
-            cmpkey = unittest.CmpToKey
+        cmpkey = getattr(unittest, "_CmpToKey", None) or \
+            getattr(unittest, "CmpToKey", None)
 
         if self.randomizer:
             self.randomizer.shuffle(testFnNames)
@@ -68,14 +62,9 @@ class SimpleTestResult(TestResult):
         self.duration = 0
         self.verbose = verbose
         self.countcall = countcall
-        if sys.version_info[0:2] == (2, 6):
-            self.skipped = []
 
     def addSkip(self, test, reason):
-        if sys.version_info[0:2] == (2, 6):
-            self.skipped.append((test, reason))
-        else:
-            TestResult.addSkip(self, test, reason)
+        TestResult.addSkip(self, test, reason)
         if self.verbose:
             self.stream.write("SKIPPED: %s [%s]%s" % (test, reason,
                                                       os.linesep))

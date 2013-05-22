@@ -1,6 +1,5 @@
 Introduction
 ============
-
 This is the documentation for the dynrules dynamic rules creation
 package. dynrules is a small package that allows you to create
 rule-based scripts for adaptive AI systems automatically. It uses the
@@ -17,22 +16,15 @@ dynrules is not meant to be a fully functional AI package, but rather a
 supportive system for creating your own adaptive AI quickly.
 
 Prerequisites
-=============
+-------------
+You must have at least one of the following Python versions installed:
 
-dynrules needs at least **Python 2.6** to run and was successfully
-tested with the versions **2.6, 2.7, 3.1, 3.2, 3.3** and **PyPy 1.9**. It
-features both, a C and pure Python implementation, letting you choose
-whatever suits you more. By default, both implementations will be
-installed, but the C implementation will be preferred by the dynrules
-internals.
-
-In case you want to build the C implementation, you will need a C
-compiler, which supports parts of the C99 standard, such as the `GCC
-<http://www.gnu.org/software/gcc/>`_.
+* Python 2.6+           (http://www.python.org)
+* PyPy 1.8.0+           (http://www.pypy.org)
+* IronPython 2.7.2.1+   (http://www.ironpython.net)
 
 Installing dynrules
-===================
-
+-------------------
 You can either use the python way of installing the package using
 distutils or the make command using the Makefile. Simply type ::
 
@@ -48,9 +40,34 @@ It must be said that the install target of the Makefile does not do
 anything different from the python way. It simply calls 'python setup.py
 install'.
 
-Binary packages
-===============
+Trying out
+^^^^^^^^^^
+You also can test out dynrules without actually installing it. You just
+need to set up your ``PYTHONPATH`` to point to the location of the
+source distribution package. On Windows-based platforms, you might use
+something like ::
 
+   set PYTHONPATH=C:\path\to\dynrules\:$PYTHONPATH
+
+to define the ``PYTHONPATH`` on a command shell. On Linux/Unix, use ::
+
+   export PYTHONPATH=/path/to/dynrules:$PYTHONPATH
+
+for bourne shell compatibles or ::
+
+   setenv PYTHONPATH /path/to/dynrules:$PYTHONPATH
+
+for C shell compatibles. You can omit the `:$PYTHONPATH``, if you did not use
+it so far and if your environment settings do not define it.
+
+.. note::
+
+   If you are using IronPython, use ``IRONPYTHONPATH`` instead of
+   ``PYTHONPATH``.
+
+
+Binary packages
+---------------
 dynrules is not provided as binary package by the author. It might be
 that someone else set up such a package for your wanted operating system
 or distribution. Those packages are usually not supported by the author,
@@ -59,8 +76,7 @@ target dynrules directly, should be escalated to the respective supplier
 of that package.
 
 Notes on Mercurial usage
-========================
-
+------------------------
 The Mercurial repository version of dynrules is not intended to be used
 in a production environment. Interfaces may change from one checkin to
 another, methods, classes or modules can be broken and so on. If you

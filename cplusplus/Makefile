@@ -26,13 +26,13 @@ DOCAPIDIR = doc
 HEADERS = \
 	src/dynrules.h \
 	src/LearnSystem.h \
-	src/MMapRuleManagement.h \
+	src/MMapRuleManager.h \
 	src/Rule.h \
-	src/RuleManagement.h \
+	src/RuleManager.h \
 	src/RuleSet.h
 
-SOURCES = Rule.cpp  RuleSet.cpp  LearnSystem.cpp  RuleManagement.cpp \
-	MMapRuleManagement.cpp
+SOURCES = Rule.cpp  RuleSet.cpp  LearnSystem.cpp  RuleManager.cpp \
+	MMapRuleManager.cpp
 
 OBJECTS = $(SOURCES:%.cpp=%.o)
 TARGET = libdynrules.a

@@ -12,7 +12,7 @@
 #include "Rule.h"
 #include "RuleSet.h"
 #include "LearnSystem.h"
-#include "RuleManagement.h"
-#include "MMapRuleManagement.h"
+#include "RuleManager.h"
+#include "MMapRuleManager.h"
 
 #endif /* _DYNRULES_H_ */

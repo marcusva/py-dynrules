@@ -6,8 +6,8 @@
  * This file is distributed under the Public Domain.
  */
 
-#ifndef _RULEMANAGEMENT_H_
-#define _RULEMANAGEMENT_H_
+#ifndef _RULEMANAGER_H_
+#define _RULEMANAGER_H_
 
 #include <vector>
 #include <sstream>
@@ -19,30 +19,30 @@
 namespace dynrules
 {
     /**
-     * \brief The RuleManagement class takes care of loading and saving rules from
+     * \brief The RuleManager class takes care of loading and saving rules from
      *  arbitrary data sources.
      *
      * The base is an abstract class, which's loadRules() method must be
      * implemented according to the specific needs of the application.
      *
      */
-    class RuleManagement
+    class RuleManager
     {
     public:
 
         /**
-         * \brief Creates a new RuleManagement instance.
+         * \brief Creates a new RuleManager instance.
          *
          * \param maxrules The default amount of rules to manage.
          */
-        RuleManagement (unsigned int maxrules);
+        RuleManager (unsigned int maxrules);
 
         /**
-         * \brief Destroys the RuleManagement.
+         * \brief Destroys the RuleManager.
          *
-         * Destroys the RuleManagement and frees the memory hold by it.
+         * Destroys the RuleManager and frees the memory hold by it.
          */
-        virtual ~RuleManagement ();
+        virtual ~RuleManager ();
 
         /**
          * \brief Loads all existing rules from the underlying data source.
@@ -87,7 +87,7 @@ namespace dynrules
     protected:
 
         /**
-         * \brief The maximum amount of Rule objects the RuleManagement
+         * \brief The maximum amount of Rule objects the RuleManager
          * will manage.
          */
         unsigned int _maxrules;
@@ -96,4 +96,4 @@ namespace dynrules
 
 } // namespace
 
-#endif /* _RULEMANAGEMENT_H_ */
+#endif /* _RULEMANAGER_H_ */

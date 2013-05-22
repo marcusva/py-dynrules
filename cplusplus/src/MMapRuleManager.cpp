@@ -6,12 +6,12 @@
  * This file is distributed under the Public Domain.
  */
 
-#include "MMapRuleManagement.h"
+#include "MMapRuleManager.h"
 
 namespace dynrules
 {
-MMapRuleManagement::MMapRuleManagement (unsigned int maxrules) :
-    RuleManagement (maxrules),
+MMapRuleManager::MMapRuleManager (unsigned int maxrules) :
+    RuleManager (maxrules),
     _rules(0)
 {
     unsigned int i;
@@ -19,7 +19,7 @@ MMapRuleManagement::MMapRuleManagement (unsigned int maxrules) :
         this->_rules.push_back (new Rule (i));
 }
 
-MMapRuleManagement::~MMapRuleManagement ()
+MMapRuleManager::~MMapRuleManager ()
 {
     std::vector<Rule*>::iterator iter;
     for (iter = this->_rules.begin (); iter != this->_rules.end (); iter++)
@@ -29,17 +29,17 @@ MMapRuleManagement::~MMapRuleManagement ()
     this->_rules.clear ();
 }
 
-std::vector<Rule*> MMapRuleManagement::loadRules ()
+std::vector<Rule*> MMapRuleManager::loadRules ()
 {
     return this->_rules;
 }
 
-std::vector<Rule*> MMapRuleManagement::loadRules (unsigned int maxrules)
+std::vector<Rule*> MMapRuleManager::loadRules (unsigned int maxrules)
 {
     return this->_rules;
 }
 
-bool MMapRuleManagement::saveRules (std::vector<Rule*> rules)
+bool MMapRuleManager::saveRules (std::vector<Rule*> rules)
 {
     return true;
 }

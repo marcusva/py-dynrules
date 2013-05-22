@@ -6,26 +6,26 @@
  * This file is distributed under the Public Domain.
  */
 
-#include "RuleManagement.h"
+#include "RuleManager.h"
 
 namespace dynrules
 {
 
-RuleManagement::RuleManagement (unsigned int maxrules) :
+RuleManager::RuleManager (unsigned int maxrules) :
     _maxrules (maxrules)
 {
 }
 
-RuleManagement::~RuleManagement ()
+RuleManager::~RuleManager ()
 {
 }
 
-unsigned int RuleManagement::getMaxRules () const
+unsigned int RuleManager::getMaxRules () const
 {
     return this->_maxrules;
 }
 
-bool RuleManagement::saveRulesHintFile (std::string filename,
+bool RuleManager::saveRulesHintFile (std::string filename,
     LearnSystem& lsystem) const
 {
     std::ofstream fd;

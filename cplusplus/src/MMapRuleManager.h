@@ -6,44 +6,44 @@
  * This file is distributed under the Public Domain.
  */
 
-#ifndef _MMAPRULEMANAGEMENT_H_
-#define _MMAPRULEMANAGEMENT_H_
+#ifndef _MMAPRULEMANAGER_H_
+#define _MMAPRULEMANAGER_H_
 
-#include "RuleManagement.h"
+#include "RuleManager.h"
 
 namespace dynrules
 {
     /**
-     * \brief A simple memory-mapped RuleManagement implementation that does not
+     * \brief A simple memory-mapped RuleManager implementation that does not
      * load its rules from an external data source.
      *
      * It is an extremely useful class for testing rules and basic algorithms, but
      * due to the in-memory management of all rules, it should not be used in a
      * productive environment, especially if large rule sets have to be managed.
      *
-     * By default, the MMapRuleManagement will reserve enough memory for the rules
+     * By default, the MMapRuleManager will reserve enough memory for the rules
      * to manage, when it is constructed. It will NOT fill the rules with useful
      * values though. It is up to caller to use loadRules() afterwards and fill the
      * returned Rule instances with the necessary data.
      */
-    class MMapRuleManagement : public RuleManagement
+    class MMapRuleManager : public RuleManager
     {
     public:
 
         /**
-         * \brief Creates a new MMapRuleManagement instance.
+         * \brief Creates a new MMapRuleManager instance.
          *
          * \param maxrules The amount of Rule objects to create.
          */
-        MMapRuleManagement (unsigned int maxrules);
+        MMapRuleManager (unsigned int maxrules);
 
         /**
-         * \brief Destroys the MMapRuleManagement.
+         * \brief Destroys the MMapRuleManager.
          *
-         * Destroys the MMapRuleManagement and frees the memory hold by
+         * Destroys the MMapRuleManager and frees the memory hold by
          * the attached Rule instances.
          */
-        virtual ~MMapRuleManagement();
+        virtual ~MMapRuleManager();
 
         /**
          * \brief Loads all existing rules.
@@ -82,4 +82,4 @@ namespace dynrules
     };
 
 } // namespace
-#endif /* _MMAPRULEMANAGEMENT_H_ */
+#endif /* _MMAPRULEMANAGER_H_ */

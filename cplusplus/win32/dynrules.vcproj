@@ -153,7 +153,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MMapRuleManagement.cpp"
+				RelativePath="..\src\MMapRuleManager.cpp"
 				>
 			</File>
 			<File
@@ -161,7 +161,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\RuleManagement.cpp"
+				RelativePath="..\src\RuleManager.cpp"
 				>
 			</File>
 			<File
@@ -183,7 +183,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MMapRuleManagement.h"
+				RelativePath="..\src\MMapRuleManager.h"
 				>
 			</File>
 			<File
@@ -191,7 +191,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\RuleManagement.h"
+				RelativePath="..\src\RuleManager.h"
 				>
 			</File>
 			<File

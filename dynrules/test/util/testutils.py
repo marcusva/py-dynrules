@@ -1,7 +1,3 @@
-##
-## This file is placed under the public domain.
-##
-
 import os
 
 try:

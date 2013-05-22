@@ -23,7 +23,12 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = []
+extensions = ['sphinx.ext.intersphinx',
+              'sphinx.ext.todo',
+              'sphinx.ext.coverage',
+              'sphinx.ext.inheritance_diagram'
+              ]
+todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = []
@@ -42,9 +47,9 @@ copyright = 'Public Domain 2008-2011'
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '0.0.15'
+version = '0.0.16'
 # The full version, including alpha/beta/rc tags.
-release = '0.0.15'
+release = '0.0.16'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:

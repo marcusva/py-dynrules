@@ -1,13 +1,15 @@
-top_srcdir = `pwd`
 PYTHON ?= python
+top_srcdir = `pwd`
+PYTHONPATH ?= $(top_srcdir)
 SUBDIRS = \
-	$(top_srcdir)/src \
 	$(top_srcdir)/dynrules \
 	$(top_srcdir)/dynrules/test \
 	$(top_srcdir)/dynrules/test/util \
 	$(top_srcdir)/doc \
 	$(top_srcdir)/examples \
 	$(top_srcdir)/cplusplus
+
+INTERPRETERS = python2.7 python3.2 python3.3 pypy2.0
 
 all: clean build
 
@@ -22,7 +24,7 @@ dist: docs
 	@$(PYTHON) setup.py sdist --format=zip
 	@$(PYTHON) setup.py sdist --format=gztar
 
-bdist:
+bdist: clean docs
 	@echo "Creating bdist..."
 	@$(PYTHON) setup.py bdist
 
@@ -53,52 +55,26 @@ clean:
 release: clean dist
 
 buildall: clean
-	@python2.6 setup.py build
-	@python2.7 setup.py build
-	@python3.1 setup.py build
-	@python3.2 setup.py build
-	@python3.3 setup.py build
-	@pypy1.9 setup.py build
+	@for interp in $(INTERPRETERS); do \
+		$$interp setup.py build; \
+	done
 
 installall:
-	@python2.6 setup.py build install
-	@make clean
-	@python2.7 setup.py build install
-	@make clean
-	@python3.1 setup.py build install
-	@make clean
-	@python3.2 setup.py build install
-	@make clean
-	@python3.3 setup.py build install
-	@make clean
-	@pypy1.9 setup.py build install
-	@make clean
+	@for interp in $(INTERPRETERS); do \
+		$$interp setup.py install; \
+	done
 
 testall:
-	@-PYTHONPATH=$(PYTHONPATH) python2.6 -B -m dynrules.test.util.runtests
-	@-PYTHONPATH=$(PYTHONPATH) python2.7 -B -m dynrules.test.util.runtests
-	@-PYTHONPATH=$(PYTHONPATH) python3.1 -B -m dynrules.test.util.runtests
-	@-PYTHONPATH=$(PYTHONPATH) python3.2 -B -m dynrules.test.util.runtests
-	@-PYTHONPATH=$(PYTHONPATH) python3.3 -B -m dynrules.test.util.runtests
-	@-PYTHONPATH=$(PYTHONPATH) pypy1.9 -B -m dynrules.test.util.runtests
+	@for interp in $(INTERPRETERS); do \
+		PYTHONPATH=$(PYTHONPATH) $$interp -B -m dynrules.test.util.runtests || true; \
+	done
 
 testpackage:
-	@python2.6 -c "import dynrules.test; dynrules.test.run()"
-	@python2.7 -c "import dynrules.test; dynrules.test.run()"
-	@python3.1 -c "import dynrules.test; dynrules.test.run()"
-	@python3.2 -c "import dynrules.test; dynrules.test.run()"
-	@python3.3 -c "import dynrules.test; dynrules.test.run()"
-	@pypy1.9 -c "import dynrules.test; dynrules.test.run()"
+	@for interp in $(INTERPRETERS); do \
+		$$interp -c "import dynrules.test; dynrules.test.run()" || true \
+	done
 
 purge_installs:
-	rm -rf /usr/local/include/python2.6/dynrules*
-	rm -rf /usr/local/include/python2.7/dynrules*
-	rm -rf /usr/local/include/python3.1/dynrules*
-	rm -rf /usr/local/include/python3.2/dynrules*
-	rm -rf /usr/local/lib/python2.6/site-packages/dynrules*
-	rm -rf /usr/local/lib/python2.7/site-packages/dynrules*
-	rm -rf /usr/local/lib/python3.1/site-packages/dynrules*
-	rm -rf /usr/local/lib/python3.2/site-packages/dynrules*
-	rm -rf /usr/local/lib/python3.3/site-packages/dynrules*
-	rm -rf /usr/local/lib/pypy-1.9/site-packages/dynrules*
-
+	@for interp in $(INTERPRETERS); do \
+		rm -rf /usr/local/lib/$$interp/site-packages/dynrules*; \
+	done

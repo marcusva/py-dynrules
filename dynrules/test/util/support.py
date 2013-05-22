@@ -1,14 +1,5 @@
-##
-## This file is placed under the public domain.
-##
 """Utility functions for the tests."""
 import os
-import sys
-try:
-    import StringIO
-except ImportError:
-    import io as StringIO
-
 
 class StreamOutput(object):
     def __init__(self, stream):

@@ -1,6 +1,6 @@
-##
-## This file is placed under the public domain.
-##
+# #
+# # This file is placed under the public domain.
+# #
 
 import os
 import sys
@@ -11,6 +11,7 @@ import optparse
 import random
 import subprocess
 import time
+import inspect
 
 from . import support, testrunner
 
@@ -116,7 +117,7 @@ def create_options():
 
 def gettestfiles(testdir=None, randomizer=None):
     """Get all test files from the passed test directory. If none is
-    passed, use the default test directory.
+    passed, use the default sdl test directory.
     """
     if not testdir:
         testdir = os.path.dirname(__file__)
@@ -143,13 +144,15 @@ def loadtests_frompkg(package, loader):
             return loader.loadTestsFromTestCase(val)
 
 
-def loadtests(test, testdir, writer, loader, options):
+def loadtests(package, test, testdir, writer, loader, options):
     """Loads a test."""
     suites = []
     try:
         testmod = os.path.splitext(test)[0]
+
         fp, pathname, descr = imp.find_module(testmod, [testdir, ])
-        package = imp.load_module(testmod, fp, pathname, descr)
+        package = imp.load_module("%s.%s" % (package, testmod), fp, pathname,
+                                  descr)
         if options.verbose:
             writer.writeline("Loading tests from [%s] ..." % testmod)
         else:
@@ -195,7 +198,6 @@ def run():
         writer.writeline("-- Starting tests --")
         writer.writeline(HEAVYDELIM)
 
-    loader = None
     randomizer = None
     if options.random:
         if options.seed is None:
@@ -215,9 +217,10 @@ def run():
     if options.subprocess:
         timeout = options.timeout
         gettime = time.time
+        curmodule = "%s.%s" % (__package__, inspect.getmodulename(__file__))
         for test in testfiles:
             writer.write("Executing tests from [%s]... " % test)
-            procargs = [sys.executable, __file__]
+            procargs = [sys.executable, "-m", curmodule]
             procargs += ["-f", os.path.join(testdir, test)]
             proc = subprocess.Popen(procargs, stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
@@ -240,8 +243,10 @@ def run():
         return 0
 
     testsuites = []
+    package = __package__.rsplit(".", 1)[0]
     for test in testfiles:
-        testsuites.extend(loadtests(test, testdir, writer, loader, options))
+        testsuites.extend(loadtests(package, test, testdir, writer, loader,
+                                    options))
     if not options.verbose:
         writer.writesame("Tests loaded")
     runner = testrunner.SimpleTestRunner(sys.stderr, options.verbose)
@@ -255,7 +260,6 @@ def run():
         writer.writeline(HEAVYDELIM)
 
     maxcount = 0
-    curcount = 0
     for suite in testsuites:
         maxcount += suite.countTestCases()
 
@@ -276,7 +280,6 @@ def run():
     for suite in testsuites:
         result = runner.run(suite, runwrite)
         timetaken += result.duration
-        curcount += result.testsRun
         results.append(result)
     writer.writeline()
     testcount, errors, failures, skips, ok = prepare_results(results)
