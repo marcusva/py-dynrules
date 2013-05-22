@@ -10,13 +10,13 @@ if __name__ == "__main__":
 
     setupdata = {
         "name":  "dynrules",
-        "version": "0.0.16",
+        "version": "0.1.0",
         "description": "Simple dynamic ruleset system for adaptive AI",
         "long_description": long_desc,
         "author": "Marcus von Appen",
         "author_email": "marcus@sysfault.org",
         "license": "Public Domain",
-        "url": "http://code.google.com/p/python-dynrules/",
+        "url": "http://bitbucket.org/marcusva/py-dynrules",
         "packages": ["dynrules",
                      "dynrules.examples",
                      "dynrules.test",
@@ -45,3 +45,4 @@ if __name__ == "__main__":
           ],
         }
     setup(**setupdata)
+

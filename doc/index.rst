@@ -12,12 +12,13 @@ Contents:
    intro.rst
    usage.rst
    api.rst
+   cpp.rst
 
 Further readings:
 
 .. toctree::
    :maxdepth: 1
-   
+
    news.rst
    todos.rst
    copying.rst

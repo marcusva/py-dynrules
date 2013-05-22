@@ -17,7 +17,7 @@ except ImportError:
 if sys.version_info[0] >= 3:
     unicode = str
 
-__version__ = "0.0.15"
+__version__ = "0.1.0"
 __all__ = ["Rule", "RuleSet", "RuleManager", "LearnSystem", "MMapRuleManager"]
 
 

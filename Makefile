@@ -13,7 +13,7 @@ INTERPRETERS = python2.7 python3.2 python3.3 pypy2.0
 
 all: clean build
 
-docs:
+docs: clean
 	@cd doc/ && make html
 	@mv doc/build/html doc/
 	@cd doc/ && rm -rf build

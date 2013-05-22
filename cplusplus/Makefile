@@ -2,8 +2,8 @@ PREFIX ?= /usr/local
 LIBDIR ?= $(PREFIX)/lib
 INCDIR ?= $(PREFIX)/include
 
-CC ?= g++
-CFLAGS ?= -O2
+CXX ?= g++
+CXXFLAGS ?= -O2
 WFLAGS ?= -pedantic-errors -W -Wall -Wpointer-arith -Wcast-qual -Winline \
 	-Wcast-align -Wconversion -Wshadow -Wredundant-decls \
 	-Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Weffc++ \
@@ -51,7 +51,7 @@ dirs:
 	@mkdir -p $(OBJDIR) $(BLDDIR)
 
 $(OBJECTS): dirs
-	$(CC) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c $(SRCDIR)/$*.cpp -o $(OBJDIR)/$*.o
+	$(CXX) $(CFLAGS) $(WFLAGS) $(INCLUDES) -c $(SRCDIR)/$*.cpp -o $(OBJDIR)/$*.o
 
 $(TARGET): $(OBJECTS)
 	$(AR) $(LINKFLAGS) $(BLDDIR)/$(TARGET) $(OBJECTS:%.o=$(OBJDIR)/%.o)
@@ -70,5 +70,5 @@ install: $(TARGET)
 examples: learnsystem
 
 learnsystem:
-	$(CC) $(CFLAGS) -static $(WFLAGS) $(EXINCLUDES) \
+	$(CXX) $(CXXFLAGS) -static $(WFLAGS) $(EXINCLUDES) \
 		examples/learnsystem.cpp -o learnsystem $(LFLAGS)
