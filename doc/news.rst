@@ -4,7 +4,7 @@ This describes the latest changes between the dynrules releases.
 
 0.1.0
 -----
-Released on 2013-XX-XX
+Released on 2013-05-22
 
 Python framework: 
   * Removed Python C module.
